@@ -1,0 +1,609 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>Java中的关键字总结 - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java中的关键字总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-17 00:00" pubdate>
+        July 17, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java中的关键字总结</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h3><hr>
+<h4 id="static变量"><a href="#static变量" class="headerlink" title="static变量"></a>static变量</h4><p>​        static变量也称作静态变量，静态变量和非静态变量的区别是：<strong>静态变量被所有的对象所共享</strong>，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。</p>
+<p>static成员变量的初始化顺序按照定义的顺序进行初始化。</p>
+<hr>
+<h4 id="static方法"><a href="#static方法" class="headerlink" title="static方法"></a>static方法</h4><p>​        static方法一般称作静态方法，由于静态方法不依赖于任何对象就可以进行访问，因此对于静态方法来说，是没有this的，因为它不依附于任何对象，既然都没有对象，就谈不上this了。并且由于这个特性，<strong>在静态方法中不能访问类的非静态成员变量和非静态成员方法，因为非静态成员方法/变量都是必须依赖具体的对象才能够被调用。</strong></p>
+<p>​        <strong>在静态方法中不能访问非静态成员方法和非静态成员变量，但是在非静态成员方法中可以访问静态成员方法/变量</strong>。</p>
+<p>​        如果说想在不创建对象的情况下调用某个方法，就可以将这个方法设置为static。static修饰成员方法最大的作用，就是可以使用“类名.方法名”的方式调用方法，避免了new出对象的繁琐和资源消耗。</p>
+<p>​        我们最常见的static方法就是main方法。至于为什么main方法必须是static的，这是因为程序在执行main方法的时候没有创建任何对象，因此只有通过类名来访问。</p>
+<h4 id="static代码块"><a href="#static代码块" class="headerlink" title="static代码块"></a>static代码块</h4><blockquote>
+<p>static块可以置于类中的任何地方，类中可以有多个static块。<strong>在类初次被加载的时候，会按照static块的顺序来执行每个static块，并且只会执行一次</strong>。为什么说static块可以用来优化程序性能，是因为它的特性：<strong>只会在类加载的时候执行一次</strong>。</p>
+<p>所谓的代码块就是当我们初始化static修饰的成员时，可以将他们统一放在一个以static开始，用花括号包裹起来的块状语句中。</p>
+</blockquote>
+<hr>
+<h4 id="static关键字不影响访问权限"><a href="#static关键字不影响访问权限" class="headerlink" title="static关键字不影响访问权限"></a>static关键字不影响访问权限</h4><blockquote>
+<p>使用static关键字修饰只是说明该成员变量属于整个类的所有对象，但是并不影响该成员变量的访问权限，如使用private static 修饰的成员变量只有在本类中可见，在其他类中不能通过“类名.变量名”调用。</p>
+</blockquote>
+<h4 id="static关键字和局部变量"><a href="#static关键字和局部变量" class="headerlink" title="static关键字和局部变量"></a>static关键字和局部变量</h4><blockquote>
+<p>在Java中不能使用static关键字修饰局部变量</p>
+</blockquote>
+<h4 id="能否使用this调用静态成员变量"><a href="#能否使用this调用静态成员变量" class="headerlink" title="能否使用this调用静态成员变量"></a>能否使用this调用静态成员变量</h4><blockquote>
+<p>虽然对于静态方法来说没有this的说法而言，但是在<strong>非静态方法中能够通过this访问静态成员变量</strong>，<strong>这是由于静态成员变量是被类的所有对象所共享的，那么也当然能被this所指向的当前对象调用。</strong></p>
+<p><strong>静态成员变量虽然独立于对象，但是不代表不可以通过对象去访问，所有的静态方法和静态变量都可以通过对象访问（只要访问权限足够）。</strong></p>
+</blockquote>
+<hr>
+<h4 id="final和static"><a href="#final和static" class="headerlink" title="final和static"></a>final和static</h4><p>​        使用final修饰是用以保证变量不被改变，而使用static修饰成员变量，则成员变量在类中只保存一份副本。</p>
+<p>​        在下列代码中，i的两次输出都不一样，而j的两次输出为同一值。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>		MyClass myClass1 = <span class="hljs-keyword">new</span> MyClass();<br>		MyClass myClass2 = <span class="hljs-keyword">new</span> MyClass();<br>		System.out.println(myClass1.i);<br>		System.out.println(myClass1.j);<br>		System.out.println(myClass2.i);<br>		System.out.println(myClass2.j);<br>	 <br>	&#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span></span>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">double</span> i = Math.random();<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> j = Math.random();<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="static为什么能和final一起来使用？"><a href="#static为什么能和final一起来使用？" class="headerlink" title="static为什么能和final一起来使用？"></a>static为什么能和final一起来使用？</h4><p>二者表示的意义不同</p>
+<p><code>static</code> 修饰的对象静态的，可以通过类名或者类对象来对其进行访问和修改</p>
+<p><code>final</code> 修饰的对象表示常量，只能够被赋值一次</p>
+<p>如：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> a=<span class="hljs-number">1</span>; <span class="hljs-comment">//a为常量</span><br><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> b=<span class="hljs-number">2</span>;       <span class="hljs-comment">//可以多次被赋值</span><br></code></pre></div></td></tr></table></figure>
+
+<p>再如：</p>
+<p><strong>当在类中创建一个类的对象时，会将该类的成员方法和变量都会在内存copy一份</strong>，如果创建对个对象明显会比较占用内存（前提是对象没有独享这些成员的必要）；</p>
+<p>如果这是<strong>在类中定义了一个static变量，那么这个变量在内存中只能有一份拷贝</strong>，创建的对象可以共享该内存中的值（<strong>互相影响，互相改变</strong>），而如果是想这份共享内存中的值不可改变，可加final来进行修饰</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> b=<span class="hljs-number">1</span>;  <span class="hljs-comment">//一份拷贝</span><br><br><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> c=<span class="hljs-number">2</span>;   <br><span class="hljs-comment">//如果有多个实例，每个实例都会分别存储final修饰的变量，且随着程序的运行，</span><br><span class="hljs-comment">//内存会不断地分配与释放（如销毁对象时）</span><br><br><span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> d=<span class="hljs-number">3</span>;  <span class="hljs-comment">//只有一份拷贝，多个实例共享，且属性为只读，会一直占用内存，直到程序的终止</span><br></code></pre></div></td></tr></table></figure>
+
+<p>对于一些常量或者字符串等等，一般建议写成static final类型（节省空间）</p>
+<p style="font-family:arial; color:red;font-size:20px">但须注意一点：final,static不能和abstract同时来修饰变量和方法
+
+<p>如:</p>
+<blockquote>
+<p><strong>public abstract int area(); //对的</strong>    </p>
+<p>public static abstratc int area(); //错的</p>
+</blockquote>
+<p style="font-family:arial; color:red;">补充：
+
+<ol>
+<li>final修饰的字段在运行时被初始化，可以直接赋值，也可以在实例构造器中赋值，赋值后不可修改。</li>
+<li>static修饰的字段在加载过程中准备阶段被初始化，但是这个阶段只会赋值一个默认的值（0或者null而并非定义变量设置的值）初始化阶段在类构造器中才会赋值为变量定义的值。</li>
+<li>final 修饰的变量为常量一旦赋值不能修改，被修饰的方法为最终方法不能被重写，被修饰的类是最终类，不能被继承。</li>
+<li>static 修饰的变量和方法，为该整个类及其类的对象所共享，一个类或对象修改了被定义的类或方法，其他的也会跟着变量，这就是说被static修饰的是大家共用的。</li>
+</ol>
+<hr>
+<h4 id="static为什么一般与final一起用？"><a href="#static为什么一般与final一起用？" class="headerlink" title="static为什么一般与final一起用？"></a>static为什么一般与final一起用？</h4><p>static修饰的时候代表对象是静态的，而final修饰的时候代表对象只能赋值一次，他们连用的时候是因为定义的那个对象既要它是静态的，也要求它的值不能再被修改。</p>
+<p>举例说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> a=<span class="hljs-number">1</span>;<br><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> b=<span class="hljs-number">1</span>;<br></code></pre></div></td></tr></table></figure>
+
+<p>这里a和b的区别在于，a在程序里可以被重新赋值为2或3或等等的整数，而b在程序里不能被重新赋值，b永远都为1，也就是说b是一个常量。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> c=<span class="hljs-number">1</span>;<br><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> b=<span class="hljs-number">1</span>;<br></code></pre></div></td></tr></table></figure>
+
+<p>这里c和b的区别在于，b存放在静态空间，不会在程序运行时被释放，它永远占着内存直到程序终止，而c在程序用完它而不会再用到它的时候就会被自动释放，不再占用内存。</p>
+<p>当一个常数或字符串我们需要在程序里反复反复使用的时候，我们就可以把它定义为static final，这样内存就不用重复的申请和释放空间。</p>
+<blockquote>
+<p><strong>static方法就是没有this的方法</strong>。在static方法内部不能调用非静态方法，反过来是可以的。而且可以在没有创建任何对象的前提下，仅仅通过类本身来调用static方法。这实际上正是static方法的主要用途。</p>
+</blockquote>
+<p style="font-family:arial; color:red;">简言之，使用static的目的是为了在不创建对象的前提下来调用方法/变量。
+
+<hr>
+<h3 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h3><p>this代表它<strong>所在函数所属对象</strong>的引用。</p>
+<p>简单说：</p>
+<blockquote>
+<p>哪个对象在调用this所在的函数，this就代表哪个对象。</p>
+</blockquote>
+<p>this关键字主要有以下三个作用：</p>
+<ul>
+<li>this调用本类中的属性，也就是类中的成员变量；</li>
+<li>this调用本类中的其他方法；</li>
+<li>this调用本类中的其他构造方法，调用时要放在构造方法的首行。(this语句只能定义在构造函数的第一行，因为在初始化时须先执行)</li>
+</ul>
+<h4 id="调用类的构造器方法"><a href="#调用类的构造器方法" class="headerlink" title="调用类的构造器方法"></a>调用类的构造器方法</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123; <br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span></span>&#123; <span class="hljs-comment">//无参构造器方法</span><br>	<span class="hljs-keyword">this</span>(“Hello!”);<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name)</span></span>&#123; <span class="hljs-comment">//定义一个带形式参数的构造方法</span><br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>在上述代码中，定义了两个构造方法，一个带参数，另一个没有带参数。在第一个没有带参数的构造方法中，使用了  this(“Hello!”)  这句代码，这句代码表示什么含义呢？在构造方法中使this关键字表示调用类中的构造方法。</p>
+<p>如果一个类中有多个构造方法，因为其名字都相同，跟类名一致，那么这个this到底是调用哪个构造方法呢？其实，这跟采用其他方法引用构造方法一样，都是通过形式参数来调用构造方法的。</p>
+<p style="font-family:arial; color:red;font-size:20px">Tip:
+语法限制：
+
+<blockquote>
+<p><strong>利用this关键字来调用构造方法，只有在无参数构造方法中第一句使用this调用有参数的构造方法。</strong>否则的话，翻译的时候，就会有错误信息。这跟引用成员变量不同。如果引用成员变量的话，this关键字是没有位置上的限制的。</p>
+</blockquote>
+<hr>
+<h4 id="返回对象的引用"><a href="#返回对象的引用" class="headerlink" title="返回对象的引用"></a>返回对象的引用</h4><p>this关键字除了可以引用变量或者成员方法之外，还有一个关键的作用就是返回对象的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> HttpConfig <span class="hljs-title">url</span><span class="hljs-params">(String url)</span> </span>&#123;<br>	urls.set(url);<br>	<span class="hljs-comment">//return this就是返回当前对象的引用(就是实际调用这个方法的实例化对象)</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">HttpConfig  config = HttpConfig.custom();<br>config = config.url(url);<br></code></pre></div></td></tr></table></figure>
+
+<p>return this；<strong>就是返回当前对象的引用</strong>(就是实际调用这个方法的实例化对象)</p>
+<hr>
+<h4 id="this关键字和super关键字"><a href="#this关键字和super关键字" class="headerlink" title="this关键字和super关键字"></a>this关键字和super关键字</h4><p>在JAVA类中使用super来引用父类的成分，用this来引用当前对象</p>
+<blockquote>
+<p>如果一个类从另外一个类继承，我们new这个子类的实例对象的时候，这个子类对象里面会有一个父类对象。<strong>this指的是当前对象的引用，super是当前对象里面的父对象的引用</strong></p>
+</blockquote>
+<ul>
+<li>属性的区别：this访问本类中的属性，如果本类没有此属性则从父类中继续查找。super访问父类中的属性。</li>
+<li>方法的区别：this访问本类中的方法，如果本类没有此方法则从父类中继续查找。super访问父类中的方法。</li>
+<li>构造的区别：<strong>this调用本类构造，必须放在构造方法的首行。super调用父类构造，必须放在子类构造方法首行。</strong></li>
+<li>其他区别：this表示当前对象。super不能表示当前对象</li>
+</ul>
+<p style="font-family:arial; color:red;font-size:20px">Tips:
+
+<ul>
+<li><p><strong>在对拥有父类的子类进行初始化时，父类的构造方法也会执行，且优先于子类的构造函数执行</strong>；<strong>因为每一个子类的构造函数中的第一行都有一条默认的隐式语句super()；</strong> <strong>(如果子类的构造方法中没有手动调用父类的构造方法，则会默认调用父类的无参构造方法)</strong></p>
+</li>
+<li><p>this() 和super()都只能写在构造函数的第一行；</p>
+</li>
+<li><p>this() 和super() 不能存在于同一个构造函数中。</p>
+<blockquote>
+<p>第一，this()和super()都必须写在构造函数的第一行；</p>
+<p>第二，this()语句调用的是当前类的另一个构造函数而这个另一个构造函数中必然有一个父类的</p>
+<p>构造器，再使用super()又调用一次父类的构造器， 就相当于调用了两次父类的构造器，编译器</p>
+<p>不会通过；</p>
+</blockquote>
+</li>
+<li><p>this和super不能用于static修饰的变量，方法，代码块；因为this和super都是指的是对象/实例。</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/java/%E5%85%B3%E9%94%AE%E5%AD%97/">关键字</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/18/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">对象的哈希值</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/03/Object%E7%B1%BB/">
+                        <span class="hidden-mobile">Object类</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

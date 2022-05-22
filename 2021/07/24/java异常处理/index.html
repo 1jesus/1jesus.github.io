@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>Java异常处理 - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java异常处理">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-24 00:00" pubdate>
+        July 24, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java异常处理</h1>
+            
+            <div class="markdown-body">
+              <h2 id="java异常处理机制"><a href="#java异常处理机制" class="headerlink" title="java异常处理机制"></a>java异常处理机制</h2><hr>
+<h3 id="一、异常类体系结构"><a href="#一、异常类体系结构" class="headerlink" title="一、异常类体系结构"></a>一、异常类体系结构</h3><p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210703163435.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h3 id="二、常见异常"><a href="#二、常见异常" class="headerlink" title="二、常见异常"></a>二、常见异常</h3><p>Java的异常的都是可以抛出的，所以有一个共同父类<code>Throwable</code></p>
+<p><code>Throwable</code>类下有两个子类：<code>Error</code>，<code>Exception</code></p>
+<ul>
+<li><p><strong>Error：错误</strong></p>
+<blockquote>
+<p>一般情况下，发上Error是比较严重问题.</p>
+<p>特点：Error错误出现,只能抛出,不能捕获.</p>
+</blockquote>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><p><strong>Exception：异常</strong></p>
+<blockquote>
+<p>异常是可以抛出,也可以捕获.</p>
+<p>分为两种异常：</p>
+<p>（1）编译期异常：<strong>必须处理</strong>，又叫受检查异常.</p>
+<p>（2）运行时异常：<strong>可以处理</strong>，也可以不处理( 默认就是抛出 ). 又叫不受检查异常</p>
+</blockquote>
+</li>
+</ul>
+<br>
+
+<p>java.lang.Throwable</p>
+<ul>
+<li><p>java.lang.Error：一般不编写针对性的代码进行处理。</p>
+</li>
+<li><p>java.lang.Exception：可以进行异常的处理 (在Exception异常体系中，只有RuntimeException及其子类是运行时异常，其他所有异常都是编译期异常)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </p>
+<ul>
+<li><p><strong>编译时异常</strong>(checked)</p>
+<p>|——- <code>IOException</code></p>
+<div class="hljs code-wrapper"><pre><code>   |------- `FileNotFoundException`            找不到文件异常
+</code></pre></div>
+<p>|——- <code>ClassNotFoundException</code>                <strong>类无法加载异常/类文件未找到异常</strong></p>
+</li>
+<li><p><strong>运行时异常</strong>(unchecked)</p>
+<p>|——- <code>NullPointerException</code>                           <strong>空指针异常</strong></p>
+<p>|——- <code>ArrayIndexOutOfBoundsException</code>    <strong>数组索引越界异常</strong></p>
+<p>|——- <code>StringIndexOutOfBoundsException</code>  <strong>字符串索引越界异常</strong></p>
+<p>|——- <code>ClassCastException</code>                               <strong>类转换异常</strong></p>
+<p>|——- <code>NoClassDefFoundError</code>                        <strong>没有类定义发现错误</strong></p>
+<p>|——- <code>NumberFormatException</code>                    <strong>数字格式异常</strong></p>
+<p>|——- <code>InputMismatchException</code>                    <strong>检测是否为数字</strong></p>
+<p>|——- <code>ArithmeticException</code>                             <strong>算术异常</strong></p>
+</li>
+</ul>
+<br>
+
+<p><strong>面试题</strong>：常见的异常类有哪些？举例说明</p>
+<br></li>
+</ul>
+<p>Test:</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.util.Date;<br><span class="hljs-keyword">import</span> java.util.Scanner;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExceptionTest</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><br>        ExceptionTest t= <span class="hljs-keyword">new</span> ExceptionTest();<br><span class="hljs-comment">//        t.test1();</span><br><span class="hljs-comment">//        t.test2();</span><br><span class="hljs-comment">//        t.test3();</span><br><span class="hljs-comment">//        t.test4();</span><br><span class="hljs-comment">//        t.test5();</span><br><span class="hljs-comment">//        t.Test6();</span><br><span class="hljs-comment">//        t.test7();</span><br>    &#125;<br><br>    <span class="hljs-comment">//********************以下是运行时异常*************************</span><br>    <span class="hljs-comment">//NullPointerException 空指针异常</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">int</span>[] arr=<span class="hljs-keyword">null</span>;<br>        System.out.println(arr[<span class="hljs-number">3</span>]);<br><br>        String str =<span class="hljs-string">&quot;asd&quot;</span>;<br>        str=<span class="hljs-keyword">null</span>;<br>        System.out.println(str.charAt(<span class="hljs-number">0</span>)); <br>        <span class="hljs-comment">//char charAt(int index)返回指定索引处的 char 值。</span><br><br>    &#125;<br><br>    <span class="hljs-comment">//IndexOutOfBoundsException 索引越界异常</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br><span class="hljs-comment">//        int a[] = new int[10];</span><br><span class="hljs-comment">//        System.out.println(a[10]);      //ArrayIndexOutOfBoundsException</span><br><br>        String str = <span class="hljs-string">&quot;asd&quot;</span>;<br>        System.out.println(str.charAt(<span class="hljs-number">3</span>));<span class="hljs-comment">//StringIndexOutOfBoundsException</span><br>    &#125;<br><br>    <span class="hljs-comment">//ClassCastException 类转换异常</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span></span>&#123;<br>        Object obj = <span class="hljs-keyword">new</span> Date(); <span class="hljs-comment">//Object 是所有类的父类</span><br>        String str =(String)obj;<br>    &#125;<br><span class="hljs-number">9</span>+<span class="hljs-function">w <span class="hljs-title">FileInputStream</span><span class="hljs-params">(file)</span></span>;<br><br>        <span class="hljs-keyword">int</span> data = fis.read();<br>        <span class="hljs-keyword">while</span>(data !=-<span class="hljs-number">1</span>)&#123;                         <span class="hljs-comment">//当等于-1时，表示文件里的内容已经读取完</span><br>            System.out.println((<span class="hljs-keyword">char</span>)data);       <span class="hljs-comment">//如果直接输出data,因为data是int类型的，所以输出的也是数字</span><br>            data = fis.read();                    <span class="hljs-comment">//相当于迭代条件</span><br>        &#125;<br>        fis.close();        <span class="hljs-comment">//流资源不像对象一样执行完，垃圾就自动回收掉，资源的话需要做一个显示的关闭操作</span><br>                            <span class="hljs-comment">//比如说，Scanner类，一般情况下执行完，也要做一个close()操作</span><br>    &#125;*/<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="三、异常处理机制"><a href="#三、异常处理机制" class="headerlink" title="三、异常处理机制"></a>三、异常处理机制</h3><p style="font-size:28px">抓抛模型（throw + throws）：</p>
+
+
+
+<p><strong>过程一：</strong>“抛” ：程序在正常执行过程中，一旦出现异常，就会在异常代码处生成一个对应异常类的对象，并将此对象抛出。<strong>一旦抛出后，其后代码就不再运行。</strong></p>
+<br>
+
+
+<p style="font-family:arial; color:red;">关于异常对象的产生：
+
+<blockquote>
+<p>（1）<strong>系统自动生成的对象</strong></p>
+<p>（2）<strong>手动生成一个异常对象，并抛出（throw）</strong></p>
+</blockquote>
+<hr>
+<p><strong>过程二：</strong> “抓” ：可以理解为异常的<strong>处理</strong>方式：</p>
+<blockquote>
+<p>（1）try-catch-finally </p>
+<p>（2）throws</p>
+</blockquote>
+<br>
+
+<p style="font-family:arial; color:red;">注意：java中throw和throws的区别：
+
+
+
+<p>（1）throws是处理异常对象的方式。</p>
+<p>（2）throw 是产生异常对象的。</p>
+<center><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211108143726.png" srcset="/img/loading.gif" lazyload style="zoom:48%;" /></center>
+
+<br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>throw</code> 之后要写 <code>throws</code> 的情况：</p>
+<ul>
+<li>使用 <code>throw</code> 抛出编译时异常时，必须使用 <code>throws</code> 添加异常对象的方法签名</li>
+<li>使用 <code>throw</code> 抛出运行时异常时，则不必使用 <code>throws</code> 添加异常签名</li>
+</ul>
+<p>如图所示:</p>
+<center><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211108110810.png" srcset="/img/loading.gif" lazyload style="zoom:54%;" /></center>
+
+<br>
+
+<center><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211108110809.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></center>
+
+<br>
+
+<blockquote>
+<p><strong>抛出异常</strong>：（<strong>throw</strong>）异常的产生阶段：手动抛出异常对象</p>
+<p><strong>声明异常</strong>：（<strong>throws</strong>）异常的处理方式;</p>
+</blockquote>
+<p>例子：上流排污，下流治污。</p>
+<hr>
+<p style="font-family:arial; color:red;font-size:20px">Tips:
+实际开发过程中，运行时异常就不用再try-catch，因为处理和不处理的结果不大；但是编译时异常一定要try-catch，因为不使用异常编译就过不去，就无法正常运行
+
+<hr>
+<p style="font-size:28px">异常捕获（try-catch-finally）：
+
+<ol>
+<li><p><code>finally</code> 是可选的。</p>
+<blockquote>
+<p>（1）finally 关键字用来创建在 try 代码块后面执行的代码块。</p>
+<p>（2）无论是否发生异常，finally 代码块中的代码总会被执行。</p>
+<p>（3）在 finally 代码块中，可以运行清理类型等收尾善后性质的语句。</p>
+<p>（4）finally 代码块出现在 catch 代码块最后</p>
+</blockquote>
+</li>
+<li><p>使用  <code>try</code>  将可能出现异常代码包装起来，在执行过程中，一旦出现异常，就会生成一个对应异常类</p>
+<p>的对象，根据此对象的类型，去  <code>catch</code>  中进行匹配</p>
+</li>
+<li><p>一旦 <code>try</code> 中的异常对象匹配到某一个 <code>catch</code> 时，就进入 <code>catch</code> 中进行异常的处理。一旦处理完成，</p>
+<p>就跳出当前的 <code>try-catch</code> 结构（在没有写 <code>finally</code> 的情况）。 继续执行其后的代码</p>
+</li>
+<li><p><code>catch</code> 中的异常类型如果没有子父类关系，那么声明在次序上，无所谓如 <code>catch</code> 中的异常类满足子</p>
+<p>父类关系，则要求子类一定要声明在父类上面。否则，报错。</p>
+</li>
+<li><p>常用的异常对象处理的方式： </p>
+<ul>
+<li><p><strong><code>getMessage()</code></strong></p>
+<p><strong>只会获得具体的异常名称</strong></p>
+</li>
+<li><p><strong><code>printStackTrace()</code></strong></p>
+<p><strong>可以打印出详细的异常，包括异常的名称，出错的位置，便于程序调试用</strong></p>
+</li>
+</ul>
+</li>
+<li><p>在 <code>try</code> 结构语句中声明的变量，出了 <code>try</code> 结构以后，就不能自再被调用</p>
+</li>
+<li><p><code>try-catch-finally</code> 结构可以嵌套</p>
+</li>
+<li><p>重写时</p>
+<blockquote>
+<p><strong>子类重写的方法抛的异常不能比父类更大</strong></p>
+<p>重写时要求子类方法抛出的异常范围 &lt;= 父类抛出的异常范围</p>
+<p>子异常类 &lt;= 父异常类</p>
+<p>列如:</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">&gt;ArrayIndexOutOfBoundsException &lt; IndexOutOfBoundsException<br></code></pre></div></td></tr></table></figure>
+
+<p>特殊的： 父类方法没有异常抛出.子类方法中如果有异常，就只能捕获.</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<p style="font-family:arial; color:red;">体会1：使用try-catch-finally处理编译时异常，使得程序在编译时就不在报错，但是运行时仍可能报错，相当于我们使用try-catch-finally将一个编译时可能出现的异常，延迟到运行时出现。也就是说把编译时异常变为运行时异常
+<br>
+
+<p style="font-family:arial; color:red;">体会2：开发中，由于运行时异常比较常见，所以我们通常就不针对运行时异常编写try-catch-finally了。针对编译时异常，一定要考虑异常的处理。
+
+
+<hr>
+<p><strong>“throws +异常类型”结构说明：</strong></p>
+<ol>
+<li><p>“<code>throws +异常类型</code>“  写在方法的声明处。指明此方法执行时，可能会抛出的异常类型。</p>
+<p>一旦方法体执行时，出现异常，仍会在异常代码处生成一个异常类的对象，此对象满足throws后异常类型时，就会被抛出。异常代码后续的代码，就不会再执行。</p>
+</li>
+</ol>
+<p style="font-family:arial; color:red;">注意：try-catch-finally：真正的将异常给处理掉了。throws的方式只是将异常抛给了方法的调用者。并没有真正将异常处理掉。
+<br>
+<br>
+
+<ol start="2">
+<li><p><strong>开发中如何选择使用 try-catch-finally 还是使用throws ?</strong></p>
+<blockquote>
+<p>（1）如果父类中被重写的方法没有throws方式处理异常，则子类重写的方法也不能使用throws，意味着如果子类重写的方法中有异常，必须使用try-catch-finally方式处理。</p>
+<p>（2）如果执行的方法中，先后又调用了另外的几个方法，这几个方法是递进关系执行的。我们建议这几个方法使用throw的方式进行处理。而执行的方法可以考虑使用try-catch-finally方式进行处理。</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<p><strong>方法一：</strong> <code>try-catch-finally</code></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;<br>        String str1 = <span class="hljs-string">&quot;123&quot;</span>;<br>        str1 = <span class="hljs-string">&quot;asd&quot;</span>;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">int</span> num = Integer.parseInt(str1);<br>            System.out.println(<span class="hljs-string">&quot;hello ------1&quot;</span>);<br><br>        &#125; <span class="hljs-keyword">catch</span> (NullPointerException e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;出现空指针异常！&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br><span class="hljs-comment">//            System.out.println(&quot;出现数值转换异常！&quot;);</span><br><span class="hljs-comment">//            String getmessage();   //返回字符串信息</span><br><span class="hljs-comment">//            System.out.println(e.getMessage());</span><br>            <span class="hljs-comment">//printStackTrace();</span><br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;出现异常！&quot;</span>);<br>        &#125;<br><br>        System.out.println(<span class="hljs-string">&quot;hello -----2&quot;</span>);<br><br>    &#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>方法二：</strong> <code>throws+异常类型</code> 和 <code>throw手动抛异常</code>（异常对象的生成：处了自己生成以外，还可以使用throw自己生成。）</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">register</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        <span class="hljs-keyword">if</span> (id &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">this</span>.id = id;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-comment">//            System.out.println(&quot;输入的数据非法！！&quot;);</span><br><span class="hljs-comment">//            throw new RuntimeException(&quot;输入的数据非法！！&quot;);</span><br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">&quot;输入的数据非法！！&quot;</span>);     <br>            <span class="hljs-comment">//throw手动抛异常，throw后面加的对象，是异常类的对象 </span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Student&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;id=&quot;</span> + id +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="四、用户自定义异常类"><a href="#四、用户自定义异常类" class="headerlink" title="四、用户自定义异常类"></a>四、用户自定义异常类</h3><p><strong>如何自定义异常类？</strong></p>
+<ol>
+<li><strong>继承于现有的异常结构</strong>：RuntimeException，Exception</li>
+<li>提供<strong>全局常量</strong>：serialVersionUID</li>
+<li>提供<strong>重载的构造器</strong></li>
+</ol>
+<br>
+
+<p>举例：</p>
+<ol>
+<li><p>创建类</p>
+</li>
+<li><p>继承一个异常类</p>
+<blockquote>
+<p>继承Exception，自定义异常属于编译期异常</p>
+<p>继承Runtime及其子类中任何一个异常，自定义异常就属于运行时异常</p>
+</blockquote>
+</li>
+<li><p>设计有参构造，用于构造带有指定异常信息的异常对象</p>
+</li>
+<li><p>在需要的地方抛出自定义异常</p>
+</li>
+</ol>
+<br>
+
+<p>两个自定义异常类:</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AgeGT150Exception</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exception</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AgeGT150Exception</span><span class="hljs-params">(String s)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(s);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AgeLT0Exception</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exception</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AgeLT0Exception</span><span class="hljs-params">(String s)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(s);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>主类:</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Student</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AgeLT0Exception(<span class="hljs-string">&quot;年龄小于&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (AgeLT0Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (age &gt; <span class="hljs-number">150</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AgeGT150Exception(<span class="hljs-string">&quot;年龄大于&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (AgeGT150Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">this</span>.age = age;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getAge</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> age;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AgeLT0Exception(<span class="hljs-string">&quot;年龄小于&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (AgeLT0Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (age &gt; <span class="hljs-number">150</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AgeGT150Exception(<span class="hljs-string">&quot;年龄大于&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (AgeGT150Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">this</span>.age = age;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Student&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;name=&#x27;&quot;</span> + name + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, age=&quot;</span> + age +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestStudent</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Student student = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;小明&quot;</span>,<span class="hljs-number">160</span>);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">com.zhiyou.day_12.AgeGT150Exception: 年龄大于<br>	at com.zhiyou.day_12.Student.&lt;init&gt;(Student.java:<span class="hljs-number">21</span>)<br>	at com.zhiyou.day_12.TestStudent.main(TestStudent.java:<span class="hljs-number">9</span>)<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<p style="font-family:arial; color:red; ">总结：异常类这一块最重要的还是异常处理机制的两种方法，实用的较多。
+
+
+
+<center style ="font-size:20px;">一首小悟结束异常处理</center>
+
+<p>世界上最遥远的距离，是我在 <code>if</code> 里你在 <code>else</code> 里，似乎一直相伴又永远分离;</p>
+<p>世界上最痴心的等待,是我当 <code>case</code> 你是 <code>switch</code> ，或许永远都选不上自己;</p>
+<p>世界上最真情的相依，是你在 <code>try</code> 我在 <code>catch</code> 。无论你发神马脾气，我都默默承受，静静处理。到那时,再来期待我们的 <code>finally</code> 。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/java/java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">java异常处理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/24/Java%E5%B8%B8%E7%94%A8%E7%B1%BB(%E4%B8%80)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java常用类(一)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/18/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC/">
+                        <span class="hidden-mobile">对象的哈希值</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

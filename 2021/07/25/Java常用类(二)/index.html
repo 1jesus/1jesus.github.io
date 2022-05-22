@@ -1,0 +1,891 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>Java常用类(二) - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java常用类(二)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-25 00:00" pubdate>
+        July 25, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java常用类(二)</h1>
+            
+            <div class="markdown-body">
+              <h3 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h3><hr>
+<p>将基本数据类型包装成类，即包装类。</p>
+<p>把基本数据类型包装成类，是因为</p>
+<p>​        <strong>1)   变为类，就可以定义属性，方法等，功能性增强</strong></p>
+<p>​        <strong>2)   用来和字符串之间的互相转换（常用操作）</strong></p>
+ <br>
+
+<table>
+<thead>
+<tr>
+<th align="left">基本类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>byte</code></td>
+<td><code>Byte</code></td>
+</tr>
+<tr>
+<td align="left"><code>short</code></td>
+<td><code>Short</code></td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td><code>Integer</code></td>
+</tr>
+<tr>
+<td align="left"><code>long</code></td>
+<td><code>Long</code></td>
+</tr>
+<tr>
+<td align="left"><code>float</code></td>
+<td><code>Float</code></td>
+</tr>
+<tr>
+<td align="left"><code>double</code></td>
+<td><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><code>boolean</code></td>
+<td><code>Boolean</code></td>
+</tr>
+<tr>
+<td align="left"><code>char</code></td>
+<td><code>Character</code></td>
+</tr>
+</tbody></table>
+<br>
+
+<p>八个包装类中的方法基本类似，以Integer为例讲解演示方法</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>属性/字段(field)</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static int</code></td>
+<td>[MAX_VALUE] 值为 2 <sup>31</sup>－1  的常量，它表示 <code>int</code> 类型能够表示的最大值。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td>[MIN_VALUE] 值为  -2 <sup>31</sup>  的常量，它表示 <code>int</code> 类型能够表示的最小值。</td>
+</tr>
+</tbody></table>
+<br>
+
+<table>
+<thead>
+<tr>
+<th>构造方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Integer(int value)</code></td>
+<td>构造一个新分配的 <code>Integer</code> 对象，它表示指定的 <code>int</code> 值。</td>
+</tr>
+<tr>
+<td><code>Integer(String s)</code></td>
+<td>构造一个新分配的 <code>Integer</code> 对象，它表示 <code>String</code> 参数所指示的 <code>int</code> 值。</td>
+</tr>
+</tbody></table>
+<p>Test :</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//通过基本类型创建出包装类对象</span><br>Integer i = <span class="hljs-keyword">new</span> Ineger(<span class="hljs-number">1</span>);<br>System.out.println(i);<br><br><span class="hljs-comment">//通过字符串创建出包装类对象,一定要和对应的数据类型一致</span><br>Integer i2 = <span class="hljs-keyword">new</span> Integer(<span class="hljs-string">&quot;222&quot;</span>)<br>System.out.println(i2);<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>方法</strong>  : </p>
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code> int</code></td>
+<td><code>intValue()</code>      以 <code>int</code>类型返回该 <code>Integer</code> 的值。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>parseInt(String s)</code>      将字符串参数作为有符号的十进制整数进行解析</td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td><code>toString()</code>      返回一个表示该 <code>Integer</code> 值的 <code>String</code>  对象。</td>
+</tr>
+<tr>
+<td><code>static </code> <code>String</code></td>
+<td><code>toString(int i)</code>      返回一个表示指定整数的 <code>String</code>  对象。</td>
+</tr>
+<tr>
+<td><code>Integer</code></td>
+<td><code>valueOf(int i)</code>       返回一个表示指定的 <code>int</code> 值的 <code>Integer</code> 实例。</td>
+</tr>
+<tr>
+<td><code>static Integer</code></td>
+<td><code>valueOf(String s)</code>      返回保存指定的 <code>String</code>  的值的 <code>Integer</code> 对象</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>包装类转换图 :</strong></p>
+<img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211105211834.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<br>
+
+<p><strong>测试方法  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Integer i = <span class="hljs-keyword">new</span> Integer(<span class="hljs-number">111</span>);<br><br><span class="hljs-comment">// 返回包装类这的基本类型数值</span><br><span class="hljs-keyword">int</span> intValue = i.intValue();<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 解析字符串为基本类型 </span><br><span class="hljs-comment"> * int parseInt(String s);</span><br><span class="hljs-comment"> *   纯数字字符串</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">int</span> parseInt = Integer.parseInt(<span class="hljs-string">&quot;1&quot;</span>);<br>System.out.println(parseInt);<br><br><span class="hljs-comment">// toString() 将对象内容以字符串返回 --&gt; 将包装类变成String</span><br>String string = i.toString();<br><br><span class="hljs-comment">// static toString(int i);</span><br><span class="hljs-comment">// 静态方法,直接将基本类型转成String</span><br>String string2 = Integer.toString(<span class="hljs-number">1</span>);<br><br><span class="hljs-comment">// Integer valueOf(int i) 将基本类型转成包装类</span><br>Integer j = i.valueOf(<span class="hljs-number">123</span>);<br><br><span class="hljs-comment">// static Integer  valueOf(String s); </span><br><span class="hljs-comment">// 将字符串转成包装类</span><br>Integer valueOf = Integer.valueOf(<span class="hljs-string">&quot;123&quot;</span>);<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 装箱</span><br><span class="hljs-comment"> * 拆箱</span><br><span class="hljs-comment"> */</span><br>Integer a = <span class="hljs-number">1</span>; <span class="hljs-comment">// 装箱, 等价于 = new Integer(1)</span><br><span class="hljs-keyword">int</span> b = a;     <span class="hljs-comment">// 拆箱, 等价于 a.intValue();</span><br><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="Character类"><a href="#Character类" class="headerlink" title="Character类"></a>Character类</h3><blockquote>
+<p>该类主要用于单个字符的甄别和操作. 无法与String类之间直接相互转换。</p>
+<p>该类提供了几种方法，以确定字符的类别（小写字母，数字，等等），</p>
+<p>并将字符从大写转换成小写，反之亦然。</p>
+</blockquote>
+<br>
+
+<p><strong>方法  :</strong></p>
+<p><strong>该类没有parseXxx方法,无法将字符串解析为String.</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>char</code></td>
+<td><code>charValue()</code>      返回此 <code>Character</code> 对象的值。</td>
+</tr>
+<tr>
+<td><code>static boolean</code></td>
+<td><code>isDigit(char ch)</code>       确定指定字符是否为数字。</td>
+</tr>
+<tr>
+<td><code>static</code> <code>boolean</code></td>
+<td><code>isLetter(char ch)</code>       确定指定字符是否为字母。</td>
+</tr>
+<tr>
+<td><code>static boolean</code></td>
+<td><code>isLowerCase(char ch)</code>       确定指定字符是否为小写字母</td>
+</tr>
+<tr>
+<td><code>static boolean</code></td>
+<td><code>isUpperCase(char ch)</code>      确定指定字符是否为大写字母。</td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code>toLowerCase(char ch)</code>       使用取自 UnicodeData 文件的大小写映射信息将字符参数转换为小写。</td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code>toUpperCase(char ch)</code>      使用取自 UnicodeData 文件的大小写映射信息将字符参数转换为大写。</td>
+</tr>
+<tr>
+<td><code>static Character</code></td>
+<td><code>valueOf(char c)</code>      返回一个表示指定 <code>char</code> 值的  <code>Character</code> 实例。</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>测试方法  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Character ch = <span class="hljs-string">&#x27;a&#x27;</span>; <span class="hljs-comment">// 装箱, new Character(char) 或者 Character.valueOf(char)</span><br>		                   <br><span class="hljs-keyword">char</span> a = ch;  <span class="hljs-comment">// 拆箱 等价于, ch.charValue()</span><br>		<br>System.out.println(Character.isDigit(<span class="hljs-string">&#x27;1&#x27;</span>));<span class="hljs-comment">// 是否是数字</span><br>System.out.println(Character.isLetter(<span class="hljs-string">&#x27;a&#x27;</span>));<span class="hljs-comment">// 是否是字母</span><br>System.out.println(Character.isUpperCase(<span class="hljs-string">&#x27;A&#x27;</span>));<span class="hljs-comment">// 是否是大写字母</span><br>System.out.println(Character.isLowerCase(<span class="hljs-string">&#x27;a&#x27;</span>));<span class="hljs-comment">// 是否是小写字母</span><br>		<br>System.out.println(Character.toUpperCase(<span class="hljs-string">&#x27;a&#x27;</span>));<br>System.out.println(Character.toLowerCase(<span class="hljs-string">&#x27;A&#x27;</span>));<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="Math类"><a href="#Math类" class="headerlink" title="Math类"></a><strong>Math类</strong></h3><p>是<code>java.lang</code>包的，不需要导包</p>
+<p style="font-family:arial; color:red;">        该类所有方法属性都是静态，所有该类将构造方法私有，禁止创建对象.
+<img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211105213021.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<p><strong>方法  :</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static double </code></td>
+<td><code>abs(double a)</code>         返回 double 值的<strong>绝对值</strong>。</td>
+</tr>
+<tr>
+<td><code>static double </code></td>
+<td><code>ceil(double a)</code>        <strong>//天花板,向上取整</strong>        返回最小的（最接近负无穷大）double 值，该值大于等于参数，并等于某个整数。</td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code>floor(double a)</code>      <strong>//地板,向下取整</strong>        返回最大的（最接近正无穷大）double 值，该值小于等于参数，并等于某个整数。</td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code>pow(double a, double b)</code>    <strong>//次幂</strong>     返回第一个参数的第二个参数次幂的值。</td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code>random()</code>              <strong>// 随机数</strong>        返回带正号的 double 值，该值大于等于 0.0 且小于 1.0。</td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code>round(double a)</code>   <strong>// 四舍五入</strong>        返回最接近参数的 long。</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>方法测试  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		System.out.println(Math.abs(-<span class="hljs-number">1</span>));<br>		<br>		System.out.println(Math.ceil(<span class="hljs-number">11.1</span>));<br>		System.out.println(Math.ceil(-<span class="hljs-number">11.1</span>));<br>		System.out.println(Math.floor(<span class="hljs-number">11.1</span>));<br>		System.out.println(Math.floor(-<span class="hljs-number">11.1</span>));<br>		<br>		System.out.println(Math.pow(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>));<br>		System.out.println(Math.pow(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>));<br>		System.out.println(Math.pow(<span class="hljs-number">4</span>, <span class="hljs-number">0.5</span>));<br>		<br>		System.out.println(Math.random());<br>		<br>		System.out.println(Math.round(<span class="hljs-number">1.1</span>));<br>		System.out.println(Math.round(<span class="hljs-number">1.5</span>));<br>		<br>		System.out.println(Math.round(Math.random() * <span class="hljs-number">10</span>));<br>	<br>	&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="System类"><a href="#System类" class="headerlink" title="System类"></a>System类</h3><br>
+
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static void</code></td>
+<td><code>arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>      从指定源数组中复制一个数组，复制从指定的位置开始，到目标数组的指定位置结束。</td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code>currentTimeMillis()</code>         返回以毫秒为单位的当前时间。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Random类"><a href="#Random类" class="headerlink" title="Random类"></a>Random类</h3><br>
+
+<p>构造方法</p>
+<blockquote>
+<p>public Random()    </p>
+<p>该对像调用 <code>nextInt()</code> 每次值都不一样</p>
+<p>public Random(long seed)，以指定种子开始计算随机数</p>
+<p>该对像调用 <code>nextInt()</code> 每次值一样，因为每次种子都一样</p>
+</blockquote>
+<br>
+
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>nextInt)(int n)           返回一个伪随机数，它是取自此随机数生成器序列的、在 0（包括）和指定值（不包括）之间均匀分布的 int 值。</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>测试方法  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 空参构造,每次都会创建随机数</span><br>Random random = <span class="hljs-keyword">new</span> Random(); <span class="hljs-comment">// 创建随机数生成器</span><br><span class="hljs-keyword">int</span> nextInt = random.nextInt(); <span class="hljs-comment">// 调用方法,让随机数生成器产生随机数</span><br>System.out.println(nextInt);<br><br>System.out.println(<span class="hljs-string">&quot;------------&quot;</span>);<br><br><span class="hljs-comment">// 有参构造,会根据种子创建随机数,但是种子不变随机数不变</span><br>Random random2 = <span class="hljs-keyword">new</span> Random(-<span class="hljs-number">1000</span>); <span class="hljs-comment">// 创建随机数生成器</span><br><span class="hljs-keyword">int</span> nextInt2 = random2.nextInt(); <span class="hljs-comment">// 调用方法,让随机数生成器产生随机数</span><br>System.out.println(nextInt2);<br><br><span class="hljs-keyword">int</span> i = random.nextInt(<span class="hljs-number">10</span>);<span class="hljs-comment">// 产生0-9的随机数</span><br>System.out.println(i);<br><br><span class="hljs-comment">// 摇骰子</span><br>System.out.println(random.nextInt(<span class="hljs-number">6</span>) + <span class="hljs-number">1</span>);<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="Date类"><a href="#Date类" class="headerlink" title="Date类"></a>Date类</h3><br>
+
+<p>​        可以表示年月日时分秒，毫秒。也可以单独获得，设置年月日时分秒.</p>
+<p>​        但是该类大部分都过时（过时,是不建议用,但是可以使用）</p>
+<br>
+
+<table>
+<thead>
+<tr>
+<th align="left">构造方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Date()</code>         分配 <code>Date</code> 对象并初始化此对象，以表示分配它的时间（精确到毫秒）。</td>
+</tr>
+<tr>
+<td align="left"><code>Date(long date)</code>         分配 Date 对象并初始化此对象，以表示自从标准基准时间（称为“ 历元（epoch）”，即 1970 年 1 月 1 日 00:00:00 GMT）以来的指定毫秒数。</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>测试构造方法  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		<span class="hljs-comment">// 默认当前时间</span><br>		Date date = <span class="hljs-keyword">new</span> Date();<br>		System.out.println(date);<br>		<br>		<span class="hljs-comment">// 指定毫秒值创建时间</span><br>		Date date2 = <span class="hljs-keyword">new</span> Date(<span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span>);<br>		System.out.println(date2);<br>		<br>		<span class="hljs-comment">// 废弃,过时方法也可以用,只是不建议用</span><br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * year - 1900</span><br><span class="hljs-comment">		 * month 0-11</span><br><span class="hljs-comment">		 */</span><br>		Date date3 = <span class="hljs-keyword">new</span> Date(<span class="hljs-number">100</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>);<br>		System.out.println(date3);<br>	&#125;<br></code></pre></div></td></tr></table></figure>
+
+<br>
+
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>long</code></td>
+<td><code>getTime()</code>         返回自 1970 年 1 月 1 日 00:00:00  GMT 以来此 Date 对象表示的毫秒数。</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td><code>setTime(long time)</code>      设置此 Date 对象，以表示 1970 年 1 月 1 日 00:00:00 GMT 以后 time 毫秒的时间点。</td>
+</tr>
+<tr>
+<td><code>boolean  </code></td>
+<td><code>after(Date  when)</code>        测试此日期是否在指定日期之后。</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>before(Date  when)</code>       测试此日期是否在指定日期之前。</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>测试方法  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>	Date date1 = <span class="hljs-keyword">new</span> Date(); <span class="hljs-comment">// 2021</span><br>	Date date2 = <span class="hljs-keyword">new</span> Date(<span class="hljs-number">1</span>);<span class="hljs-comment">// 1970</span><br>	<br>	<span class="hljs-comment">// date1是否在date2之后</span><br>	System.out.println(date1.after(date2)); <br>	<br>	<span class="hljs-comment">// date1是否在date2之前</span><br>	System.out.println(date1.before(date2)); <br>	<br>	<span class="hljs-comment">// 获得毫秒值</span><br>	System.out.println(date1.getTime());<br>	<br>	<span class="hljs-comment">// 设置毫秒值</span><br>	date2.setTime(<span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span>);<br>	System.out.println(date2);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="Calendar类"><a href="#Calendar类" class="headerlink" title="Calendar类"></a>Calendar类</h3><p><code>java.util</code> 包，使用时需要导包</p>
+<p>该类是抽象类，不能创建对象，但是</p>
+<p><code>Calendar</code> 提供了一个类方法 <code>getInstance</code>，以获得此类型的一个通用的对象.</p>
+<p>该类提供了一系列静态常量字段（field）来获得和设置时间.</p>
+<br>
+
+<p><strong>属性  ：</strong></p>
+<table>
+<thead>
+<tr>
+<th>返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static int</code></td>
+<td><code>YEAR</code>         指示年的 <code>get</code> 和 <code>set</code> 的字段数字。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>MONTH</code>         指示月份的 <code>get</code> 和 <code>set</code> 的字段数字。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>DATE         </code>         <code>get</code> 和 <code>set</code> 的字段数字，指示一个月中的某天。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>DAY_OF_MONTH</code>         <code>get</code>  和 <code>set</code> 的字段数字，指示一个月中的某天。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>HOUR         </code>         <code>get</code> 和 <code>set</code> 的字段数字，指示上午或下午的小时。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>HOUR_OF_DAY</code>         <code>get</code>  和 <code>set</code> 的字段数字，指示一天中的小时。</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>SECOND</code>         <code>get</code>  和 <code>set</code> 的字段数字，指示一分钟中的秒</td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code>DAY_OF_WEEK</code>         <code>get</code>  和 <code>set</code> 的字段数字，指示一个星期中的某天</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>方法  :</strong></p>
+<table>
+<thead>
+<tr>
+<th>返回值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code> int</code></td>
+<td><code>get(int field)</code>      返回给定日历字段的值</td>
+</tr>
+<tr>
+<td><code> void</code></td>
+<td><code>set(int field,  int value)</code>      将给定的日历字段设置为给定值。</td>
+</tr>
+<tr>
+<td><code> void</code></td>
+<td><code>set(int year,  int month, int date)</code>      设置日历字段 <code>YEAR</code>、<code>MONTH</code> 和 <code>DAY_OF_MONTH</code> 的值。</td>
+</tr>
+<tr>
+<td><code>abstract  void</code></td>
+<td><code>add(int field,  int amount)</code>      根据日历的规则，为给定的日历字段添加或减去指定的时间量。</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>测试方法  :</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestCalendar</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		<br>		Calendar calendar = Calendar.getInstance();<br>		System.out.println(calendar);<br>		<br>		<span class="hljs-comment">// 获得日历信息</span><br>		<span class="hljs-keyword">int</span> year = calendar.get(Calendar.YEAR);<br>		<span class="hljs-comment">// 月份 0 - 11</span><br>		<span class="hljs-keyword">int</span> month = calendar.get(Calendar.MONTH);<br>		<span class="hljs-keyword">int</span> day = calendar.get(Calendar.DAY_OF_MONTH);<br>		<span class="hljs-keyword">int</span> hour = calendar.get(Calendar.HOUR_OF_DAY);<br>		<span class="hljs-keyword">int</span> minute = calendar.get(Calendar.MINUTE);<br>		<span class="hljs-keyword">int</span> second = calendar.get(Calendar.SECOND);<br>		<br>		<span class="hljs-comment">// 周是 周日1-周一2-二3.....-周六7</span><br>		<span class="hljs-keyword">int</span> index = calendar.get(Calendar.DAY_OF_WEEK);<br>        <br>		String[] weeks = &#123;<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;周日&quot;</span>,<span class="hljs-string">&quot;周一&quot;</span>,<span class="hljs-string">&quot;周二&quot;</span>,<span class="hljs-string">&quot;周三&quot;</span>,<span class="hljs-string">&quot;周四&quot;</span>,<span class="hljs-string">&quot;周五&quot;</span>, <span class="hljs-string">&quot;周六&quot;</span>&#125;;<br>		String week = weeks[index];<br>		<br>		System.out.println(year);<br>		System.out.println(month + <span class="hljs-number">1</span>);<br>		System.out.println(day);<br>		System.out.println(hour);<br>		System.out.println(minute);<br>		System.out.println(second);<br>		System.out.println(week);<br>		<br>		<span class="hljs-comment">// 设置时间</span><br>		calendar.set(Calendar.DAY_OF_MONTH, <span class="hljs-number">1</span>);<br>		<span class="hljs-keyword">int</span> index2= calendar.get(Calendar.DAY_OF_WEEK);<br>		System.out.println(weeks[index2]);<br>		<br>		<span class="hljs-comment">// add(field,amount); 在当前时间上添加/减去指定时间</span><br>		calendar.add(Calendar.YEAR, -<span class="hljs-number">21</span>);<br>		calendar.add(Calendar.MONTH, <span class="hljs-number">3</span>);<br>		System.out.println(calendar.get(Calendar.YEAR));<br>		System.out.println(calendar.get(Calendar.MONTH) + <span class="hljs-number">1</span>);<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/java/%E5%B8%B8%E7%94%A8%E7%B1%BB/">常用类</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/29/Java%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88%E7%9A%84%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E5%8F%8A%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java常见集合的默认大小及扩容机制</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/24/Java%E5%B8%B8%E7%94%A8%E7%B1%BB(%E4%B8%80)/">
+                        <span class="hidden-mobile">Java常用类(一)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,1066 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>MySQL基础篇 - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="MySQL基础篇">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-05 00:00" pubdate>
+        September 5, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      10.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      137
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL基础篇</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h1 id="数据库Database-DB"><a href="#数据库Database-DB" class="headerlink" title="数据库Database-DB"></a>数据库Database-DB</h1><p>　　数据库管理系统(DatabaseManagementSystem)DBMS,是指操作和管理数据的软件.</p>
+<p>　　常见的数据库分为两大类:</p>
+<p>​    　<strong>关系型数据库</strong>  : Oracle SQLServer MySQL DB2 MariaDB </p>
+<p>​    　非关系型数据库** : Redis HBase MongoDB</p>
+<hr>
+<h1 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h1><p>SQL(Structure Query Language)结构化查询语言.</p>
+<p>SQL被美国国家标准局(ANSI),确定为数据库语言标准.后来被国际标准组织(ISO)采纳认可.</p>
+<p>使用SQL99标准.</p>
+<p>每个不同厂商出产的数据库除了标准语句外,还有各自的特点: 方言.</p>
+<p><code>SQL语言</code>分为四大类:</p>
+<blockquote>
+<p><strong>DDL</strong>(Data Defined Language) 数据定义语言.主要是对库,表等操作语句</p>
+<p><strong>DML</strong>(Data Manipulation Language) 数据操作语言.主要是对表中数据的操作(增,删,改)</p>
+<p><strong>DQL</strong>(Data Query Language) 数据查询语言.主要是对表中数据的查询.</p>
+<p><strong>DCL</strong>(Data Control Language) 数据控制语言.主要是对数据库的权限安全操作</p>
+</blockquote>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>下载</p>
+<p>安装</p>
+<p>配置环境变量</p>
+<p><strong>启动:</strong> </p>
+<p>命令: net start mysql  关闭: net stop mysql</p>
+<p> 服务项启动: </p>
+<p><strong>登录mysql</strong>:</p>
+<p>​    mysql -u root -p密码</p>
+<p><strong>退出</strong>: 输入 exit</p>
+<h1 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h1><h2 id="操作库"><a href="#操作库" class="headerlink" title="操作库"></a>操作库</h2><p><strong>创建库</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> 库名;<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> 库名 <span class="hljs-type">character</span> <span class="hljs-keyword">set</span> utf<span class="hljs-number">-8</span>; <span class="hljs-comment">-- 默认就是utf-8,所以无需再设置</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>查询库</strong></p>
+<figure class="highlight abnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs abnf">show databases<span class="hljs-comment">;</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>删除库</strong></p>
+<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">database</span> 库名;<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>修改库</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> 库名 <span class="hljs-type">character</span> <span class="hljs-keyword">set</span> utf<span class="hljs-number">-8</span>;<br>（MySQL修改数据库名称比较麻烦，不支持直接修改，需要通过其它方式间接达到修改数据库名称的目的）<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>查询当前使用的库</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">select</span> <span class="hljs-title">database</span>(<span class="hljs-params"></span>)</span>;<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>切换数据库</strong>    </p>
+<figure class="highlight abnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs abnf">use 库名<span class="hljs-comment">;</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="操作表"><a href="#操作表" class="headerlink" title="操作表"></a>操作表</h2><p>在数据库中创建表</p>
+<p><strong>查看当前库下所有表</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">tables</span>;<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>创建表</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs scss">create <span class="hljs-selector-tag">table</span> 表名(<br>   列名  数据类型(长度)  <span class="hljs-selector-attr">[约束]</span>,<br>   列名2 数据类型(长度)  <span class="hljs-selector-attr">[约束]</span>,<br>   列名3 数据类型(长度)  <span class="hljs-selector-attr">[约束]</span><br>);<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p><strong>数据类型:</strong></p>
+<p><code>整型 int</code> , 长度固定11</p>
+<p><code>浮点型 double</code> 长度(总长,其中小数个数)à(5,2) à 999.99√ 10000.0× 1.1√</p>
+<p>​             <code>float</code> </p>
+<p><code>字符型 char</code>  定长字符,长度0-255, ‘张三    ’</p>
+<p>​             <code>varchar</code> 可变长字符 ‘张三’</p>
+<p>​             <code>text</code> 主要存储大文z  本数据</p>
+<p><code>字节型 blob</code> 字节类型,适合存图像等</p>
+<p><code>日期型 date </code>,日期不需要指定长度</p>
+<p>​    <code>time 时间</code>,不需要指定长度</p>
+<p>​    <code>datetime 日期时间</code>,不需要会指定长度</p>
+<p>​    <code>timestamp 时间戳</code>,时间会自动改变</p>
+<p><strong>除了整型和日期数据类型,其他数据类型都需要指定数据长度.</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>id(整型)</th>
+<th>name(字符串)</th>
+<th>age(整型)</th>
+<th>sex(字符串)</th>
+<th>birthday(日期)</th>
+<th>score(浮点型)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu(<br>    id <span class="hljs-type">int</span>(<span class="hljs-number">11</span>),     <span class="hljs-comment">-- int类型长度11,每个列之间使用,隔开</span><br>    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>),  <span class="hljs-comment">-- 字符型长度10,逗号隔开</span><br>    age <span class="hljs-type">int</span>,      <span class="hljs-comment">-- int类型长度固定,可以省略</span><br>    sex <span class="hljs-type">char</span>(<span class="hljs-number">1</span>),<br>    birthday <span class="hljs-type">date</span>,   <span class="hljs-comment">-- 日期不需要写长度</span><br>    score <span class="hljs-type">double</span>(<span class="hljs-number">5</span>,<span class="hljs-number">2</span>)  <span class="hljs-comment">-- 最后一个列,不用写,号</span><br>);<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>查看表的字段信息</strong></p>
+<figure class="highlight abnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs abnf">desc 表名<span class="hljs-comment">;</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>更新表字段-添加列</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">add</span> 列名 数据类型(长度);<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> stu <span class="hljs-keyword">add</span> cid <span class="hljs-type">int</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>更新表字段-删除列</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">drop</span> 列名;<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>更新列名</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 change 旧列名 新列名 数据类型(长度);<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>更新表名（已经不可用）</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">rename</span> <span class="hljs-keyword">table</span> 旧表名 <span class="hljs-keyword">to</span> 新表名;<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>查看创建表的语句</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> 表名;<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>修改表的编码格式</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-type">character</span> <span class="hljs-keyword">set</span> gbk; <span class="hljs-comment">-- 建议就使用utf8</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>删除表</strong></p>
+<figure class="highlight pf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pf"><span class="hljs-keyword">drop</span> <span class="hljs-built_in">table</span> 表名;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h1 id="DML-数据操作语言"><a href="#DML-数据操作语言" class="headerlink" title="DML-数据操作语言"></a>DML-数据操作语言</h1><p>是指对表中数据的增,删,改</p>
+<h2 id="插入-insert"><a href="#插入-insert" class="headerlink" title="插入-insert"></a>插入-insert</h2><p>语法:：</p>
+<p>​            <strong>insert into 表名 (列名1,列名2,…) values (值1,值2,…);</strong></p>
+<p><strong>注意:</strong></p>
+<ol>
+<li> 列名顺序与原表无关,但是列要在表中存在</li>
+<li> 要插入的列,不需要是全表列.可只列出需要插入的字段名</li>
+<li> 值与列的顺序,个数,类型一致</li>
+<li> 字符串值,日期值需要使用单引号’’,例如’张三’ ‘2021-01-07’</li>
+<li> 可以插入空值null(前提是列允许null值)</li>
+<li>插入全表时,可以省略列名,值的赋值是按照原表列顺序赋值</li>
+</ol>
+<p>演示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- 注释</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 多行注释 </span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 插入</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student (id,username,birthday) <span class="hljs-keyword">values</span> (<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;李四&#x27;</span>,<span class="hljs-string">&#x27;2021-01-07&#x27;</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student (id,username,birthday) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;李四&#x27;</span>,<span class="hljs-string">&#x27;2021-01-07&#x27;</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student (id,username,birthday) <span class="hljs-keyword">values</span> (<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;2021-01-07&#x27;</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student (id,username,birthday) <span class="hljs-keyword">values</span> (<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;王五&#x27;</span>,<span class="hljs-keyword">null</span>);<br><span class="hljs-comment">-- 全表</span><br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> student (<br>	id,<br>	username,<br>	age,<br>	sex,<br>	birthday,<br>	score<br>)<br><span class="hljs-keyword">VALUES</span><br>	(<br>		<span class="hljs-number">6</span>,<br>		<span class="hljs-string">&#x27;赵六&#x27;</span>,<br>		<span class="hljs-number">19</span>,<br>		<span class="hljs-string">&#x27;男&#x27;</span>,<br>		<span class="hljs-string">&#x27;2021-01-7&#x27;</span>,<br>		<span class="hljs-number">99.0</span><br>	);<br><span class="hljs-comment">-- 省略列名,要与原表列顺序一致</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student <span class="hljs-keyword">values</span> (<span class="hljs-number">7</span>,<span class="hljs-string">&#x27;赵六7&#x27;</span>,<span class="hljs-number">19</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;2021-01-07&#x27;</span>,<span class="hljs-number">98.0</span>);<br><br><span class="hljs-comment">-- 数据长度要与创建时一致</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student <span class="hljs-keyword">values</span> (<span class="hljs-number">8</span>,<span class="hljs-string">&#x27;赵六8&#x27;</span>,<span class="hljs-number">20</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;2021-01-07&#x27;</span>,<span class="hljs-number">999.99</span>);<br><span class="hljs-comment">-- insert into student values (8,&#x27;赵六8&#x27;,20,&#x27;男&#x27;,&#x27;2021-01-07&#x27;,9999.99);</span><br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="更新-update"><a href="#更新-update" class="headerlink" title="更新-update"></a>更新-update</h2><p>语法：</p>
+<p>​            <strong>update 表名 set 字段 1=值,字段 2=值，…【where  字段=值】</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- 更新</span><br><span class="hljs-comment">-- 将学号为1的学生年龄改为20,成绩改为100</span><br><span class="hljs-keyword">update</span> student <span class="hljs-keyword">set</span> age = <span class="hljs-number">20</span>,score = <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">1</span>;<br><br><span class="hljs-comment">-- 将所有女生的年龄改为18</span><br><span class="hljs-keyword">update</span> student <span class="hljs-keyword">set</span> age = <span class="hljs-number">18</span> <span class="hljs-keyword">where</span> sex = <span class="hljs-string">&#x27;女&#x27;</span><br><br><span class="hljs-comment">-- 将学号为7的学生的成绩加2分</span><br><span class="hljs-keyword">update</span> student <span class="hljs-keyword">set</span> score = score + <span class="hljs-number">2</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">7</span>;<br><br><span class="hljs-comment">-- 不加条件,全表更新</span><br><span class="hljs-keyword">update</span> student <span class="hljs-keyword">set</span> birthday = <span class="hljs-string">&#x27;2021-01-06&#x27;</span>;<br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="删除-delete"><a href="#删除-delete" class="headerlink" title="删除-delete"></a>删除-delete</h2><p>语法：</p>
+<p>​            <strong>delete from 表名【where  字段=值】</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- 删除学生表姓名为张三的数据</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> username = <span class="hljs-string">&#x27;张三&#x27;</span>;<br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> username = <span class="hljs-string">&#x27;李四&#x27;</span>;<br><br><span class="hljs-comment">-- 如果不加条件,则会删除全表</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> student;<br></code></pre></div></td></tr></table></figure>
+
+<p>ps：</p>
+<blockquote>
+<p>工作中，不能真的删除数据，数据很重要，后期可能会做数据收集，处理，分析等等工作。</p>
+<p>那么，如何实现“删除”？</p>
+<p>设计表时，给表设计多设计一个字段：状态字段status，</p>
+<p>一般定义状态码： 1正常    2不正常    </p>
+<p>​                    或者 </p>
+<p>​                                1普通用户     2普通会员     3黄金会员     7已注销</p>
+<p>在点击按钮<strong>删除</strong>时，其实是<strong>更新字段的状态</strong></p>
+</blockquote>
+<h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><p>约束：对插入数据的约束。</p>
+<p>一般在创建表时指定约束，然后在插入值时按照约束赋值。</p>
+<figure class="highlight gcode"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gcode">create table 表名<span class="hljs-comment">(</span><br><span class="hljs-comment">    字段 数据类型(长度)</span> 约束,<br>    字段 数据类型<span class="hljs-comment">(长度)</span> 约束<span class="hljs-number">1</span> 约束<span class="hljs-number">2</span>,<br>    字段 数据类型<span class="hljs-comment">(长度)</span> <br>);<br></code></pre></div></td></tr></table></figure>
+
+<p>约束类型:</p>
+<blockquote>
+<p><code>主键约束</code></p>
+<p><code>自增约束</code></p>
+<p><code>唯一约束</code></p>
+<p><code>数据类型</code></p>
+<p><code>非空约束</code></p>
+<p><code>默认值约束</code></p>
+<p><code>引用完整性约束-&gt;外键</code></p>
+</blockquote>
+<h2 id="主键约束-自增约束"><a href="#主键约束-自增约束" class="headerlink" title="主键约束+自增约束"></a>主键约束+自增约束</h2><blockquote>
+<p><code>primary key 主键</code></p>
+<p><code>auto_increment 自动增长</code></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 主键约束:</span><br><span class="hljs-comment">	1 主键列值不能重复,即唯一标识</span><br><span class="hljs-comment">    2 主键值不能为空</span><br><span class="hljs-comment">    3 主键是索引(index) -查询(效率高速度快)</span><br><span class="hljs-comment"> 一张表中可以设置两个或多个主键,它们是一个整体,叫联合主键</span><br><span class="hljs-comment">   联合主键的所有列值重复,才算重复</span><br><span class="hljs-comment">---------------------------</span><br><span class="hljs-comment">  一般主键都会设置为自增.</span><br><span class="hljs-comment">  如果不给主键设置值,则会根据上条数据主键值,自增1</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu1(<br>	id <span class="hljs-type">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">primary</span> key,<br>    name <span class="hljs-type">varchar</span> (<span class="hljs-number">10</span>)<br>);<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu2(<br>	id <span class="hljs-type">int</span>(<span class="hljs-number">11</span>),<br>  age <span class="hljs-type">int</span>(<span class="hljs-number">11</span>),<br>  <span class="hljs-keyword">primary</span> key(id,age) <span class="hljs-comment">-- 联合主键</span><br>);<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu3(<br>	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary</span> key auto_increment,<br>  name <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>)<br>);<br><br><span class="hljs-comment">-- 没有主键的列值,可以重复</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student (id) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student (id) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>);<br><br><span class="hljs-comment">-- 主键不能为空</span><br><span class="hljs-comment">-- insert into stu1 (name) values (&#x27;张三&#x27;);</span><br><br><span class="hljs-comment">-- 主键自增,插入值,会自动增长</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> stu3 (name) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;张三&#x27;</span>);<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> stu3 (name) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;李四&#x27;</span>);<br><br><span class="hljs-comment">-- 删除一行数据,自增的数据会按照删除之前继续自增</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> stu3 <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> stu3 (name) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;王五&#x27;</span>);<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h2><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 唯一约束: unique</span><br><span class="hljs-comment">  使该列的值不能重复</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu4(<br>    id <span class="hljs-type">int</span> ,<br>    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">unique</span><br>);<br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="数据类型约束"><a href="#数据类型约束" class="headerlink" title="数据类型约束"></a>数据类型约束</h2><p>　　数据类型约束即,限制该列存储的数据类型,不符合不能存入!</p>
+<h2 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h2><figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 非空约束:not null</span><br><span class="hljs-comment">  在插入时该列值不能为空</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu5(<br>    id <span class="hljs-type">int</span>,<br>    name <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span><br>);<br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="默认值约束"><a href="#默认值约束" class="headerlink" title="默认值约束"></a>默认值约束</h2><p>　　DBMS如果创建时不指定约束,那么每个列的值默认为null</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 默认值 default xx</span><br><span class="hljs-comment"> 当该列不赋值时,默认赋值为xx.</span><br><span class="hljs-comment">设置默认值后,插入的数据仍可以指定值</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu6(<br>    id <span class="hljs-type">int</span>,<br>    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>),<br>    sex <span class="hljs-type">char</span>(<span class="hljs-number">1</span>) <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;男&#x27;</span><br>);<br><br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>ps: 建表时在字段后 使用comment ‘注释’,可以对该列注释</p>
+</blockquote>
+<h2 id="引用完整性约束-gt-外键"><a href="#引用完整性约束-gt-外键" class="headerlink" title="引用完整性约束-&gt;外键"></a>引用完整性约束-&gt;外键</h2><p>　　创建学生表stu，字段sid，sname，age</p>
+<p>　　创建课程表course 字段cid，cname，sid</p>
+<p>　　假设一个学生可以有多个课程,所以在课程表中设计了stu表的主键列sid</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu(<br>    sid <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment <span class="hljs-keyword">comment</span> ‘学生主键’,<br>    sname <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">comment</span> ‘学生姓名’,<br>    age <span class="hljs-type">int</span> <span class="hljs-keyword">comment</span> ‘学生年龄’<br>);<br></code></pre></div></td></tr></table></figure>
+
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> course(<br>    cid <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment <span class="hljs-keyword">comment</span> ‘课程主键’,<br>    cname <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">comment</span> ‘课程名称’,<br>    sid <span class="hljs-type">int</span> <span class="hljs-keyword">comment</span> ‘关联学生表id’<br>);<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210904231026.png" srcset="/img/loading.gif" lazyload></p>
+<p>　　设计了外键后，课程表中的sid字段就与学生表的sid字段有联系.</p>
+<p>　　<strong>父表</strong>: <code>stu表 (被引用的表)</code></p>
+<p>　　<strong>子表</strong>: <code>course表 (引用表)</code></p>
+<p><strong>插入时:</strong></p>
+<p>  　　  学生表可以随意插入值</p>
+<p>​    　　课程表插入值时，sid字段只能插入学生表中有的sid值</p>
+<p><strong>删除或更新时:</strong></p>
+<p>　　    <code>RESTRICT</code>: 如果想要删除/更新父表的记录，子表中有关联该父表记录的，则不允许删除父表记录</p>
+<p>​    　　<code>NO ACTION</code>: 同restrict一样，删除时先检查外键。如果有引用，不能删除</p>
+<p>​    　　<code>CASCADE</code>: 级联,父表删除/更新时，如果有子表有关联,那么子表父表数据一起删除/更新</p>
+<p>   　　 <code>SET NULL</code>: 置空，父表删除/更新时，如果子表有关联,那么子表该条记录置为null</p>
+<p>演示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 引用完整性约束-外键(foreign key)</span><br><span class="hljs-comment"> 创建外键的方式</span><br><span class="hljs-comment"> 1 在建表时直接指定</span><br><span class="hljs-comment">   在引用了别的表字段的表中添加外键约束</span><br><span class="hljs-comment">		constraint 外键名 foreign key(当前表字段) references 其他表(字段)</span><br><span class="hljs-comment"> 2 建好表后再指定</span><br><span class="hljs-comment">   alter table 表名 add constraint 外键名 foreign key (字段) references 其他表(字段)</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> stu(<br> sid <span class="hljs-type">int</span> <span class="hljs-keyword">primary</span> key auto_increment comment <span class="hljs-string">&#x27;学生主键&#x27;</span>,<br> sname <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>) comment <span class="hljs-string">&#x27;学生姓名&#x27;</span>,<br> age <span class="hljs-type">int</span> comment <span class="hljs-string">&#x27;学生年龄&#x27;</span><br>);<br><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> course(<br> cid <span class="hljs-type">int</span> <span class="hljs-keyword">primary</span> key auto_increment comment <span class="hljs-string">&#x27;课程主键&#x27;</span>,<br> cname <span class="hljs-type">varchar</span>(<span class="hljs-number">10</span>) comment <span class="hljs-string">&#x27;课程名称&#x27;</span>,<br> sid <span class="hljs-type">int</span> comment <span class="hljs-string">&#x27;关联学生表id&#x27;</span>,<br> <span class="hljs-keyword">constraint</span> fk_course_stu <span class="hljs-keyword">foreign</span> key(sid) <span class="hljs-keyword">references</span> stu(sid)<br>);<br><br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> course <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> fk_course_stu <span class="hljs-keyword">foreign</span> key (sid) <span class="hljs-keyword">references</span> stu(sid);<br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h1 id="DQL"><a href="#DQL" class="headerlink" title="DQL"></a>DQL</h1><p>　　DQL是指查询语言,从数据表中通过一系列条件将符合条件查出.</p>
+<p>　　<strong>DQL查询语句只是查看数据,不会对原表有任何影响.</strong></p>
+<p>　　查询的<code>结果</code>是一张<code>虚拟表</code>.</p>
+<p>　　查询的关键字: select</p>
+<hr>
+<p>　　查询语句大致分为:</p>
+<ol>
+<li>==基础查询==</li>
+<li>==条件查询==</li>
+<li>==模糊查询==</li>
+<li>==排序查询==</li>
+</ol>
+<p>语法: </p>
+<p>​            <strong>select 字段1,字段2,… from 表名【where… group by… having… order by… limit…】</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">语法:<br><span class="hljs-keyword">select</span> <br>selection_list         <span class="hljs-comment">--要查询的列 </span><br><span class="hljs-keyword">from</span> <br><span class="hljs-built_in">table_name</span>          <span class="hljs-comment">-- 要查询的表名</span><br><span class="hljs-keyword">where</span> condition          <span class="hljs-comment">-- 过滤行条件</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> grouping_clumns <span class="hljs-comment">-- 对结果按照列进行分组</span><br><span class="hljs-keyword">having</span> condition          <span class="hljs-comment">-- 分组后再过滤</span><br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> sort_column      <span class="hljs-comment">-- 排序</span><br><span class="hljs-keyword">limit</span> <span class="hljs-keyword">offset</span>,<span class="hljs-built_in">row_count</span>      <span class="hljs-comment">-- 对结果限制</span><br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="基础查询"><a href="#基础查询" class="headerlink" title="基础查询"></a>基础查询</h2><p>  – ==============  基础查询 =============</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs moonscript"><span class="hljs-comment">-- 查询所有列,将所有列名写出即可</span><br><span class="hljs-built_in">select</span> sname,sex,sid,score,age,cid,groupLeaderId <span class="hljs-keyword">from</span> stu;<br><span class="hljs-comment">-- 查询所有列,可以使用* 代替所有列名</span><br><span class="hljs-built_in">select</span> * <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 查询指定 列</span><br><span class="hljs-comment">-- 查询学生学号,姓名,年龄</span><br><span class="hljs-built_in">select</span> sid,sname,age <span class="hljs-keyword">from</span> stu;<br><span class="hljs-built_in">select</span> sname <span class="hljs-keyword">from</span> stu;<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><p>  – ==============  条件查询 =============</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vbnet">/*<br>  条件查询就是查询时在基础查询的后面使用<br>  <span class="hljs-keyword">where</span>语句,<span class="hljs-keyword">where</span>后使用运算符将符合条件的数据保留<br>  =     相等<br>  != &lt;&gt; 不等<br>  &lt;小于 &gt;大于 &lt;=  &gt;=<br>  <span class="hljs-built_in">and</span>    和/与 两边的条件同时成立才行<br>  <span class="hljs-built_in">or</span>     或    两边的条件有一个成立即可<br>  <span class="hljs-keyword">in</span>(<span class="hljs-keyword">set</span>)     范围  在<span class="hljs-keyword">set</span>集合范围内<br>  between 值<span class="hljs-number">1</span> <span class="hljs-built_in">and</span> 值<span class="hljs-number">2</span>  在..之间.. (包含临界值,从小到大)<br>  <span class="hljs-built_in">not</span> <span class="hljs-keyword">in</span>   取反<br>*/<br><br>-- 查询学号为<span class="hljs-number">1001</span>的学生信息<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid = <span class="hljs-number">1001</span> <br><br>-- 查询学生成绩大于<span class="hljs-number">60</span>的学生id 姓名,成绩<br><span class="hljs-keyword">select</span> sid,sname,score <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score &gt; <span class="hljs-number">60</span>;<br><br>-- 查询学生性别为女，并且年龄小于<span class="hljs-number">50</span>的记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sex = <span class="hljs-comment">&#x27;女&#x27; and age &lt; 50</span><br><br>-- 查询学生学号为<span class="hljs-number">1001</span>，或者姓名为李四的记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid = <span class="hljs-number">1001</span> <span class="hljs-built_in">or</span> sname = <span class="hljs-comment">&#x27;李四&#x27;</span><br><br>-- 查询学号为<span class="hljs-number">1001</span>，<span class="hljs-number">1002</span>，<span class="hljs-number">1003</span>的记录<br>-- <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid = <span class="hljs-number">1001</span> <span class="hljs-built_in">or</span> sid = <span class="hljs-number">1002</span> <span class="hljs-built_in">or</span> sid = <span class="hljs-number">1003</span><br>---<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid <span class="hljs-keyword">in</span> (<span class="hljs-number">1001</span>,<span class="hljs-number">1002</span>,<span class="hljs-number">1003</span>)<br><br>-- 查询学号不是<span class="hljs-number">1001</span>,<span class="hljs-number">1002</span>,<span class="hljs-number">1003</span>的记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid <span class="hljs-built_in">not</span> <span class="hljs-keyword">in</span> (<span class="hljs-number">1001</span>,<span class="hljs-number">1002</span>,<span class="hljs-number">1003</span>)<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid != <span class="hljs-number">1001</span> <span class="hljs-built_in">and</span> sid != <span class="hljs-number">1002</span> <span class="hljs-built_in">and</span> sid != <span class="hljs-number">1003</span><br><br>-- 查询学生年龄在<span class="hljs-number">20</span>到<span class="hljs-number">40</span>之间的学生记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> age &gt;= <span class="hljs-number">20</span> <span class="hljs-built_in">and</span> age &lt;= <span class="hljs-number">40</span>;<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> age between <span class="hljs-number">20</span> <span class="hljs-built_in">and</span> <span class="hljs-number">40</span>;<br><br>-- 查询性别非男的学生记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sex != <span class="hljs-comment">&#x27;男&#x27;</span><br>-- <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sex = <span class="hljs-comment">&#x27;女&#x27;</span><br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p>  – ==============  条件查询 =============</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vbnet">/*<br> 模糊查询需要放在<span class="hljs-keyword">where</span>后使用<span class="hljs-built_in">like</span>关键字<br> 例如 <span class="hljs-keyword">where</span> 字段 <span class="hljs-built_in">like</span> <span class="hljs-comment">&#x27;%关键字&#x27;</span><br> 例如 <span class="hljs-keyword">where</span> 字段 <span class="hljs-built_in">like</span> <span class="hljs-comment">&#x27;_关键字&#x27;</span><br> 通配符:<br>	% ,可以匹配任何个数任意字符<br>       _ ,可以匹配一个任意字符<br>*/<br>-- 查询姓名以“张”开头的学生记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sname <span class="hljs-built_in">like</span> <span class="hljs-comment">&#x27;张%&#x27;;</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sname <span class="hljs-built_in">like</span> <span class="hljs-comment">&#x27;张_&#x27;;</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sname <span class="hljs-built_in">like</span> <span class="hljs-comment">&#x27;张__&#x27;;</span><br><br>-- 查询姓名中包含“三”的学生记录<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sname <span class="hljs-built_in">like</span> <span class="hljs-comment">&#x27;%三%&#x27;</span><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h2><p>  – ==============  排序查询 =============</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 排序查询:将查询到的的结果按照一定的顺序排序</span><br><span class="hljs-comment">	order by 字段 [desc|asc] ==&gt; desc 降序, asc升序</span><br><span class="hljs-comment">	例如: order by 字段 desc</span><br><span class="hljs-comment">	例如: order by 字段 asc</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 查询所有学生记录，按年龄升序排序</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> age <span class="hljs-keyword">asc</span><br><br><span class="hljs-comment">-- 查询所有学生记录，按年龄降序排序</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> age <span class="hljs-keyword">desc</span><br><br><span class="hljs-comment">-- 不写排序类型,默认是升序</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> age<br><br><span class="hljs-comment">-- 查询所有学生记录，按年龄升序排序,如果年龄相同时，按编号降序排序</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> age <span class="hljs-keyword">asc</span>,sid <span class="hljs-keyword">desc</span><br><br><span class="hljs-comment">-- 查询成绩大于60的学生id,姓名,成绩,并根据成绩降序</span><br><span class="hljs-keyword">select</span> sid,sname,score <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score &gt; <span class="hljs-number">60</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> score <span class="hljs-keyword">desc</span>;<br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><p>  – ==============  聚合函数 =============</p>
+<p>聚合：把多行数据,变成一行输出</p>
+<p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210905170103.png" srcset="/img/loading.gif" lazyload></p>
+<p>演示:</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 聚合函数</span><br><span class="hljs-comment"> count(列名) 统计指定列不为null的行数</span><br><span class="hljs-comment"> max(列名) 获得指定列中最大值,如果是字符串,按照字符顺序</span><br><span class="hljs-comment"> min(列名) 获得最小</span><br><span class="hljs-comment"> sum(列名) 计算指定列的和值,计算非数字,结果是0</span><br><span class="hljs-comment"> avg(列名) 计算指定列的平均值,计算非数字,结果是0</span><br><span class="hljs-comment">---------------</span><br><span class="hljs-comment">语法: </span><br><span class="hljs-comment">	select 聚合函数 from 表名 [where.. ]</span><br><span class="hljs-comment">*/</span>	<br><span class="hljs-comment">-- 查询stu表中记录数：</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(sid) <span class="hljs-keyword">from</span> stu;<br>update stu <span class="hljs-keyword">set</span> score <span class="hljs-operator">=</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">where</span> sid <span class="hljs-operator">=</span> <span class="hljs-number">1001</span>;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(sex) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 在列名后使用as 给列取别名,as可以省略</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(sid) <span class="hljs-keyword">as</span> <span class="hljs-string">&#x27;记录数&#x27;</span> <span class="hljs-keyword">from</span> stu;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(sid) <span class="hljs-string">&#x27;记录数&#x27;</span> <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 查询stu表中有成绩的人数：</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(score) <span class="hljs-string">&#x27;人数&#x27;</span> <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 查询stu表中成绩大于60的人数：</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-operator">&gt;</span> <span class="hljs-number">60</span>;<br><br><span class="hljs-comment">-- 查询所有学生成绩和：</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(score) <span class="hljs-keyword">from</span> stu;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(score) <span class="hljs-string">&#x27;总成绩&#x27;</span> <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 统计所有学生平均成绩</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(score) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 统计stu表中成绩大于60的平均分</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(score) <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-operator">&gt;</span> <span class="hljs-number">60</span><br><br><span class="hljs-comment">-- 查询最高成绩和最低成绩：</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(score) <span class="hljs-string">&#x27;最高分&#x27;</span>,<span class="hljs-built_in">min</span>(score) <span class="hljs-string">&#x27;最低分&#x27;</span> <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 统计stu表中成绩大于60的最高成绩和最低成绩：</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(score) <span class="hljs-string">&#x27;最高分&#x27;</span>,<span class="hljs-built_in">min</span>(score) <span class="hljs-string">&#x27;最低分&#x27;</span> <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-operator">&gt;</span> <span class="hljs-number">60</span>;<br><br><span class="hljs-comment">-- 查询最高成绩,以及学生姓名</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 与聚合函数一同出现的列名,必须出现在group by后</span><br><span class="hljs-comment"> 反之,如果出现了一个没有在group by后出现的字段,那么查询结果不正常!</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(score) <span class="hljs-string">&#x27;最高分&#x27;</span>,sname <span class="hljs-keyword">from</span> stu;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(age) <span class="hljs-keyword">from</span> stu; <span class="hljs-comment">-- 490</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(score) <span class="hljs-keyword">from</span> stu; <span class="hljs-comment">-- 742</span><br><br><span class="hljs-comment">-- 计算总年龄与总成绩的和</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(age)<span class="hljs-operator">+</span><span class="hljs-built_in">sum</span>(score) <span class="hljs-keyword">from</span> stu;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(age <span class="hljs-operator">+</span> score) <span class="hljs-keyword">from</span> stu;<br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h2><p>  – ==============  去重 =============</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 去重函数 distinct(列)</span><br><span class="hljs-comment">	将指定列的数据去重</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 不重复的年龄</span><br><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span>(age) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 查询年龄不重复的共有多少人</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> age) <span class="hljs-keyword">from</span> stu;<br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h2><p>  – ==============  分组查询 =============</p>
+<p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210905170100.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight q"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs q">-- ================ 分组查询 ==================<br>/*<br>	当需要分组查询时,需要使用<span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span>语句.<br>  语法:<br>		<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu [<span class="hljs-built_in">where</span> ...] <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> 字段 [order <span class="hljs-keyword">by</span>..]<br>    字段值相同的分到一组<br>    注意:<br>	<span class="hljs-number">1</span> 一般分组之后的操作都是聚合操作<br>      <span class="hljs-number">2</span> 分成几组,虚拟表结果就是几行数据<br>      <span class="hljs-number">3</span> 聚合函数,是对每组进行单独聚合操作<br>--------------------------------<br>   分组后再过滤,使用having子句(<span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span>后使用having)<br>   与<span class="hljs-built_in">where</span>的区别:<br>		<span class="hljs-built_in">where</span>是分组前过滤, having是分组后过滤<br>		<span class="hljs-built_in">where</span>后不能使用聚合函数,having可以使用聚合函数<br>   <br>*/ <br><span class="hljs-keyword">select</span> sex <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> sex;<br> <br>-- 查询男生多少人,女生多少人<br><span class="hljs-keyword">select</span> sex,<span class="hljs-built_in">count</span>(*) &#x27;人数&#x27; <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> sex;<br> <br>-- 查询每个班级的班级编号和每个班级的成绩和：<br><span class="hljs-keyword">select</span> cid,<span class="hljs-built_in">sum</span>(score) <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> cid;<br><br>-- 查询每个班级的班级编号以及每个班级的人数：<br><span class="hljs-keyword">select</span> cid &#x27;班级&#x27;,<span class="hljs-built_in">count</span>(sid) &#x27;人数&#x27; <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> cid;<br><br>-- 查询成绩总和大于<span class="hljs-number">200</span>的班级编号以及成绩和<br><span class="hljs-keyword">select</span> cid,<span class="hljs-built_in">sum</span>(score) <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> cid having <span class="hljs-built_in">sum</span>(score) &gt; <span class="hljs-number">200</span><br>-- having可以使用前面定义的别名<br><span class="hljs-keyword">select</span> cid,<span class="hljs-built_in">sum</span>(score) &#x27;<span class="hljs-built_in">sum</span>&#x27; <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> cid having <span class="hljs-built_in">sum</span> &gt; <span class="hljs-number">200</span><br><br>-- 查询成绩总和大于<span class="hljs-number">200</span>的班级编号以及成绩和并根据成绩总和降序<br><span class="hljs-keyword">select</span> cid,<span class="hljs-built_in">sum</span>(score) &#x27;<span class="hljs-built_in">sum</span>&#x27; <span class="hljs-keyword">from</span> stu <span class="hljs-built_in">group</span> <span class="hljs-keyword">by</span> cid having <span class="hljs-built_in">sum</span> &gt; <span class="hljs-number">200</span> order <span class="hljs-keyword">by</span> <span class="hljs-built_in">sum</span> <span class="hljs-built_in">asc</span>;<br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="限制输出-重要"><a href="#限制输出-重要" class="headerlink" title="限制输出(重要)"></a>限制输出(重要)</h2><p>  – ==============  限制输出 =============</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- =============== 限制输出 ================</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 可以将查询好的结果,限制输出.</span><br><span class="hljs-comment"> 可以限制输出几条,从哪里输出.</span><br><span class="hljs-comment"> 语法:</span><br><span class="hljs-comment">在sql语句最后写 limit offset,row_count</span><br><span class="hljs-comment">    limit 开始下标,行数;</span><br><span class="hljs-comment">    例如: limit 0,2;  ==&gt; 从第一条输出,输出2条</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 查询所有女生,输出前两个女生</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sex = ‘女’  <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">2</span><br><span class="hljs-comment">-- 查询所有女生, 输出成绩前两名的女生</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sex = ‘女’ <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> score <span class="hljs-keyword">desc</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">2</span><br><br><span class="hljs-comment">-- 输出前两条</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">2</span>;<br><br><span class="hljs-comment">-- 从第四条开始,输出三条</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">limit</span> <span class="hljs-number">3</span>,<span class="hljs-number">3</span>;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 分页: 每页3条数据</span><br><span class="hljs-comment">----------------------------------------------</span><br><span class="hljs-comment">在写项目的分页逻辑中,有一些已知条件:</span><br><span class="hljs-comment">1.在进入分页时,默认打开的是第一页</span><br><span class="hljs-comment">2.每页展示所多少条数据是固定的</span><br><span class="hljs-comment">----------------------------------------------</span><br><span class="hljs-comment">一般情况下,在写分页逻辑时,会设计几个变量</span><br><span class="hljs-comment">1)	pageNo     当前页(已知条件)</span><br><span class="hljs-comment">2)	pageSize    每页展示多少条数据(页面大小)(已知条件)</span><br><span class="hljs-comment">3)	total        总共多少条记录(用SQL语句查出总条数)(select count(*) from stu)</span><br><span class="hljs-comment">4)	pageCount  总页数(推导出)(total % pageSize != 0 ? (total/pageSize) : total /pageSize)</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 输出第一页(当前页)数据</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">limit</span> (pageNo<span class="hljs-number">-1</span>)*pageSize,pageSize<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">3</span>;<br><span class="hljs-comment">-- 第二页</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">limit</span> <span class="hljs-number">3</span>,<span class="hljs-number">3</span>;<br></code></pre></div></td></tr></table></figure>
+
+<p>PS：<strong>分页这部分挺重要</strong></p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a>流程函数</h2><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">/*</span><br><span class="hljs-comment">IF(expr1,expr2,expr3)	</span><br><span class="hljs-comment">  如果expr1为真，则返回expr2，否则返回expr3</span><br><span class="hljs-comment">	-- isnull()函数,判断是否为空</span><br><span class="hljs-comment">	-- isnull(字段) 如果是null,返回1 不是null返回0</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 查询学生id,姓名,成绩,如果成绩为null,显示缺考</span><br><span class="hljs-keyword">select</span> sid,sname,<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isnull</span>(score)=<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;缺考&#x27;</span>,score) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- is null 是判断条件 判断条件放在where后用来过滤要查询的数据</span><br><span class="hljs-comment">-- isnull() 是函数 (函数可以做运算)</span><br><span class="hljs-keyword">update</span> stu <span class="hljs-keyword">set</span> score = <span class="hljs-number">72</span> <span class="hljs-keyword">where</span> score <span class="hljs-keyword">is</span> <span class="hljs-keyword">null</span>;<br><br><span class="hljs-comment">-- 查询学生成绩为null的学生信息</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-keyword">is</span> <span class="hljs-keyword">null</span>;<br><span class="hljs-comment">-- 查询学生成绩不为null的学生信息</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>;<br><br><span class="hljs-comment">-- IFNULL(expr1,expr2)如果 expr1不是NULL,则返回expr1，否则返回expr2；</span><br><span class="hljs-comment">-- 查询学生id,姓名,成绩,如果成绩为null,显示缺考</span><br><span class="hljs-keyword">select</span> sid,sname,ifnull(score,<span class="hljs-string">&#x27;缺考&#x27;</span>) <span class="hljs-string">&#x27;成绩&#x27;</span> <span class="hljs-keyword">from</span> stu<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">CASE WHEN [expr1] THEN [result1]… ELSE [default] END	如果expr是真, 返回result1,否则返回default</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">  case</span><br><span class="hljs-comment">when 条件 then 执行语句</span><br><span class="hljs-comment">    when 条件 then 执行语句</span><br><span class="hljs-comment">    ...</span><br><span class="hljs-comment">else  执行语句</span><br><span class="hljs-comment">end</span><br><span class="hljs-comment">  执行第一个when后的条件,如果为true,执行then后的语句,</span><br><span class="hljs-comment">  如果when后的条件为false,执行第二when后的条件</span><br><span class="hljs-comment">  如果都是false,执行else后语句</span><br><span class="hljs-comment">*/</span>	<br><br><span class="hljs-comment">-- 查询学生id,姓名,成绩,以及等级</span><br><span class="hljs-comment">-- (0-59 不及格,60-69中,70-89良,90-100优 )</span><br><span class="hljs-keyword">select</span> sid,sname,score,<br>	<span class="hljs-keyword">case</span> <br><span class="hljs-keyword">when</span> score &lt; <span class="hljs-number">60</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;不及格&#x27;</span><br>        <span class="hljs-keyword">when</span> score &lt; <span class="hljs-number">70</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;中&#x27;</span><br><span class="hljs-keyword">when</span> score &lt; <span class="hljs-number">90</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;良&#x27;</span><br><span class="hljs-keyword">when</span> <span class="hljs-keyword">isnull</span>(score)=<span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;缺考&#x27;</span>  (等于 <span class="hljs-keyword">when</span> score <span class="hljs-keyword">is</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">then</span> ‘缺考’)<br><span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;优&#x27;</span><br><span class="hljs-keyword">end</span> <span class="hljs-keyword">as</span> <span class="hljs-string">&#x27;等级&#x27;</span><br><span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- 类似于switch case结构</span><br><span class="hljs-keyword">CASE</span> <br>	[<span class="hljs-keyword">VALUE</span>]<br><span class="hljs-keyword">WHEN</span> [ value1 ] <span class="hljs-keyword">THEN</span> [ result1 ] <br> …<br><span class="hljs-keyword">ELSE</span><br>	[ <span class="hljs-keyword">DEFAULT</span> ]<br><span class="hljs-keyword">END</span> <br><br>如果<span class="hljs-keyword">value</span>等于value1,返回result1,<br> 否则返回<span class="hljs-keyword">default</span><br><span class="hljs-keyword">select</span> <span class="hljs-keyword">case</span> score <br>	<span class="hljs-keyword">when</span> <span class="hljs-number">72</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;七十二&#x27;</span><br>  <span class="hljs-keyword">when</span> <span class="hljs-number">78</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;七十八&#x27;</span><br>  <span class="hljs-keyword">else</span>  <span class="hljs-string">&#x27;其他&#x27;</span><br><span class="hljs-keyword">end</span> <br><span class="hljs-keyword">from</span> stu<br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>==书写语法:==</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> <br>	selection_list     <span class="hljs-comment">--要查询的列</span><br><span class="hljs-keyword">from</span> <br>	<span class="hljs-built_in">table_name</span>     <span class="hljs-comment">-- 要查询的表名</span><br><span class="hljs-keyword">where</span> condition     <span class="hljs-comment">-- 过滤行条件</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> grouping_clumns <span class="hljs-comment">-- 对结果按照列进行分组</span><br><span class="hljs-keyword">having</span> condition     <span class="hljs-comment">-- 分组后再过滤</span><br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> sort_column   <span class="hljs-comment">-- 排序</span><br><span class="hljs-keyword">limit</span> <span class="hljs-keyword">offset</span>,<span class="hljs-built_in">row_count</span>   <span class="hljs-comment">-- 对结果限制</span><br></code></pre></div></td></tr></table></figure>
+
+<img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210905170045.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<h1 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h1><h2 id="1-联合查询-合并结果集-不常见"><a href="#1-联合查询-合并结果集-不常见" class="headerlink" title="1 联合查询-合并结果集(不常见)"></a>1 联合查询-合并结果集(不常见)</h2><p>　　将两表的查询结果<strong>纵向</strong>拼接在一起</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">union</span> / <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <br></code></pre></div></td></tr></table></figure>
+
+<p>　　拼接的两个表的<strong>字段个数</strong>，<strong>类型</strong>，<strong>顺序</strong>保证一致.</p>
+<p>　　<strong>union 在拼接时会去重</strong></p>
+<p>　　<strong>union all 将两表的全部数据都拼接</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> sid,sname <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">select</span> cid,cname <span class="hljs-keyword">from</span> <span class="hljs-keyword">class</span>;    <br></code></pre></div></td></tr></table></figure>
+
+<h2 id="2-连接查询"><a href="#2-连接查询" class="headerlink" title="2 连接查询"></a>2 连接查询</h2><p>　　将两表的查询结果<strong>横向</strong>拼接在一起</p>
+<h3 id="表和表之间的关系"><a href="#表和表之间的关系" class="headerlink" title="表和表之间的关系"></a>表和表之间的关系</h3><p><strong>1对1</strong></p>
+<p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210905170057.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>1对n</strong></p>
+<p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210905170053.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>n对n</strong></p>
+<p><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210905170049.png" srcset="/img/loading.gif" lazyload></p>
+<p>　　<strong>连接查询就是将多个表多行数据相乘 —&gt; 笛卡尔积</strong></p>
+<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>　　<strong>内连接只会保留完全符合关联条件的数据 (两个表的字段信息全部相等,查询才会显示)</strong></p>
+<p>　　 <strong>不保留不满足条件的数据</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- =========== 内连接 ==========</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> 内连接语法:</span><br><span class="hljs-comment">		select * from 表1 inner join 表2 on 关联条件</span><br><span class="hljs-comment"> 内连接只会保留完全符合关联条件的数据 (两个表的字段信息全部相等,查询才会显示)</span><br><span class="hljs-comment">  不保留不满足条件的数据</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 没有关联条件,会产生笛卡尔积</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> <span class="hljs-keyword">class</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> <span class="hljs-keyword">class</span> <span class="hljs-keyword">on</span> stu.cid = <span class="hljs-keyword">class</span>.cid <br><br><span class="hljs-comment">-- 查询每个学生的信息,包括班级的全部信息</span><br><span class="hljs-comment">-- 查询学生名称、学生成绩、班级名称、班级地址(多表联查建议每个字段加上表名)</span><br><span class="hljs-keyword">select</span> sname,score,cname,caddress <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> <span class="hljs-keyword">class</span> <span class="hljs-keyword">on</span> stu.cid = <span class="hljs-keyword">class</span>.cid<br><br><span class="hljs-comment">-- 查询学号为1007的学生名称、学生成绩、班级名称、班级地址</span><br><span class="hljs-comment">-- 给表取别名</span><br><span class="hljs-keyword">SELECT</span><br>	sname,<br>	score,<br>	cname,<br>	caddress<br><span class="hljs-keyword">FROM</span><br>	stu s<br><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> <span class="hljs-keyword">class</span> c <span class="hljs-keyword">ON</span> s.cid = c.cid<br><span class="hljs-keyword">WHERE</span><br>	s.sid = <span class="hljs-number">1007</span><br><br><span class="hljs-comment">-- 内连接可以简写</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> <span class="hljs-keyword">class</span> <span class="hljs-keyword">on</span> stu.cid = <span class="hljs-keyword">class</span>.cid <br><span class="hljs-comment">-- 简写成</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu,<span class="hljs-keyword">class</span> <span class="hljs-keyword">where</span> stu.cid = <span class="hljs-keyword">class</span>.cid<br><br></code></pre></div></td></tr></table></figure>
+
+<h3 id="外连接-常用左外链接"><a href="#外连接-常用左外链接" class="headerlink" title="外连接(常用左外链接)"></a>外连接(常用左外链接)</h3><p>　　 <strong>外连接: 会保留不满足条件的数据 (与内连接相反)</strong></p>
+<figure class="highlight vbnet"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vbnet">/*<br> 外连接: 会保留不满足条件的数据 (与内连接相反)<br> 左外连接-left outer <span class="hljs-keyword">join</span> <span class="hljs-keyword">on</span><br>		会保留左表中不符合的条件的数据<br> 右外连接 - right outer <span class="hljs-keyword">join</span> <span class="hljs-keyword">on</span><br>	    会保留右表中不符合的条件的数据<br>  一般outer关键字可以省略<br>*/<br>-- 查询全部学生信息,如果有班级信息,一并查出.<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu s left outer <span class="hljs-keyword">join</span> <span class="hljs-keyword">class</span> c <span class="hljs-keyword">on</span> s.cid = c.cid<br><br>-- 查询全部班级信息,如果有学生,将学生信息查出<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> stu s right outer <span class="hljs-keyword">join</span> <span class="hljs-keyword">class</span> c <span class="hljs-keyword">on</span> s.cid = c.cid<br></code></pre></div></td></tr></table></figure>
+
+<h3 id="子查询-嵌套查询"><a href="#子查询-嵌套查询" class="headerlink" title="子查询(嵌套查询)"></a>子查询(嵌套查询)</h3><p>　　 <code>子查询</code>就是<code>嵌套查询</code>.</p>
+<p>一般子查询出现在:</p>
+<blockquote>
+<p>from后, 当做<strong>一张表</strong>使用</p>
+<p>where后, 当做<strong>条件</strong>使用</p>
+</blockquote>
+<p>　　 select后</p>
+<p>  – ============= 子查询 ============= </p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- ============= 子查询 =============</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">子查询就是嵌套查询.</span><br><span class="hljs-comment">一般子查询出现在:</span><br><span class="hljs-comment">	from后, 当做一张表使用</span><br><span class="hljs-comment">	where后, 当做条件使用</span><br><span class="hljs-comment">	select后</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 查询与张三同一个班级的学生。</span><br><span class="hljs-comment">-- 1查出张三的班级</span><br><span class="hljs-keyword">select</span> cid <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sname <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;张三&#x27;</span><br><span class="hljs-comment">-- 2查出1班的学生</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> cid <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br><span class="hljs-comment">-- 合并成子查询</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> cid <span class="hljs-operator">=</span> (<span class="hljs-keyword">select</span> cid <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sname <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;张三&#x27;</span>)<br><br><span class="hljs-comment">-- 成绩高于3号班级所有人的学生信息</span><br><span class="hljs-comment">-- 1 找到3班最高分</span><br><span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(score) <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> cid <span class="hljs-operator">=</span> <span class="hljs-number">3</span><br><span class="hljs-comment">-- 2 找成绩比96高的学生</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-operator">&gt;</span> <span class="hljs-number">96</span><br><span class="hljs-comment">-- 合并</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> score <span class="hljs-operator">&gt;</span> (<span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(score) <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> cid <span class="hljs-operator">=</span> <span class="hljs-number">3</span>)<br><br><span class="hljs-comment">-- 有2个以上组员的组长学生信息</span><br><span class="hljs-comment">-- 1 根据组长编号分组,计算分组人数,保留&gt;2的组</span><br><span class="hljs-keyword">select</span> groupLeaderId,<span class="hljs-built_in">count</span>(sid) <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> groupLeaderId <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(sid) <span class="hljs-operator">&gt;</span> <span class="hljs-number">2</span> <br><span class="hljs-comment">-- 2 查询学号1007,1010学生的信息</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid <span class="hljs-keyword">in</span>(<span class="hljs-number">1007</span>,<span class="hljs-number">1010</span>)<br><span class="hljs-comment">-- 合并</span><br><span class="hljs-keyword">SELECT</span><br>	<span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span><br>	stu<br><span class="hljs-keyword">WHERE</span><br>	sid <span class="hljs-keyword">IN</span> (<br>		<span class="hljs-keyword">SELECT</span><br>			groupLeaderId<br>		<span class="hljs-keyword">FROM</span><br>			stu<br>		<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span><br>			groupLeaderId<br>		<span class="hljs-keyword">HAVING</span><br>			<span class="hljs-built_in">count</span>(sid) <span class="hljs-operator">&gt;</span> <span class="hljs-number">2</span><br>	) <br><span class="hljs-comment">-- 自连接,自己连接自己,s1当做组长,s2当做组员</span><br><span class="hljs-keyword">select</span> s1.sid,s1.sname <span class="hljs-keyword">from</span> stu s1,stu s2 <span class="hljs-keyword">where</span> s1.sid <span class="hljs-operator">=</span> s2.groupLeaderId <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> s1.sid <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(s1.sid) <span class="hljs-operator">&gt;</span> <span class="hljs-number">2</span><br><br><span class="hljs-comment">-- stu s1当做组员,stu s2 组长</span><br><span class="hljs-keyword">select</span> s2.sid,s2.sname <span class="hljs-keyword">from</span> stu s1,stu s2 <span class="hljs-keyword">where</span> s1.groupLeaderId <span class="hljs-operator">=</span> s2.sid <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> s2.sid <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(s2.sid) <span class="hljs-operator">&gt;</span> <span class="hljs-number">2</span><br><br><span class="hljs-comment">-- 求1008学生编号、姓名、组长编号和组长姓名</span><br><span class="hljs-comment">-- 1 找到1008学生的组长的编号</span><br><span class="hljs-keyword">select</span> groupLeaderId <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid <span class="hljs-operator">=</span> <span class="hljs-number">1008</span><br><span class="hljs-comment">-- 2 找到1010的编号和姓名</span><br><span class="hljs-keyword">select</span> sid,sname <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid <span class="hljs-operator">=</span> <span class="hljs-number">1010</span><br><span class="hljs-comment">-- 3 找1008编号和姓名</span><br><span class="hljs-keyword">select</span> sid,sname <span class="hljs-keyword">from</span> stu <span class="hljs-keyword">where</span> sid <span class="hljs-operator">=</span> <span class="hljs-number">1008</span><br><span class="hljs-comment">-- 合并</span><br><span class="hljs-keyword">SELECT</span><br>	s.sid,<br>	s.sname,<br>	b.sid,<br>	b.sname<br><span class="hljs-keyword">FROM</span><br>	stu s,<br>	(<br>		<span class="hljs-keyword">SELECT</span><br>			sid,<br>			sname<br>		<span class="hljs-keyword">FROM</span><br>			stu<br>		<span class="hljs-keyword">WHERE</span><br>			sid <span class="hljs-operator">=</span> (<br>				<span class="hljs-keyword">SELECT</span><br>					groupLeaderId<br>				<span class="hljs-keyword">FROM</span><br>					stu<br>				<span class="hljs-keyword">WHERE</span><br>					sid <span class="hljs-operator">=</span> <span class="hljs-number">1008</span><br>			)<br>	) b<br><span class="hljs-keyword">WHERE</span><br>	s.sid <span class="hljs-operator">=</span> <span class="hljs-number">1008</span> <br><span class="hljs-comment">-- 自连接,s1做学生表 s2做组长表</span><br><span class="hljs-comment">-- s1的组长是s2中的学生</span><br><span class="hljs-keyword">select</span> s1.sid,s1.sname,s2.sid,s2.sname <span class="hljs-keyword">from</span> stu s1,stu s2 <span class="hljs-keyword">where</span> s1.groupLeaderId <span class="hljs-operator">=</span> s2.sid <span class="hljs-keyword">and</span> s1.sid <span class="hljs-operator">=</span> <span class="hljs-number">1008</span><br><br><span class="hljs-comment">-- 自连接,s1做组长 s2做学生</span><br><span class="hljs-keyword">select</span> s2.sid,s2.sname,s1.sid,s1.sname <span class="hljs-keyword">from</span> stu s1,stu s2 <span class="hljs-keyword">where</span> s2.groupLeaderId <span class="hljs-operator">=</span> s1.sid <span class="hljs-keyword">and</span> s2.sid <span class="hljs-operator">=</span> <span class="hljs-number">1008</span><br></code></pre></div></td></tr></table></figure>
+
+<h3 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h3><p>　　 自己连接自己</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>1.查询每个学生成绩大于60且成绩总和小于200的班级编号以及成绩和并根据成绩和降序</p>
+<p>2.创建一个表：student sid sname sage sex score sclass sbirthday</p>
+<p>​    》 插入20条数据: 其中sgae随机 sex随机 score随机 </p>
+<p>​    》获取所有年龄小于18 并且 名字中有妹的 所有女生的信息</p>
+<p>​    》 获取所有学生的总人数 平均分 最低分 最高分</p>
+<p>​    》 获取所有参加考试的学生的总人数和参加考试学生的平均分 和 所有学生的平均分</p>
+<p>​    》 获取所有学生的自我介绍信息：我叫xxx,今年xxx岁，明年xx岁，考了xx分,我是成年人/未成年人</p>
+<p>​    》 获取5月份生日的学生的个数</p>
+<p>​    》 获取本月生日的学生的个数</p>
+<p>​    》 获取年龄在18到22岁之间的学生的信息</p>
+<p>​    》 获取第6-10条的所有学生的信息</p>
+<p>​    》 把所有女生 并且年龄&lt;20的学生分数+1</p>
+<p>​    》 把所有成绩为null的学生 分数设置为100</p>
+<p>​    》 删除sclass列</p>
+<p>​    》 添加sgrade列 列类型固定长度4的字符串</p>
+<p>​    》 修改列名sgrade为grade</p>
+<p>​    》 修改grade列类型为char(4)</p>
+<p>​    》 修改表名为stu</p>
+<h1 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h1><p>　　 ==函数这部分按需求学习==</p>
+<h3 id="时间日期相关函数"><a href="#时间日期相关函数" class="headerlink" title="时间日期相关函数"></a>时间日期相关函数</h3><table>
+<thead>
+<tr>
+<th>sysdate()</th>
+<th>获得当前时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ADDTIME (date2 ,time_interval )</td>
+<td>将time_interval（时间间隔）加到date2</td>
+</tr>
+<tr>
+<td>CURRENT_DATE ( )</td>
+<td>当前日期（年月日）</td>
+</tr>
+<tr>
+<td>CURRENT_TIME ( )</td>
+<td>当前时间（时分秒）</td>
+</tr>
+<tr>
+<td>CURRENT_TIMESTAMP  ( )</td>
+<td>当前时间戳</td>
+</tr>
+<tr>
+<td>DATE (datetime )</td>
+<td>返回datetime的日期部分</td>
+</tr>
+<tr>
+<td>DATE_ADD (date2 , INTERVAL d_value d_type )</td>
+<td>在date2中加上日期或时间</td>
+</tr>
+<tr>
+<td>DATE_SUB (date2 , INTERVAL d_value d_type )</td>
+<td>在date2上减去一个时间</td>
+</tr>
+<tr>
+<td>DATEDIFF (date1 ,date2 )</td>
+<td>两个日期差</td>
+</tr>
+<tr>
+<td>NOW ( )</td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td>YEAR|Month|DAY (datetime )</td>
+<td>获得指定日期的年月日</td>
+</tr>
+<tr>
+<td>dayofmonth(datetime)</td>
+<td>获得指定日期的日</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">select</span> addtime(‘<span class="hljs-number">02</span>:<span class="hljs-number">30</span>:<span class="hljs-number">30</span>’,‘<span class="hljs-number">01</span>:<span class="hljs-number">01</span>:<span class="hljs-number">01</span>’);注意：字符串、时间日期的引号问题<br><span class="hljs-attribute">select</span> date_add(entry_date,INTERVAL <span class="hljs-number">2</span> year) from student;／／增加两年<br><span class="hljs-attribute">select</span> addtime(time,‘<span class="hljs-number">1</span> <span class="hljs-number">1</span>-<span class="hljs-number">1</span> <span class="hljs-number">10</span>:<span class="hljs-number">09</span>:<span class="hljs-number">09</span>’) from student;　／／时间戳上增加，注意年后没有- <br></code></pre></div></td></tr></table></figure>
+
+<p>– <strong>dual,哑表,补全完整的sql语句.dual表并不存在</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- dual,哑表,补全完整的sql语句.dual表并不存在</span><br><span class="hljs-keyword">select</span> sysdate() <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> now() <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">current_date</span>() <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">current_time</span>() <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">current_timestamp</span>() <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>(sbirthday) <span class="hljs-keyword">from</span> student;<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">month</span>(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">month</span>(sbirthday) <span class="hljs-keyword">from</span> student;<br><span class="hljs-comment">--5月份生日</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> <span class="hljs-keyword">month</span>(sbirthday) <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">day</span>(<span class="hljs-string">&#x27;2021-01-11&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> dayofmonth(<span class="hljs-string">&#x27;2021-01-11&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> dayofmonth(sbirthday) <span class="hljs-keyword">from</span> student<br><span class="hljs-comment">-- ADDTIME (date2 ,time_interval )	将time_interval加到date2</span><br><span class="hljs-keyword">select</span> addtime(<span class="hljs-string">&#x27;2021-01-01 00:00:00&#x27;</span>,<span class="hljs-number">30</span>) <span class="hljs-keyword">from</span> dual;<span class="hljs-comment">-- 加30秒</span><br><span class="hljs-keyword">select</span> addtime(<span class="hljs-string">&#x27;2021-01-01 00:00:00&#x27;</span>,<span class="hljs-string">&#x27;01:59:59&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> addtime(<span class="hljs-string">&#x27;2021-01-01 00:00:01&#x27;</span>,<span class="hljs-string">&#x27;01:59:59&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-comment">-- DATE_ADD (date2 , INTERVAL d_value d_type )	在date2中加上日期或时间</span><br><span class="hljs-comment">-- 注意: 第二个参数位置,是三部分 1) 固定关键字 interval 2) 要加的日期值 3) 日期单位 day|month|year</span><br><span class="hljs-keyword">select</span> date_add(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>,<span class="hljs-type">interval</span> <span class="hljs-number">32</span> <span class="hljs-keyword">day</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> date_add(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>,<span class="hljs-type">interval</span> <span class="hljs-number">10</span> <span class="hljs-keyword">month</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> date_add(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>,<span class="hljs-type">interval</span> <span class="hljs-number">10</span> <span class="hljs-keyword">year</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-comment">-- DATE_SUB (date2 , INTERVAL d_value d_type ) 减</span><br><span class="hljs-keyword">select</span> date_sub(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>,<span class="hljs-type">interval</span> <span class="hljs-number">1</span> <span class="hljs-keyword">day</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-comment">-- DATEDIFF (date1 ,date2 )	两个日期差,date1-date2返回相差的天数,可以为负</span><br><span class="hljs-keyword">select</span> datediff(<span class="hljs-string">&#x27;2021-01-01&#x27;</span>,<span class="hljs-string">&#x27;2021-01-03&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><br></code></pre></div></td></tr></table></figure>
+
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- 获取本月生日的学生的个数 (1月)</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> date_format(sbirthday,<span class="hljs-string">&#x27;%m&#x27;</span>) = date_format(sysdate(),<span class="hljs-string">&#x27;%m&#x27;</span>)<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> month(now()) = month(sbirthday)<br><br><br><span class="hljs-comment">-- 获取近30天生日的学生</span><br><span class="hljs-keyword">select</span> sname,sbirthday <span class="hljs-keyword">from</span> student<br><span class="hljs-keyword">where</span> date_format(sbirthday,<span class="hljs-string">&#x27;%m%d&#x27;</span>)<br><span class="hljs-keyword">between</span> date_format(now(),<span class="hljs-string">&#x27;%m%d&#x27;</span>)<br><span class="hljs-keyword">and</span> date_format(date_add(now(),<span class="hljs-type">interval</span> <span class="hljs-number">30</span> DAY),<span class="hljs-string">&#x27;%m%d&#x27;</span>)<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h3 id="字符串相关函数"><a href="#字符串相关函数" class="headerlink" title="字符串相关函数"></a>字符串相关函数</h3><table>
+<thead>
+<tr>
+<th>CHARSET(str)</th>
+<th>返回字串字符集</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CONCAT (str1[,… ])</td>
+<td>连接字串</td>
+</tr>
+<tr>
+<td>INSTR (string ,substring )</td>
+<td>返回substring在string中出现的位置,没有返回0</td>
+</tr>
+<tr>
+<td>UCASE  (string2 )</td>
+<td>转换成大写</td>
+</tr>
+<tr>
+<td>LCASE  (string2 )</td>
+<td>转换成小写</td>
+</tr>
+<tr>
+<td>LEFT  (string2 ,length )</td>
+<td>从string2中的左边起取length个字符</td>
+</tr>
+<tr>
+<td>RIGHT  (string2 ,length )</td>
+<td>从string2中的右边起取length个字符</td>
+</tr>
+<tr>
+<td>LENGTH  (string )</td>
+<td>string长度</td>
+</tr>
+<tr>
+<td>REPLACE (str ,search_str ,replace_str )</td>
+<td>在str中用replace_str替换search_str</td>
+</tr>
+<tr>
+<td>STRCMP  (string1 ,string2 )</td>
+<td>逐字符比较两字串大小,</td>
+</tr>
+<tr>
+<td>SUBSTRING (str , position [,length ])</td>
+<td>从str的position开始,取length个字符</td>
+</tr>
+<tr>
+<td>LTRIM  (string2 )   RTRIM  (string2 )   Trim(修剪)</td>
+<td>去除前端空格或后端空格</td>
+</tr>
+</tbody></table>
+<p>示例:</p>
+<p>​            SELECT CHARSET(‘QIUSHIJU’);</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> charset(sname) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- CONCAT (str1[,... ])	连接字串</span><br><span class="hljs-keyword">select</span> concat(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> concat(<span class="hljs-string">&#x27;我叫:&#x27;</span>,sname,’年龄:’,age) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- INSTR (string ,substring )	返回substring在string中出现的位置,没有返回0</span><br><br><span class="hljs-comment">-- 即判断是否包含字符串</span><br><span class="hljs-keyword">select</span> instr(<span class="hljs-string">&#x27;java&#x27;</span>,<span class="hljs-string">&#x27;av&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> instr(<span class="hljs-string">&#x27;java&#x27;</span>,<span class="hljs-string">&#x27;aa&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> instr(sname,<span class="hljs-string">&#x27;三&#x27;</span>) <span class="hljs-keyword">from</span> stu;<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">if</span>(instr(sname,<span class="hljs-string">&#x27;三&#x27;</span>) = <span class="hljs-number">0</span>,<span class="hljs-string">&#x27;不包含三&#x27;</span>,<span class="hljs-string">&#x27;包含三&#x27;</span> ) <span class="hljs-keyword">from</span> stu;<br><br><span class="hljs-comment">-- UCASE (string2 )	转换成大写</span><br><span class="hljs-keyword">select</span> ucase(<span class="hljs-string">&#x27;smith&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> ucase(<span class="hljs-string">&#x27;爪哇&#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-comment">-- LEFT (string2 ,length )	从string2中的左边起取length个字符</span><br><span class="hljs-keyword">select</span> left(<span class="hljs-string">&#x27;java&#x27;</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">from</span> dual<br><br><span class="hljs-comment">-- 查询stu表中不同姓氏的人数</span><br><span class="hljs-keyword">select</span> count(<span class="hljs-keyword">distinct</span> left(sname,<span class="hljs-number">1</span>) )<span class="hljs-keyword">from</span> stu<br><span class="hljs-comment">-- RIGHT (string2 ,length )	从string2中的右边起取length个字符</span><br><span class="hljs-keyword">select</span> right(<span class="hljs-string">&#x27;java&#x27;</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-comment">-- LENGTH (string )	string长度,中文在utf8编码占3个,英文占1个</span><br><span class="hljs-keyword">select</span> length(sname) <span class="hljs-keyword">from</span> stu<br><span class="hljs-keyword">select</span> length(<span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-comment">-- REPLACE (str ,search_str ,replace_str )	在str中用replace_str替换search_str</span><br><span class="hljs-keyword">select</span> replace(<span class="hljs-string">&#x27;java&#x27;</span>,<span class="hljs-string">&#x27;av&#x27;</span>,<span class="hljs-string">&#x27;AV&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> replace(sname,<span class="hljs-string">&#x27;三&#x27;</span>,<span class="hljs-string">&#x27;叁&#x27;</span>) <span class="hljs-keyword">from</span> stu<br><span class="hljs-comment">-- STRCMP (str1 ,str2 )	逐字符比较两字串大小,</span><br><span class="hljs-comment">-- str1 &lt; str2 返回 -1</span><br><span class="hljs-comment">-- str1 &gt; str2 返回  1</span><br><span class="hljs-comment">-- str1 = str2 返回 0  </span><br><span class="hljs-comment">-- ===&gt;  参考Java.TreeSet集合的排序算法</span><br><span class="hljs-keyword">select</span> strcmp(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> strcmp(<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> strcmp(<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>) <span class="hljs-keyword">from</span> dual<br><br><span class="hljs-comment">-- SUBSTRING (str , position  [,length ])	从str的position开始,取length个字符</span><br><span class="hljs-comment">-- position是位置,不是下标,即第一个字符就是1</span><br><span class="hljs-keyword">select</span> substring(<span class="hljs-string">&#x27;javabigdata&#x27;</span>,<span class="hljs-number">5</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> substring(<span class="hljs-string">&#x27;javabigdata&#x27;</span>,<span class="hljs-number">5</span>,<span class="hljs-number">3</span>) <span class="hljs-keyword">from</span> dual<br><br><span class="hljs-comment">-- 滤空</span><br><span class="hljs-keyword">select</span> ltrim(<span class="hljs-string">&#x27; java &#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> rtrim(<span class="hljs-string">&#x27; java &#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> trim(<span class="hljs-string">&#x27; java &#x27;</span>) <span class="hljs-keyword">from</span> dual;<br><br></code></pre></div></td></tr></table></figure>
+
+<h3 id="字符-日期互转"><a href="#字符-日期互转" class="headerlink" title="字符-日期互转"></a>字符-日期互转</h3><figure class="highlight less"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs less">	日期转字符串<br>	<span class="hljs-selector-tag">date_format</span>(date,<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>) <span class="hljs-selector-tag">--------------</span>&gt;<span class="hljs-selector-tag">oracle</span>中的<span class="hljs-selector-tag">to_char</span>();<br>	字符串转日期<br>　　<span class="hljs-selector-tag">str_to_date</span>(date,<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>) <span class="hljs-selector-tag">--------------</span>&gt;<span class="hljs-selector-tag">oracle</span>中的<span class="hljs-selector-tag">to_date</span>();<br>　　%<span class="hljs-selector-tag">Y</span>：代表<span class="hljs-selector-tag">4</span>位的年份<br>　　%<span class="hljs-selector-tag">y</span>：代表<span class="hljs-selector-tag">2</span>为的年份<br>　　%<span class="hljs-selector-tag">m</span>：代表月, 格式为(<span class="hljs-number">01</span>……<span class="hljs-number">12</span>)<br>　　%<span class="hljs-selector-tag">c</span>：代表月, 格式为(<span class="hljs-number">1</span>……<span class="hljs-number">12</span>)<br>　　%<span class="hljs-selector-tag">d</span>：代表月份中的天数,格式为(<span class="hljs-number">00</span>……<span class="hljs-number">31</span>)<br>　　%<span class="hljs-selector-tag">e</span>：代表月份中的天数, 格式为(<span class="hljs-number">0</span>……<span class="hljs-number">31</span>)<br>　　%<span class="hljs-selector-tag">H</span>：代表小时,格式为(<span class="hljs-number">00</span>……<span class="hljs-number">23</span>)<br>　　%<span class="hljs-selector-tag">k</span>：代表 小时,格式为(<span class="hljs-number">0</span>……<span class="hljs-number">23</span>)<br>　　%<span class="hljs-selector-tag">h</span>： 代表小时,格式为(<span class="hljs-number">01</span>……<span class="hljs-number">12</span>)<br>　　%<span class="hljs-selector-tag">I</span>： 代表小时,格式为(<span class="hljs-number">01</span>……<span class="hljs-number">12</span>)<br>　　%<span class="hljs-selector-tag">l</span> ：代表小时,格式为(<span class="hljs-number">1</span>……<span class="hljs-number">12</span>)<br>　　%<span class="hljs-selector-tag">i</span>： 代表分钟, 格式为(<span class="hljs-number">00</span>……<span class="hljs-number">59</span>)<br>　　%<span class="hljs-selector-tag">r</span>：代表 时间,格式为<span class="hljs-selector-tag">12</span> 小时(<span class="hljs-attribute">hh</span>:<span class="hljs-attribute">mm</span>:ss [AP]M)<br>　　%<span class="hljs-selector-tag">T</span>：代表 时间,格式为<span class="hljs-selector-tag">24</span> 小时(<span class="hljs-attribute">hh</span>:<span class="hljs-attribute">mm</span>:ss)<br>　　%<span class="hljs-selector-tag">S</span>：代表 秒,格式为(<span class="hljs-number">00</span>……<span class="hljs-number">59</span>)<br>　　%<span class="hljs-selector-tag">s</span>：代表 秒,格式为(<span class="hljs-number">00</span>……<span class="hljs-number">59</span>)<br>　　<span class="hljs-selector-tag">SELECT</span> <span class="hljs-selector-tag">DATE_FORMAT</span>(<span class="hljs-number">20130111191640</span>,<span class="hljs-string">&#x27;%Y-%m-%d %H:%i:%s&#x27;</span>)<br>　　<span class="hljs-selector-tag">DATE_FORMAT</span>(<span class="hljs-number">20130111191640</span>,<span class="hljs-string">&#x27;%Y-%m-%d %H:%i:%s&#x27;</span>)<br><br><span class="hljs-selector-tag">--</span> 日期到字符串<br><span class="hljs-selector-tag">select</span> <span class="hljs-selector-tag">date_format</span>(now(),<span class="hljs-string">&#x27;%Y年%m月%d日&#x27;</span>) <span class="hljs-selector-tag">from</span> <span class="hljs-selector-tag">dual</span><br><span class="hljs-selector-tag">--</span> 字符串到日期<br><span class="hljs-selector-tag">select</span> <span class="hljs-selector-tag">str_to_date</span>(<span class="hljs-string">&#x27;2021年01月11日&#x27;</span>,<span class="hljs-string">&#x27;%Y年%m月%d日&#x27;</span>) <span class="hljs-selector-tag">from</span> <span class="hljs-selector-tag">dual</span>;<br><br><span class="hljs-selector-tag">--</span> 错误 <span class="hljs-selector-tag">insert</span> <span class="hljs-selector-tag">into</span> <span class="hljs-selector-tag">student</span> (sid,sname,sbirthday) <span class="hljs-selector-tag">values</span> (<span class="hljs-number">21</span>,<span class="hljs-string">&#x27;猪八戒&#x27;</span>,<span class="hljs-string">&#x27;2021年01月01日&#x27;</span>)<br><span class="hljs-selector-tag">--</span> 正确 <span class="hljs-selector-tag">insert</span> <span class="hljs-selector-tag">into</span> <span class="hljs-selector-tag">student</span> (sid,sname,sbirthday) <span class="hljs-selector-tag">values</span> (<span class="hljs-number">21</span>,<span class="hljs-string">&#x27;猪八戒&#x27;</span>,<span class="hljs-string">&#x27;2021-01-01&#x27;</span>)(正确格式)<br><br><span class="hljs-selector-tag">insert</span> <span class="hljs-selector-tag">into</span> <span class="hljs-selector-tag">student</span> (sid,sname,sbirthday) <span class="hljs-selector-tag">values</span> (<span class="hljs-number">21</span>,<span class="hljs-string">&#x27;猪八戒&#x27;</span>,str_to_date(<span class="hljs-string">&#x27;2021年01月01日&#x27;</span>,<span class="hljs-string">&#x27;%Y年%m月%d日&#x27;</span>))<br><span class="hljs-selector-tag">insert</span> <span class="hljs-selector-tag">into</span> <span class="hljs-selector-tag">student</span> (sbirthday) <span class="hljs-selector-tag">values</span> (str_to_date(<span class="hljs-string">&#x27;2021年01月01日&#x27;</span>,<span class="hljs-string">&#x27;%Y年%m月%d日&#x27;</span>))<br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h3 id="数学相关函数"><a href="#数学相关函数" class="headerlink" title="数学相关函数"></a>数学相关函数</h3><table>
+<thead>
+<tr>
+<th>ABS  (number2)</th>
+<th>绝对值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BIN  (decimal_number )</td>
+<td>十进制转二进制</td>
+</tr>
+<tr>
+<td>CEILING  (number2 )</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>CONV(number2,from_base,to_base)</td>
+<td>进制转换</td>
+</tr>
+<tr>
+<td>FLOOR  (number2 )</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>FORMAT (number,decimal_places )</td>
+<td>保留小数位数</td>
+</tr>
+<tr>
+<td>HEX  (DecimalNumber )</td>
+<td>转十六进制</td>
+</tr>
+<tr>
+<td>LEAST  (number , number2 [,..])</td>
+<td>求最小值</td>
+</tr>
+<tr>
+<td>MOD  (numerator ,denominator )</td>
+<td>求余</td>
+</tr>
+<tr>
+<td>RAND([seed])</td>
+<td>RAND([seed])</td>
+</tr>
+<tr>
+<td>round(x[,d])</td>
+<td>四舍五入</td>
+</tr>
+</tbody></table>
+<p>示例:</p>
+<p>SELECT ABS(-101);</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- abs(x) 取绝对值</span><br><span class="hljs-keyword">select</span> abs(<span class="hljs-number">1</span>) <span class="hljs-keyword">from</span> dual<br><span class="hljs-keyword">select</span> abs(<span class="hljs-number">-1</span>) <span class="hljs-keyword">from</span> dual<br><br><span class="hljs-comment">-- CEILING (number2 )	向上取整</span><br><span class="hljs-keyword">select</span> ceiling(<span class="hljs-number">11.1</span>) <span class="hljs-keyword">from</span> dual;<br><br><span class="hljs-comment">-- FLOOR (number2 )	向下取整</span><br><span class="hljs-keyword">select</span> floor(<span class="hljs-number">11.1</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> floor(<span class="hljs-number">-11.1</span>) <span class="hljs-keyword">from</span> dual;<br><br><span class="hljs-comment">-- FORMAT (number,decimal_places )	保留小数位数,保留时会四舍五入</span><br><span class="hljs-keyword">select</span> format(<span class="hljs-number">99.12645</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> format(score,<span class="hljs-number">2</span>) <span class="hljs-keyword">from</span> stu <br><span class="hljs-keyword">select</span> format(score,<span class="hljs-number">0</span>) <span class="hljs-keyword">from</span> stu <br><br><span class="hljs-comment">-- 随机数,产生0-1之间随机数</span><br><span class="hljs-keyword">select</span> rand() <span class="hljs-keyword">from</span> dual;<br><br><span class="hljs-comment">-- 种子,会根据种子计算出一个随机数.但多次运行种子一样,结果一样</span><br><span class="hljs-keyword">select</span> rand(<span class="hljs-number">1</span>) <span class="hljs-keyword">from</span> dual;<br><br><span class="hljs-comment">-- round(x) 四舍五入</span><br><span class="hljs-keyword">select</span> round(<span class="hljs-number">1.1</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> round(<span class="hljs-number">1.5</span>) <span class="hljs-keyword">from</span> dual;<br><br><span class="hljs-comment">-- round(x,d) 四舍五入,保留d位小数</span><br><span class="hljs-keyword">select</span> round(<span class="hljs-number">1.1234</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">from</span> dual;<br><span class="hljs-keyword">select</span> round(<span class="hljs-number">1.1254</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">from</span> dual;<br><br><span class="hljs-comment">-- 使用mysql函数,产生0-10之间的随机数</span><br><span class="hljs-keyword">select</span> round(rand()*<span class="hljs-number">10</span>) <span class="hljs-keyword">from</span> dual<br><br></code></pre></div></td></tr></table></figure>
+
+<h1 id="事务transaction-–-TX"><a href="#事务transaction-–-TX" class="headerlink" title="事务transaction – TX"></a>事务transaction – TX</h1><p>需求：有一张银行账户表,有a用户给b用户转账.A账户钱减少,b账户钱增加.但是当a账户钱减少时,断电了,B账                    户并没有增加钱.</p>
+<p>解决方案：a减少钱，但是不要立即修改数据表，b的钱增加之后，同时修改表。</p>
+<p>事务：</p>
+<p>​            　　 <strong>事务指逻辑上的一组操作，组成这组操作的各个单元，要么全部成功，要么全部不成功。</strong></p>
+<p>演示:</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `account` (<br> 	`id` <span class="hljs-type">int</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> 	`name` <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> 	`money` <span class="hljs-type">int</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span><br>) ENGINE<span class="hljs-operator">=</span>InnoDB <span class="hljs-keyword">DEFAULT</span> CHARSET<span class="hljs-operator">=</span>utf8;<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> account <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-number">1000</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> account <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;李四&#x27;</span>,<span class="hljs-number">1000</span>);<br><br>修改a的钱<br>Update account <span class="hljs-keyword">set</span> money<span class="hljs-operator">=</span>money<span class="hljs-number">-1000</span> <span class="hljs-keyword">where</span> id<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<br>此时退出mysql,再次进去查看b账户的钱.没有增加<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="１、Mysql中的事务"><a href="#１、Mysql中的事务" class="headerlink" title="１、Mysql中的事务"></a>１、Mysql中的事务</h1><p>a、<code>mysql引擎</code>是支持事务的（<code>默认引擎InnoDB</code>）</p>
+<p>b、<strong>mysql默认自动提交事务</strong>。每条语句都处在单独的事务中。</p>
+<p><strong>查看当前数据库事务的提交方式</strong></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mipsasm"><span class="hljs-keyword">SHOW </span>VARIABLES<span class="hljs-comment">; [like ‘autocommit’]</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>查看当前数据库事务的提交方式</strong></p>
+<figure class="highlight llvm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs llvm"><span class="hljs-keyword">select</span> @<span class="hljs-title">@autocommit</span><span class="hljs-comment">; 0是手动提交,1是自动提交</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>设置当前数据库的提交方式</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dart"><span class="hljs-keyword">set</span> @<span class="hljs-meta">@autocommit</span> = <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
+
+<p>　　 看到是<code>autocommit on </code>开启自动提交</p>
+<p>　　 手动关闭：<code>set autocommit = off</code>  / 或者= 0</p>
+<p>　　 再演示：直接修改数据,在别的窗口可以查看效果,数据没有修改.需要手动处理：<strong>提交或回滚</strong></p>
+<p>c、手动控制事务</p>
+<ol>
+<li><p><strong>开启事务：</strong><code>start transaction</code> | <code>begin</code></p>
+</li>
+<li><p><strong>提交事务：</strong><code>commit</code></p>
+</li>
+<li><p><strong>回滚事务：</strong><code>rollback</code></p>
+</li>
+<li><p><strong>手动回滚：</strong></p>
+<p>​                    BEGIN; – 开启事务</p>
+<p>​                    UPDATE account SET money=money-100 WHERE <code>name</code>=’张三’;</p>
+<p>​                    ROLLBACK; – 回滚,数据不会变动</p>
+</li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- =================== 原始数据 ======================</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `account` (<br>  `id` <span class="hljs-type">int</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  `<span class="hljs-type">name</span>` <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  `<span class="hljs-type">money</span>` <span class="hljs-type">int</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span><br>) ENGINE=InnoDB <span class="hljs-keyword">DEFAULT</span> CHARSET=utf8;<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> account <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-number">1000</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> account <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;李四&#x27;</span>,<span class="hljs-number">1000</span>);<br><span class="hljs-comment">-- ================== 默认事务 ==================</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> mysql默认每句sql都是处于事务,自动开启,提交.</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 查看当前提交方式</span><br><span class="hljs-keyword">SHOW</span> VARIABLES <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;autocommit&#x27;</span><br><br><span class="hljs-comment">-- A向B转账100</span><br><span class="hljs-comment">-- A减少100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> - <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">1</span>;<br><span class="hljs-comment">-- B增加100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> + <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">2</span>;<br><br><span class="hljs-comment">-- =============== 手动控制事务 ================</span><br><span class="hljs-comment">-- 开启事务</span><br><span class="hljs-keyword">begin</span>;<br><span class="hljs-comment">-- A减少100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> - <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">1</span>;<br><br><span class="hljs-comment">-- 假如此处出现事故,下个语句不执行,可以执行rollback回滚数据</span><br><span class="hljs-comment">-- B增加100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> + <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">2</span>;<br><br><span class="hljs-comment">-- 提交事务</span><br><span class="hljs-keyword">commit</span>;<br><br><span class="hljs-comment">-- 出错,可以回滚</span><br><span class="hljs-keyword">rollback</span>;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h1 id="2、事务的特性（ACID）（面试题）"><a href="#2、事务的特性（ACID）（面试题）" class="headerlink" title="2、事务的特性（ACID）（面试题）"></a>2、事务的特性（ACID）（面试题）</h1><p><strong>原子性</strong>（Atomicity）：指事务的整个操作是一个整体，要么都成功,要么都失败</p>
+<p><strong>一致性</strong>（Consistency）：事务必须使数据库从一个一致性状态变换到另外一个一致性状态。转账前和转账后的总金额不变。</p>
+<p>事务必须要保持和系统处于一致的状态（如果不一致会导致系统其它的方出现bug）</p>
+<p><strong>隔离性</strong>（Isolation）：事务的隔离性是多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。</p>
+<p>=&gt;  讲解:一个事务A开始事务,修改a表数据,自己查询数据,已经修改</p>
+<p>=&gt;  另外开启一个事务B:操作同一个表-&gt; 修改a表其他列数据,自己查看已经修改</p>
+<p>=&gt;  但是A事务再查表数据,并未看见B事务做出的修改.同样B事务也看不见A事务做出的修改.</p>
+<p><strong>持久性</strong>（Durability）：指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响。</p>
+<h1 id="3、事务的隔离级别"><a href="#3、事务的隔离级别" class="headerlink" title="3、事务的隔离级别"></a>3、事务的隔离级别</h1><p>隔离级别:</p>
+<p>　　 数据库通过设置事务的<strong>隔离级别</strong>防止以上情况的发生：</p>
+<p>1、<strong>读未提交</strong> - <code>DUNCOMMITTED</code>：赃读、不可重复读、虚读都有可能发生。</p>
+<p>2、<strong>读已提交</strong> - <code>READ COMMITTED</code>： 避免赃读。不可重复读、虚读都有可能发生。（oracle默认的）</p>
+<p>3、<strong>可重复读</strong> - <code>REPEATABLE READ</code>：避免赃读、不可重复读。虚读有可能发生。（<strong>mysql</strong>默认）</p>
+<p>4、<strong>串行化</strong> - <code>SERIALIZABLE</code>：避免赃读、不可重复读、虚读。(<strong>级别最高</strong>)</p>
+<hr>
+<p><strong>MySQL的隔离级别的作用就是让事务之间互相隔离，互不影响，这样可以保证事务的一致性。</strong></p>
+<p>　　 隔离<strong>级别比较</strong>：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
+<p>　　 隔离级别对性能的<strong>影响</strong>比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
+<p>　　 由此看出，隔离级别越高，所需要消耗的MySQL性能越大（如事务并发严重性），为了平衡二者，一般建议设置的隔离级别为可重复读(REPEATABLE READ).</p>
+<hr>
+<p>　　 不同的隔离级别产生如下情况:</p>
+<p><strong>赃读</strong>：指一个事务读取了另一个事务未提交的数据。</p>
+<p><strong>不可重复读</strong>：在一个事务内读取表中的某一行数据，多次读取结果不同。一个事务读取到了另一个事务提交后的数据。（update）</p>
+<p><strong>虚读</strong>（幻读）：是指在一个事务内读取到了别的事务插入的数据，导致前后读取不一致。       (insert)</p>
+<blockquote>
+<p>脏读: </p>
+<p>​            对于两个事物 T1, T2, T1 读取了已经被 T2 更新但还没有被提交的字段.</p>
+<p>​            之后, 若 T2 回滚, T1读取的内容就是临时且无效的.</p>
+<p>不可重复读: </p>
+<p>​            对于两个事物 T1, T2, T1 读取了一个字段, 然后 T2 更新了该字段.</p>
+<p>​            之后, T1再次读取同一个字段, 值就不同了.</p>
+<p>幻读: </p>
+<p>​            对于两个事物 T1, T2, T1 从一个表中读取了一个字段, 然后 T2 在该表中</p>
+<p>​            插入了一些新的行. 之后, 如果 T1 再次读取同一个表, 就会多出几行.</p>
+</blockquote>
+<hr>
+<p>　　 以上四种隔离级别最高的是<code>Serializable</code>级别，最低的是<code>Read uncommitted</code>级别，当然级别越高，执行效率就越低。像<code>Serializable</code>这样的级别，就是以锁表的方式(类似于Java多线程中的锁)使得其他的线程只能在锁外等待，所以平时选用何种隔离级别应该根据实际情况。<strong>在MySQL数据库中默认的隔离级别为<code>Repeatable read</code> (可重复读)。</strong></p>
+<hr>
+<p>　　 mysql中：</p>
+<p><strong>查看</strong>当前的事务隔离级别：<code>SELECT @@TX_ISOLATION;</code></p>
+<p><strong>更改</strong>当前的事务隔离级别：<code>SET [glogal | session] TRANSACTION ISOLATION LEVEL 四个级别之一</code></p>
+<p style="font-family:arial; color:red;">设置隔离级别必须在事务之前
+
+<hr>
+<p>案例演示：</p>
+<p>Navicat演示隔离级别效果</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">-- ================== 默认事务 ==================</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> mysql默认每句sql都是处于事务,自动开启,提交.</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-comment">-- 查看当前提交方式</span><br><span class="hljs-keyword">SHOW</span> VARIABLES <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;autocommit&#x27;</span><br><span class="hljs-comment">-- A向B转账100</span><br><span class="hljs-comment">-- A减少100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> - <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">1</span>;<br><span class="hljs-comment">-- B增加100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> + <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">2</span>;<br><br><br><span class="hljs-comment">-- =============== 手动控制事务 ================</span><br><span class="hljs-comment">-- 开启事务</span><br><span class="hljs-keyword">begin</span>;<br><br><span class="hljs-comment">-- A减少100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> - <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">1</span>;<br><span class="hljs-comment">-- 假如此处出现事故,,下个语句不执行,可以执行rollback回滚数据</span><br><span class="hljs-comment">-- B增加100</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> + <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id = <span class="hljs-number">2</span>;<br><br><span class="hljs-comment">-- 提交事务</span><br><span class="hljs-keyword">commit</span>;<br><br><span class="hljs-comment">-- 出错,可以回滚</span><br><span class="hljs-keyword">rollback</span>;<br><br><br><span class="hljs-comment">-- ====================== 隔离级别,以及对应的bug ================</span><br><span class="hljs-comment">-- 查看当前的事务隔离级别：</span><br><span class="hljs-keyword">SELECT</span> @@TX_ISOLATION;<br><br><span class="hljs-comment">-- 修改隔离级别</span><br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> <span class="hljs-keyword">TRANSACTION</span> <span class="hljs-keyword">ISOLATION</span> <span class="hljs-keyword">LEVEL</span> <span class="hljs-keyword">REPEATABLE</span> <span class="hljs-keyword">READ</span><br><span class="hljs-comment">-- ======&gt; 一,设置级别为读未提交</span><br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> <span class="hljs-keyword">TRANSACTION</span> <span class="hljs-keyword">ISOLATION</span> <span class="hljs-keyword">LEVEL</span> <span class="hljs-keyword">READ</span> <span class="hljs-keyword">UNCOMMITTED</span>;<br><span class="hljs-comment">-- ======&gt; 二,设置级别为读已提交</span><br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> <span class="hljs-keyword">TRANSACTION</span> <span class="hljs-keyword">ISOLATION</span> <span class="hljs-keyword">LEVEL</span> <span class="hljs-keyword">READ</span> <span class="hljs-keyword">COMMITTED</span>;<br><span class="hljs-comment">-- ======&gt; 三,设置级别为可重复读</span><br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> <span class="hljs-keyword">TRANSACTION</span> <span class="hljs-keyword">ISOLATION</span> <span class="hljs-keyword">LEVEL</span> <span class="hljs-keyword">REPEATABLE</span> <span class="hljs-keyword">READ</span>;<br><span class="hljs-comment">-- ======&gt; 三,设置级别为可重复读</span><br><span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> <span class="hljs-keyword">TRANSACTION</span> <span class="hljs-keyword">ISOLATION</span> <span class="hljs-keyword">LEVEL</span> <span class="hljs-keyword">SERIALIZABLE</span>;<br><br><span class="hljs-comment">-- 开事务</span><br><span class="hljs-keyword">begin</span>;<br><br><span class="hljs-comment">-- 改数据</span><br><span class="hljs-keyword">update</span> account <span class="hljs-keyword">set</span> <span class="hljs-type">money</span> = <span class="hljs-type">money</span> - <span class="hljs-number">100</span> <span class="hljs-keyword">where</span> id =<span class="hljs-number">1</span>;<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> account <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;赵六&#x27;</span>,<span class="hljs-number">1000</span>);<br><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> account <span class="hljs-keyword">where</span> id = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">commit</span>;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h1 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a><strong>锁机制</strong></h1><p>　　 <strong>Innodb默认是行锁,但是在事务(增删改)中，没有使用到索引，那么系统会自动升级会表锁，</strong></p>
+<p><strong>行锁：事务开始后，其他用户不能操作该行数据</strong></p>
+<p><strong>表锁：事务开始后,其他用户不能操作这张表</strong></p>
+<hr>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/MySQL/">MySQL</a>
+                    
+                      <a class="hover-with-bg" href="/categories/MySQL/%E5%85%A5%E9%97%A8/">入门</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MySQL/">MySQL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/24/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java多线程</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/29/Java%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88%E7%9A%84%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E5%8F%8A%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6/">
+                        <span class="hidden-mobile">Java常见集合的默认大小及扩容机制</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

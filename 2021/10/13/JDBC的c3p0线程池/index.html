@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>详解c3p0线程池 - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="详解c3p0线程池">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-13 00:00" pubdate>
+        October 13, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      52
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">详解c3p0线程池</h1>
+            
+            <div class="markdown-body">
+              <p><strong>详解C3P0(数据库连接池)</strong></p>
+<hr>
+<p>　　之前连接数据库操作，都是使用的传统的开发模式，就是通过 <code>JDBC</code> 中的 <code>DriverManager</code> 建立数据库连接，然后将要对数据库进行操作的sql语句封装到 <code>prepareStatement</code> 中，最后在返回结果集后断开数据库连接。</p>
+<center><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210629190814.jpg" srcset="/img/loading.gif" lazyload style="zoom:25%;" /></center>
+
+<p>　　今天，见别人用的都是 <code>c3p0 </code>线程池操作数据库，这可不行哦！</p>
+<p>　　速速过来补了一下，结果发现也没什么，咔叽咔叽封装后也就是调用了和传统的方式用法基本一致。</p>
+<p>　　不过还是有些区别的。于是总结了一下。</p>
+<hr>
+<h2 id="一、基本定义"><a href="#一、基本定义" class="headerlink" title="一、基本定义"></a>一、基本定义</h2><p>　　<code>C3P0</code> 是一个开源的JDBC连接池，它实现了数据源与JNDI绑定，支持JDBC3规范和实现了JDBC2的标准扩展说明的 <code>Connection</code> 和 <code>Statement</code> 池的 <code>DataSources</code> 对象。</p>
+<p>　　即将用于连接数据库的连接整合在一起形成一个随取随用的数据库连接池（Connection pool）。</p>
+<hr>
+<h2 id="二、使用C3P0（数据库连接池）的必要性"><a href="#二、使用C3P0（数据库连接池）的必要性" class="headerlink" title="二、使用C3P0（数据库连接池）的必要性"></a>二、使用C3P0（数据库连接池）的必要性</h2><p>　　当我们在进行基于数据库的web程序开发时，我们可以先在主程序（如<code>Servlet</code>、<code>Bean</code>）中通过 <code>JDBC</code> 中的 <code>DriverManager</code> 建立数据库连接，然后将要对数据库进行操作的sql语句封装到 <code>Statement</code> 中，最后在返回结果集后断开数据库连接。</p>
+<p>　　以上是较为传统的开发模式，然而用这种模式开发会埋下严重的安全隐患。</p>
+<hr>
+<h3 id="JDBC传统模式开发存在的主要问题"><a href="#JDBC传统模式开发存在的主要问题" class="headerlink" title="JDBC传统模式开发存在的主要问题"></a>JDBC传统模式开发存在的主要问题</h3><ul>
+<li><h3 id="时间和内存资源消耗巨大"><a href="#时间和内存资源消耗巨大" class="headerlink" title="时间和内存资源消耗巨大"></a>时间和内存资源消耗巨大</h3></li>
+</ul>
+<p>　　普通的<code>JDBC</code>数据库连接使用<code>DriverManager</code>来获取，每次向数据库建立连接的时候都要将<code>Connection</code>加载到内存中，再根据<code>JDBC</code>代码（或配置文件）中的用户名和密码进行验证其正确性。</p>
+<p>　　这一过程一般会花费0.05~1s，一旦需要数据库连接的时候就必须向数据库请求一个，执行完后再断开连接。显然，如果同一个数据库在同一时间有数十人甚至上百人请求连接势必会占用大量的系统资源，严重的会导致服务器崩溃。</p>
+<ul>
+<li><h3 id="有内存泄漏的风险"><a href="#有内存泄漏的风险" class="headerlink" title="有内存泄漏的风险"></a>有内存泄漏的风险</h3></li>
+</ul>
+<p>　　因为每一次数据库连接使用完后都需要断开连接，但如果程序出现异常致使连接未能及时关闭，这样就可能导致内存泄漏，最终只能以重启数据库的方法来解决；</p>
+<p>　　另外使用传统JDBC模式开发不能控制需要创建的连接数，系统一般会将资源大量分出给连接以防止资源不够用，如果连接数超出一定数量也会有极大的可能导致内存泄漏。</p>
+<hr>
+<h2 id="三、数据库连接池的详细说明"><a href="#三、数据库连接池的详细说明" class="headerlink" title="三、数据库连接池的详细说明"></a>三、数据库连接池的详细说明</h2><p>　　为了解决由使用传统开发模式创建连接导致的一系列问题，我们可以采用数据库连接池技术。</p>
+<p>　　数据库连接池的基本原理就是为数据库<strong>建立一个缓冲池</strong>。在缓冲池中先创建指定数量的数据库连接，当有连接请求时就从缓冲池中取出处于“空闲”状态的连接，并将此连接标记为“忙碌”，直到该请求进程结束后，它所使用的连接才会重新回到“空闲”状态，并等待下一次请求调用。</p>
+<p>　　从上面不难看出数据库连接池的主要作用就是<strong>负责分配、管理和释放数据库连接</strong>，它允许程序重复使用同一个现有的数据库连接，大大缩短了运行时间，提高了执行效率。</p>
+<p>　　这里需要强调一点的是，数据库连接池中的连接数是在其初始化时根据 <code>c3p0-config.xml</code> 中的最小连接数来确定的，关于 <code>c3p0-config.xml</code> 我会在后文提供模板以供大家参考。当然，无论连接池的连接数是否有被使用，它都<strong>至少会保持最小连接数</strong>，如果请求连接数超过最小连接数也会根据 <code>c3p0-config.xml</code> 中指定的自增长数增加连接数直到达到最大连接数，这时如果请求连接数量还是大于连接池中的连接数的话，剩下的请求将会被放入等待队列直到有空闲连接出现。</p>
+<p>　　这样一来，数据库连接池相较于传统 <code>JDBC</code> 模式等到请求发出才创建连接的做法有着显而易见的优势。</p>
+<hr>
+<h2 id="四、使用连接池的明显优势"><a href="#四、使用连接池的明显优势" class="headerlink" title="四、使用连接池的明显优势"></a>四、使用连接池的明显优势</h2><h3 id="1-资源的高效利用"><a href="#1-资源的高效利用" class="headerlink" title="1.资源的高效利用"></a>1.资源的高效利用</h3><p>　　由于数据库连接得以重用，避免了频繁创建，释放连接引起的大量性能开销，减小了系统资源消耗的同时也提高了系统运行环境的平稳性。</p>
+<hr>
+<h3 id="2-更快的系统反应速度"><a href="#2-更快的系统反应速度" class="headerlink" title="2.更快的系统反应速度"></a>2.更快的系统反应速度</h3><p>　　数据库连接池在初始化过程中，往往已经创建了若干数据库连接置于连接池中备用。此时连接的初始化工作均已完成。对于业务请求处理而言，直接利用现有可用连接可以避免数据库在连接初始化和释放过程所需的时间开销，从而减少了系统的响应时间，提高了系统的反应速度。</p>
+<hr>
+<h3 id="3-减少了资源独占的风险"><a href="#3-减少了资源独占的风险" class="headerlink" title="3.减少了资源独占的风险"></a>3.减少了资源独占的风险</h3><p>　　新的资源分配手段对于多应用共享同一数据库的系统而言，可在应用层通过数据库连接池的配置实现对某一应用最大可用数据库连接数的限制，避免了应用独占所有数据库资源的风险。</p>
+<hr>
+<h3 id="4-统一的连接管理，避免数据库连接泄露"><a href="#4-统一的连接管理，避免数据库连接泄露" class="headerlink" title="4.统一的连接管理，避免数据库连接泄露"></a>4.统一的连接管理，避免数据库连接泄露</h3><p>　　在实现较为完善的数据库连接池时，可根据预先的占用超时设定，强制回收被占用连接，从而避免了常规数据库连接操作中可能出现的资源泄露。</p>
+<hr>
+<h2 id="五、C3P0实操"><a href="#五、C3P0实操" class="headerlink" title="五、C3P0实操"></a>五、C3P0实操</h2><h3 id="1-导入jar包"><a href="#1-导入jar包" class="headerlink" title="1.导入jar包"></a>1.导入jar包</h3><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211013220230.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<hr>
+<h3 id="2-配置xml文件"><a href="#2-配置xml文件" class="headerlink" title="2.配置xml文件"></a>2.配置xml文件</h3><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20211013220419.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<hr>
+<h3 id="3-一般c3p0-config-xml模板"><a href="#3-一般c3p0-config-xml模板" class="headerlink" title="3. 一般c3p0-config.xml模板"></a>3. 一般c3p0-config.xml模板</h3><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">c3p0-config</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">default-config</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--mysql数据库连接的各项参数--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;driverClass&quot;</span>&gt;</span>com.mysql.jdbc.Driver<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;jdbcUrl&quot;</span>&gt;</span>jdbc:mysql://localhost:3306/java36<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span>root<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span>&gt;</span>445566<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--配置数据库连接池的初始连接数、最小链接数、获取连接数、最大连接数、最大空闲时间--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;initialPoolSize&quot;</span>&gt;</span>10<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;minPoolSize&quot;</span>&gt;</span>10<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;acquireIncrement&quot;</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxPoolSize&quot;</span>&gt;</span>100<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxIdleTime&quot;</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">default-config</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">c3p0-config</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="4-c3p0-config-xml参数清单"><a href="#4-c3p0-config-xml参数清单" class="headerlink" title="4.c3p0-config.xml参数清单"></a>4.c3p0-config.xml参数清单</h3><p>　　开发过程中根据需要设置</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">c3p0-config</span>&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">default-config</span>&gt;</span>   <br>    <span class="hljs-comment">&lt;!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;acquireIncrement&quot;</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br> <br>    <span class="hljs-comment">&lt;!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;acquireRetryAttempts&quot;</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--两次连接中间隔时间，单位毫秒。Default: 1000 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;acquireRetryDelay&quot;</span>&gt;</span>1000<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--连接关闭时默认将所有未提交的操作回滚。Default: false --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;autoCommitOnClose&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--c3p0将建一张名为Test的空表，并使用其自带的查询语句进行测试。如果定义了这个参数那么   </span><br><span class="hljs-comment">    属性preferredTestQuery将被忽略。你不能在这张Test表上进行任何操作，它将只供c3p0测试   </span><br><span class="hljs-comment">    使用。Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;automaticTestTable&quot;</span>&gt;</span>Test<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常。但是数据源仍有效   </span><br><span class="hljs-comment">    保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试   </span><br><span class="hljs-comment">    获取连接失败后该数据源将申明已断开并永久关闭。Default: false--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;breakAfterAcquireFailure&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出   </span><br><span class="hljs-comment">    SQLException,如设为0则无限期等待。单位毫秒。Default: 0 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;checkoutTimeout&quot;</span>&gt;</span>100<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--通过实现ConnectionTester或QueryConnectionTester的类来测试连接。类名需制定全路径。   </span><br><span class="hljs-comment">    Default: com.mchange.v2.c3p0.impl.DefaultConnectionTester--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;connectionTesterClassName&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--指定c3p0 libraries的路径，如果（通常都是这样）在本地即可获得那么无需设置，默认null即可   </span><br><span class="hljs-comment">    Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;factoryClassLocation&quot;</span>&gt;</span>null<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--强烈不建议使用该方法，将这个设置为true可能会导致一些微妙而奇怪的bug--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;forceIgnoreUnresolvedTransactions&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--每60秒检查所有连接池中的空闲连接。Default: 0 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;idleConnectionTestPeriod&quot;</span>&gt;</span>60<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;initialPoolSize&quot;</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxIdleTime&quot;</span>&gt;</span>60<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--连接池中保留的最大连接数。Default: 15 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxPoolSize&quot;</span>&gt;</span>15<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements   </span><br><span class="hljs-comment">    属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。   </span><br><span class="hljs-comment">    如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxStatements&quot;</span>&gt;</span>100<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxStatementsPerConnection&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能   </span><br><span class="hljs-comment">    通过多线程实现多个操作同时被执行。Default: 3--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;numHelperThreads&quot;</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--当用户调用getConnection()时使root用户成为去获取连接的用户。主要用于连接池连接非c3p0   </span><br><span class="hljs-comment">    的数据源时。Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;overrideDefaultUser&quot;</span>&gt;</span>root<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--与overrideDefaultUser参数对应使用的一个参数。Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;overrideDefaultPassword&quot;</span>&gt;</span>password<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--密码。Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--定义所有连接测试都执行的测试语句。在使用连接测试的情况下这个一显著提高测试速度。注意：   </span><br><span class="hljs-comment">    测试的表必须在初始数据源的时候就存在。Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;preferredTestQuery&quot;</span>&gt;</span>select id from test where id=1<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--用户修改系统配置参数执行前最多等待300秒。Default: 300 --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;propertyCycle&quot;</span>&gt;</span>300<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的   </span><br><span class="hljs-comment">    时候都将校验其有效性。建议使用idleConnectionTestPeriod或automaticTestTable   </span><br><span class="hljs-comment">    等方法来提升连接测试的性能。Default: false --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;testConnectionOnCheckout&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--如果设为true那么在取得连接的同时将校验连接的有效性。Default: false --&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;testConnectionOnCheckin&quot;</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--用户名。Default: null--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span>root<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>   <br>       <br>    <span class="hljs-comment">&lt;!--早期的c3p0版本对JDBC接口采用动态反射代理。在早期版本用途广泛的情况下这个参数   </span><br><span class="hljs-comment">    允许用户恢复到动态反射代理以解决不稳定的故障。最新的非反射代理更快并且已经开始   </span><br><span class="hljs-comment">    广泛的被使用，所以这个参数未必有用。现在原先的动态反射与新的非反射代理同时受到   </span><br><span class="hljs-comment">    支持，但今后可能的版本可能不支持动态反射代理。Default: false--&gt;</span>   <br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;usesTraditionalReflectiveProxies&quot;</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span> <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">default-config</span>&gt;</span>      <br><span class="hljs-tag">&lt;/<span class="hljs-name">c3p0-config</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="5-创建C3P0Util类"><a href="#5-创建C3P0Util类" class="headerlink" title="5.创建C3P0Util类"></a>5.创建C3P0Util类</h3><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.zhiyou.util;<br><br><span class="hljs-keyword">import</span> com.mchange.v2.c3p0.ComboPooledDataSource;<br><br><span class="hljs-keyword">import</span> javax.sql.DataSource;<br><span class="hljs-keyword">import</span> java.sql.Connection;<br><span class="hljs-keyword">import</span> java.sql.ResultSet;<br><span class="hljs-keyword">import</span> java.sql.SQLException;<br><span class="hljs-keyword">import</span> java.sql.Statement;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C3P0Util</span> </span>&#123;<br>    <span class="hljs-comment">//使用ComboPooledDataSource来生成DataSource的实例</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> DataSource dataSource = <span class="hljs-keyword">new</span> ComboPooledDataSource();<br><br>    <span class="hljs-comment">//从连接池中获取连接</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Connection <span class="hljs-title">getConnection</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">return</span> dataSource.getConnection();<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//释放连接回连接池</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">release</span><span class="hljs-params">(Connection conn, Statement stmt, ResultSet rs)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (rs != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                rs.close();<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            rs = <span class="hljs-keyword">null</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (stmt != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                stmt.close();<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            stmt = <span class="hljs-keyword">null</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (conn != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                conn.close();<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            conn = <span class="hljs-keyword">null</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h3 id="6-创建user表和类"><a href="#6-创建user表和类" class="headerlink" title="6.创建user表和类"></a>6.创建user表和类</h3><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.c3p0.utils;<br> <br><span class="hljs-keyword">import</span> java.io.Serializable;<br><span class="hljs-keyword">import</span> java.util.Date;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;<br>    <span class="hljs-keyword">private</span> String username;<br>    <span class="hljs-keyword">private</span> String password;<br>    <span class="hljs-keyword">private</span> String email;<br>    <span class="hljs-keyword">private</span> Date birthday;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getId</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> id;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setId</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.id = id;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUsername</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> username;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUsername</span><span class="hljs-params">(String username)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.username = username;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getPassword</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> password;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setPassword</span><span class="hljs-params">(String password)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.password = password;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getEmail</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> email;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setEmail</span><span class="hljs-params">(String email)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.email = email;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Date <span class="hljs-title">getBirthday</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> birthday;<br>    &#125;<br> <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBirthday</span><span class="hljs-params">(Date birthday)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.birthday = birthday;<br>    &#125;<br> <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;User [id=&quot;</span> + id + <span class="hljs-string">&quot;, username=&quot;</span> + username + <span class="hljs-string">&quot;, password=&quot;</span><br>                + password + <span class="hljs-string">&quot;, email=&quot;</span> + email + <span class="hljs-string">&quot;, birthday=&quot;</span> + birthday<br>                + <span class="hljs-string">&quot;]&quot;</span>;<br>    &#125;<br> <br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>　（注：后面的测试程序也是调用此表，我们就对表中的数据进行了封装，后台数据库也是此类结构，这里不再展示）</p>
+<hr>
+<h3 id="7-测试程序"><a href="#7-测试程序" class="headerlink" title="7.测试程序"></a>7.测试程序</h3><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.c3p0.utils;<br> <br><span class="hljs-keyword">import</span> java.sql.Connection;<br><span class="hljs-keyword">import</span> java.sql.PreparedStatement;<br><span class="hljs-keyword">import</span> java.sql.ResultSet;<br><span class="hljs-keyword">import</span> java.sql.SQLException;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br> <br><span class="hljs-keyword">import</span> org.junit.Test;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestCRUD</span> </span>&#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testInsert</span><span class="hljs-params">()</span> </span>&#123;<br>        Connection conn = <span class="hljs-keyword">null</span>;<br>        PreparedStatement ps = <span class="hljs-keyword">null</span>;<br>        conn = C3P0Util.getConnection();<br>        <span class="hljs-keyword">try</span> &#123;<br>            ps = conn.prepareStatement(<span class="hljs-string">&quot;INSERT INTO users (username,PASSWORD,email,birthday)VALUES(&#x27;SUN99&#x27;,&#x27;123&#x27;,&#x27;123456@qq.com&#x27;,&#x27;2020-01-01&#x27;)&quot;</span>);<br>            ps.executeUpdate();<br>            System.out.println(<span class="hljs-string">&quot;添加操作执行成功！&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            e.printStackTrace();<br>            System.out.println(<span class="hljs-string">&quot;添加操作执行失败！&quot;</span>);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            C3P0Util.release(conn, ps, <span class="hljs-keyword">null</span>);<br>        &#125;<br>    &#125;<br> <br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testSelect</span><span class="hljs-params">()</span> </span>&#123;<br>        Connection conn = <span class="hljs-keyword">null</span>;<br>        PreparedStatement ps = <span class="hljs-keyword">null</span>;<br>        ResultSet rs = <span class="hljs-keyword">null</span>;<br>        conn = C3P0Util.getConnection();<br>        <span class="hljs-keyword">try</span> &#123;<br>            ps = conn.prepareStatement(<span class="hljs-string">&quot;Select * from users&quot;</span>);<br>            rs = ps.executeQuery();<br>            List&lt;User&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;User&gt;();<br>            <span class="hljs-keyword">while</span> (rs.next()) &#123;<br>                User u = <span class="hljs-keyword">new</span> User();<br>                u.setId(rs.getInt(<span class="hljs-number">1</span>));<br>                u.setUsername(rs.getString(<span class="hljs-number">2</span>));<br>                u.setPassword(rs.getString(<span class="hljs-number">3</span>));<br>                u.setEmail(rs.getString(<span class="hljs-number">4</span>));<br>                u.setBirthday(rs.getDate(<span class="hljs-number">5</span>));<br>                list.add(u);<br>            &#125;<br>            <span class="hljs-keyword">for</span> (User user : list) &#123;<br>                System.out.println(user.toString());<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            C3P0Util.release(conn, ps, rs);<br>        &#125;<br>    &#125;<br> <br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testDelete</span><span class="hljs-params">()</span> </span>&#123;<br>        Connection conn = <span class="hljs-keyword">null</span>;<br>        PreparedStatement ps = <span class="hljs-keyword">null</span>;<br>        conn = C3P0Util.getConnection();<br>        <span class="hljs-keyword">try</span> &#123;<br>            ps = conn.prepareStatement(<span class="hljs-string">&quot;delete from users where username=&#x27;SUN99&#x27;&quot;</span>);<br>            ps.executeUpdate();<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            C3P0Util.release(conn, ps, <span class="hljs-keyword">null</span>);<br>        &#125;<br>    &#125;<br> <br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testUpdate</span><span class="hljs-params">()</span> </span>&#123;<br>        Connection conn = <span class="hljs-keyword">null</span>;<br>        PreparedStatement ps = <span class="hljs-keyword">null</span>;<br>        conn = C3P0Util.getConnection();<br>        <span class="hljs-keyword">try</span> &#123;<br>            ps = conn.prepareStatement(<span class="hljs-string">&quot;UPDATE users SET username=&#x27;SUN100&#x27;,PASSWORD=&#x27;456&#x27;WHERE id=&#x27;1&#x27;&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            C3P0Util.release(conn, ps, <span class="hljs-keyword">null</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><ol>
+<li><p>相较于<code>JDBC</code>，使用<code>C3P0</code>能够更加高效地建立与数据库的连接，尤其是在高并发随机访问数据库的时候。</p>
+</li>
+<li><p><code>C3P0</code>通过<code>dataSource.getConnection()</code>从线程池中获取“空闲”连接，真正的数据库连接创建与释放则是由<code>C3P0</code>在后台自行完成的，我们只花费了获取和释放连接占用权的时间。</p>
+</li>
+<li><p>使用<code>c3p0-config.xml</code>代替原来<code>JDBC</code>硬编码的形式，提高了代码复用性。</p>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JDBC/">JDBC</a>
+                    
+                      <a class="hover-with-bg" href="/categories/JDBC/C3P0%E7%BA%BF%E7%A8%8B%E6%B1%A0/">C3P0线程池</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JDBC/">JDBC</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/14/JavaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaWeb三大组件</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/24/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="hidden-mobile">Java多线程</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

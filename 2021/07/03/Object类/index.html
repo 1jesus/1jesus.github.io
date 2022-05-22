@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>Object类 - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Object类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-03 00:00" pubdate>
+        July 3, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Object类</h1>
+            
+            <div class="markdown-body">
+              <p><strong>Object类</strong></p>
+<hr>
+<h3 id="一、Object类简介"><a href="#一、Object类简介" class="headerlink" title="一、Object类简介"></a>一、Object类简介</h3><p>Object类是Java<code>java.lang</code>包下的核心类（此包下的所有类在使用时无需手动导入，系统会在程序编译期间自动导入），<strong>Object类是所有类的父类</strong></p>
+<p>Object是java所有类的基类，是整个类继承结构的顶端，也是最抽象的一个类。我们天天都在使用<code>toString()</code>、<code>equals()</code>、<code>hashCode()</code>、<code>waite()</code>、<code>notify()</code>、<code>getClass()</code>等方法，或许都没有意识到是Object的方法，也没有去看Object还有哪些方法以及思考为什么这些方法要放到Object中。</p>
+<p>何一个类时候如果没有明确的继承一个父类的话，那么它就是Object的子类；</p>
+<p>以下两种类的定义的效果是完全相同的：</p>
+<blockquote>
+<p>class Person { } </p>
+<p>class Person extends Object { }</p>
+</blockquote>
+<hr>
+<h3 id="二、Object方法"><a href="#二、Object方法" class="headerlink" title="二、Object方法"></a>二、Object方法</h3><h4 id="方法："><a href="#方法：" class="headerlink" title="方法："></a><strong>方法：</strong></h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">getClass()<br><span class="hljs-function">hash <span class="hljs-title">Code</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">equals</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">clone</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">toString</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">notify</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">notifyAll</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-keyword">long</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-keyword">long</span>,<span class="hljs-keyword">int</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">wait</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">finalize</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> class&lt;?&gt; <span class="hljs-title">getclass</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-comment">//（返回此对象的运行时类。返回的Class对象是被所表示类的静态同步方法锁定的对象。）</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object obj)</span></span><br><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">native</span> 0bject <span class="hljs-title">clone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> CloneNotSupportedException</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> string <span class="hljs-title">toString</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">notify</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">notifyAll</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-keyword">long</span> timeout)</span> <span class="hljs-keyword">throws</span> InterruptedException</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-keyword">long</span> timeout,<span class="hljs-keyword">int</span> nanos)</span> <span class="hljs-keyword">throws</span> InterruptedException</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wait</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException</span><br><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">finalize</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123; &#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>共十二个方法。 </p>
+<hr>
+<h4 id="方法的作用："><a href="#方法的作用：" class="headerlink" title="方法的作用："></a><strong>方法的作用：</strong></h4><ol>
+<li><p><code>clone()</code></p>
+<p>保护方法，实现对象的浅复制，只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常。</p>
+</li>
+<li><p><code>getClass()</code></p>
+<p>返回Class类型的对象，反射来获取对象。</p>
+<p>这是一个public的方法，我们可以直接通过对象调用。</p>
+<p>类加载的第一阶段类的加载就是将.class文件加载到内存，并生成一个java.lang.Class对象的过程。<strong>getClass()方法就是获取这个对象，这是当前类的对象在运行时类的所有信息的集合。</strong>这个方法是反射三种方式之一</p>
+</li>
+<li><p><code>toString()</code></p>
+<p>该方法用得比较多，一般子类都有覆盖，来获取对象的信息。</p>
+</li>
+<li><p><code>finalize()</code></p>
+<p>该方法用于释放资源。因为无法确定该方法什么时候被调用，很少使用。</p>
+</li>
+<li><p><code>equals()</code></p>
+<p>比较对象的内容是否相等</p>
+</li>
+<li><p><code>hashCode()</code></p>
+<p>该方法用于哈希查找，重写了equals方法一般都要重写hashCode方法。这个方法在一些具有哈希功能的Collection中用到。</p>
+</li>
+<li><p><code>wait()</code></p>
+<p>wait方法就是使当前线程等待该对象的锁，当前线程必须是该对象的拥有者，也就是具有该对象的锁。wait()方法一直等待，直到获得锁或者被中断。wait(long timeout)设定一个超时间隔，如果在规定时间内没有获得锁就返回。</p>
+<p>调用该方法后当前线程进入睡眠状态，直到以下事件发生。</p>
+<ul>
+<li>其他线程调用了该对象的<code>notify()</code>方法。</li>
+<li>其他线程调用了该对象的<code>notifyAll()</code>方法。</li>
+<li>其他线程调用了``interrupt`中断该线程。</li>
+<li>时间间隔到了。</li>
+</ul>
+<p>此时该线程就可以被调度了，如果是被中断的话就抛出一个InterruptedException异常。</p>
+</li>
+<li><p><code>notify()</code></p>
+<p>该方法唤醒在该对象上等待的<strong>某个</strong>线程。</p>
+</li>
+<li><p><code>notifyAll()</code></p>
+<p>该方法唤醒在该对象上等待的<strong>所有</strong>线程。</p>
+</li>
+</ol>
+<hr>
+<h3 id="三、Object类的常用方法"><a href="#三、Object类的常用方法" class="headerlink" title="三、Object类的常用方法"></a>三、Object类的常用方法</h3><table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="center">类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">toString()</td>
+<td align="center">普通</td>
+<td align="center">取得对象信息</td>
+</tr>
+<tr>
+<td align="center">equals()</td>
+<td align="center">普通</td>
+<td align="center">对象内容比较</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="一、toString-方法"><a href="#一、toString-方法" class="headerlink" title="一、toString()方法"></a><strong>一、toString()方法</strong></h4><p><code>toString()</code>：<strong>取得对象信息，返回该对象的字符串表示</strong></p>
+<p>例1：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Person per = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;xiaoa&quot;</span>, <span class="hljs-number">12</span>);<br>        System.out.println(per);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果：</p>
+<blockquote>
+<p>输出：training.Test$Person@7ef20235</p>
+</blockquote>
+<p><strong>在使用对象直接输出的时候，默认输出的是一个对象在堆内存上的地址值；</strong></p>
+<p><strong>如若要输出该对象的内容，则要重写<code>toString()</code>方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;名字为：&quot;</span> + <span class="hljs-keyword">this</span>.name + <span class="hljs-string">&quot;  年龄为：&quot;</span> + <span class="hljs-keyword">this</span>.age;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Person per = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;xiaoa&quot;</span>, <span class="hljs-number">12</span>);<br>        System.out.println(per);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>输出：名字为：xiaoa  年龄为：12</p>
+</blockquote>
+<p><strong>toString( )的核心目的在于取得对象信息</strong></p>
+<p>String作为信息输出的重要数据类型，在Java中所有的数据类型只要遇见String就执行了<code>+</code>，都要求其变为字符串后连接，而所有对象想要变为字符串就默认用<code>toString( )</code>方法</p>
+<p>例：</p>
+<blockquote>
+<p>System.out.println(“hello” + 111); </p>
+<p>输出：hello111</p>
+</blockquote>
+<hr>
+<p style="font-family:arial; color:red; font-size:20px;">为什么hello 和 111 (一个是字符串，一个是int类型的数据) 就可以直接拼接在一起呢？
+
+<p>因为字符串是爸爸，在这个拼爹的时代，他有一个万能的爸爸Object</p>
+<p>换而言之，Object是所有类的父类，任意类都是继承Object类的。而Object中定义了 <code>toString()</code>方法，所以任意类中都包含了<code>toString()</code>方法，对象在实例化之后都可以调用。</p>
+<p>所以任意对象转字符串的输出，是通过重写 <code>toString()</code>方法实现的…</p>
+<p>每一个类中都包含有<code>toString()</code>，但是并不是每一个类都重写了<code>toString()</code></p>
+<p>如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Random rand = <span class="hljs-keyword">new</span> Random();<br>        System.out.println(rand);<br><br>        ArrayList&lt;Integer&gt; list;<br>        list = <span class="hljs-keyword">new</span> ArrayList();<br><br>        list.add(<span class="hljs-number">1</span>);<br>        list.add(<span class="hljs-number">2</span>);<br>        list.add(<span class="hljs-number">3</span>);<br><br>        System.out.println(list);<span class="hljs-comment">//[1，2，3]</span><br>        Object obj = <span class="hljs-keyword">new</span> Object();<br>        System.out.println(obj);<br><br><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> getClass().getName() + <span class="hljs-string">&quot;@&quot;</span> + Integer.toHexString(hashCode());<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">java.util.Random@7ef20235<br>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>java.lang.Object@27d6c5e0<br></code></pre></div></td></tr></table></figure>
+
+<p>在源码中，可以发现通过反射，获取到了当前对象的<u>全限定类名</u>和@<u>十六进制哈希值字符串</u>。这就是不重写<code>toString()</code>时直接打印输出的内容。</p>
+<hr>
+<h4 id="二、equals方法"><a href="#二、equals方法" class="headerlink" title="二、equals方法"></a><strong>二、equals方法</strong></h4><p><strong>equals()：对象比较</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43232955/article/details/103216143"><strong>String类对象比较</strong></a> 使用的是 equals（）方法，实际上String类的equals（）方法就是重写 Object类中的equals（）方法</p>
+</blockquote>
+<ul>
+<li><strong>基本数据类型</strong>的比较用 <code>==</code> (如： a == 3，b == 4, a == b，比较的是值是否相等）</li>
+<li><strong>引用类型数据</strong>比较：调用 <code>equals()</code>方法进行比较</li>
+</ul>
+<p>用equals()来比较对象内容是否相同：</p>
+<p>例：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Person per1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;Mr .Q&quot;</span>, <span class="hljs-number">18</span>);<br>        Person per2 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;Mr .Q&quot;</span>, <span class="hljs-number">18</span>);<br>        System.out.println(per1.equals(per2));<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">false</span><br></code></pre></div></td></tr></table></figure>
+
+<p>两个对象per1和per2的内容相等，结果应该是true啊？为什么会是false呢？？？</p>
+<img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210630145520.jpg" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+
+<p><strong>因为此时直接调用equals()方法默认进行比较的是两个对象的地址</strong></p>
+<p>在源码中，<strong>传递来的Object对象和当前对象比较地址值，返回布尔值。</strong></p>
+<p>我们之前开始学Java时就应该了解，每使用一次new，就是一次”开天辟地“。new一下就会在堆上创建新空间，两个对象地址自然不会相同，所以为false。</p>
+<p>但是在判断两个对象是否相等时，比如要判断一个Person类的两个对象的姓名是否相同时，此时要重新重写<code>equals()</code></p>
+<p>依旧是上面的例子，重写equals()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Person per1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;Mr .Q&quot;</span>, <span class="hljs-number">18</span>);<br>        Person per2 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;Mr . Q&quot;</span>, <span class="hljs-number">18</span>);<br>        System.out.println(per1.equals(per2));<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>        <span class="hljs-keyword">public</span> String name;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>            <span class="hljs-keyword">this</span>.name = name;<br>            <span class="hljs-keyword">this</span>.age = age;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object obj)</span> </span>&#123;<br><br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> == obj) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (!(obj <span class="hljs-keyword">instanceof</span> Person)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>            &#125;<br>            Person p = (Person) obj;<br>            <span class="hljs-keyword">return</span> Objects.equals(name, p.name) &amp;&amp; Objects.equals(age, p.age);<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">/*   @Override   使用编译器可以自动生成</span><br><span class="hljs-comment">    public boolean equals(Object o) &#123;</span><br><span class="hljs-comment">        if (this == o)</span><br><span class="hljs-comment">            return true;</span><br><span class="hljs-comment">        if (o == null || getClass() != o.getClass())</span><br><span class="hljs-comment">            return false;</span><br><span class="hljs-comment">        Person person = (Person) o;</span><br><span class="hljs-comment">        return age == person.age &amp;&amp; Objects.equals(name, person.name);</span><br><span class="hljs-comment">    &#125; */</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">true</span><br></code></pre></div></td></tr></table></figure>
+
+<p><strong>所以，引用类型的数据在进行比较时，应该先重写<code>equals()</code>方法，不然比较的还是两个对象的堆内存地址值，必然不会相等.</strong></p>
+<hr>
+<img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210630145529.gif" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/java/Object%E7%B1%BB/">Object类</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/17/Java%E4%B8%AD%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java中的关键字总结</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/30/Typora/">
+                        <span class="hidden-mobile">Typora入门用法</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

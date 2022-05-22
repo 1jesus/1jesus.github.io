@@ -1,0 +1,614 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>MySQL常用命令 - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="MySQL常用命令">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-01 00:00" pubdate>
+        June 1, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL常用命令</h1>
+            
+            <div class="markdown-body">
+              <p><strong>之前学过点数据库，但是只停留在理论上，关于数据库的实际操作却不熟练，今天温习了一点，顺便整理了一下MySQL常用命令语句。</strong></p>
+<hr>
+<h2 id="一、连接MySQL"><a href="#一、连接MySQL" class="headerlink" title="一、连接MySQL"></a>一、连接MySQL</h2><h4 id="1、连接到本机上的MySQ："><a href="#1、连接到本机上的MySQ：" class="headerlink" title="1、连接到本机上的MySQ："></a><strong>1、连接到本机上的MySQ：</strong></h4><p>首先在打开cmd窗口，输入mysql -u root -p ，然后空格进入MySQL控制台。</p>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">mysql&gt; mysql -u root -p <span class="hljs-regexp">/*如果刚安装好MySQL，root是没有密码的*/</span><br></code></pre></div></td></tr></table></figure>
+
+<h4 id="2、连接到远程主机上的MySQL："><a href="#2、连接到远程主机上的MySQL：" class="headerlink" title="2、连接到远程主机上的MySQL："></a><strong>2、连接到远程主机上的MySQL：</strong></h4><p> 假设远程主机的IP为：192.168.206.100，用户名为root,密码为123456。</p>
+<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">mysql</span>&gt; mysql -h <span class="hljs-number">192.168.206.100</span> -u root -p <span class="hljs-number">123456</span>; /*u与root可以不加空格*/<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="3、退出MySQL命令：-exit-或-quit（回车）："><a href="#3、退出MySQL命令：-exit-或-quit（回车）：" class="headerlink" title="3、退出MySQL命令： exit 或 quit（回车）："></a>3、退出MySQL命令： exit 或 quit（回车）：</h4><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">mysql&gt; <span class="hljs-keyword">exit</span>/quit;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="二、MySQL–修改密码"><a href="#二、MySQL–修改密码" class="headerlink" title="二、MySQL–修改密码"></a>二、MySQL–修改密码</h2><h4 id="1、root密码为空时，设置root密码："><a href="#1、root密码为空时，设置root密码：" class="headerlink" title="1、root密码为空时，设置root密码："></a>1、root密码为空时，设置root密码：</h4><figure class="highlight haxe"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs haxe">mysql&gt; mysqladmin -u root <span class="hljs-keyword">new</span><span class="hljs-type">password</span>;   -- 因为开始时root没有密码，所以-p旧密码 可以省略<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="2、使用-sqladmin-命令修改密码："><a href="#2、使用-sqladmin-命令修改密码：" class="headerlink" title="2、使用 sqladmin 命令修改密码："></a>2、使用 sqladmin 命令修改密码：</h4><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">mysql</span>&gt; mysqladmin -u root -p<span class="hljs-number">123456</span> password <span class="hljs-number">12345678</span>;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="3、使用set-passsword命令修改密码："><a href="#3、使用set-passsword命令修改密码：" class="headerlink" title="3、使用set passsword命令修改密码："></a><strong>3、使用set passsword命令修改密码：</strong></h4><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">set</span> <span class="hljs-keyword">password</span> <span class="hljs-keyword">for</span> 用户名@localhost = <span class="hljs-keyword">password</span>(<span class="hljs-string">&#x27;新密码&#x27;</span>);<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="4、忘记root密码情况下："><a href="#4、忘记root密码情况下：" class="headerlink" title="4、忘记root密码情况下："></a><strong>4、忘记root密码情况下：</strong></h4><ul>
+<li>关闭正在运行的<strong>MySQL</strong>服务。</li>
+<li> 打开DOS窗口，转到<strong>mysql\bin</strong>目录。</li>
+<li> 输入<strong>mysqld –skip-grant-tables</strong> 回车。**–skip-grant-tables** 的意思是启动<strong>MySQL</strong>服务的时候跳过权限表认证。</li>
+<li> 再开一个<strong>DOS</strong>窗口（因为刚才那个DOS窗口已经不能动了），输入<strong>mysq</strong>l回车，如果成功，将出现<strong>MySQL</strong>提示符 &gt;。</li>
+<li>连接权限数据库： <strong>use mysql;</strong> 。</li>
+<li>改密码：**update user set password=password(“新密码”) where user=”root”;**（别忘了最后加分号） 。</li>
+<li>刷新权限（必须步骤）：<strong>flush privileges;</strong>　。</li>
+<li>退出<strong>mysql  quit；</strong>。</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><br>mysqld <span class="hljs-comment">--skip-grant-tables   </span><br>mysql&gt; use mysql;   <span class="hljs-comment">--连接权限数据库</span><br>mysql&gt; <span class="hljs-keyword">update</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> <span class="hljs-keyword">password</span>=<span class="hljs-keyword">password</span>(&quot;新密码&quot;) <span class="hljs-keyword">where</span> <span class="hljs-keyword">user</span>=&quot;root&quot;;   <span class="hljs-comment">-- 改密码</span><br>mysql&gt; flush <span class="hljs-keyword">privileges</span>;    <span class="hljs-comment">-- 刷新权限</span><br>mysql&gt; quit；    <span class="hljs-comment">-- 退出mysql</span><br><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="三、MySQL–常用命令"><a href="#三、MySQL–常用命令" class="headerlink" title="三、MySQL–常用命令"></a>三、MySQL–常用命令</h2><h4 id="1-创建数据库-create"><a href="#1-创建数据库-create" class="headerlink" title="1.创建数据库(create):"></a>1.创建数据库(create):</h4><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> db_name;  <span class="hljs-comment">-- 创建数据库</span><br><br>mysql&gt; <span class="hljs-keyword">show</span> databases;           <span class="hljs-comment">-- 显示所有的数据库</span><br><br>mysql&gt; <span class="hljs-keyword">drop</span> <span class="hljs-keyword">database</span> db_name;    <span class="hljs-comment">-- 删除数据库</span><br><br>mysql&gt; use db_name;              <span class="hljs-comment">-- 选择数据库</span><br><br>mysql&gt; <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> tb_name (字段名 <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>), 字段名 <span class="hljs-type">char</span>(<span class="hljs-number">1</span>));   <span class="hljs-comment">-- 创建数据表模板</span><br><br>mysql&gt; <span class="hljs-keyword">show</span> <span class="hljs-keyword">tables</span>;              <span class="hljs-comment">-- 显示数据表</span><br><br>mysql&gt; <span class="hljs-keyword">desc</span> tb_name；            <span class="hljs-comment">-- 显示表结构</span><br><br>mysql&gt; <span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> tb_name；      <span class="hljs-comment">-- 删除表</span><br><br></code></pre></div></td></tr></table></figure>
+
+<p>eg:</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><br><span class="hljs-comment">/*创建一个学生表*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> Student(<br>     Sno <span class="hljs-type">char</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">primary</span> key,<br>     Sname <span class="hljs-type">char</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">unique</span>,<br>     Ssex <span class="hljs-type">char</span>(<span class="hljs-number">2</span>),<br>     Sage <span class="hljs-type">smallint</span>,<br>     Sdept <span class="hljs-type">char</span>(<span class="hljs-number">20</span>)<br>)；<br><br></code></pre></div></td></tr></table></figure>
+
+<h4 id="2、插入数据-insert"><a href="#2、插入数据-insert" class="headerlink" title="2、插入数据(insert):"></a>2、插入数据(insert):</h4><figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*第一种形式无需指定要插入数据的列名，只需提供被插入的值即可：*/</span><br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> tb_name <span class="hljs-keyword">values</span> (value1,value2,value3,...);<br><br><span class="hljs-comment">/*第二种形式需要指定列名及被插入的值：*/</span><br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> tb_name (column1,column2,column3,...) <span class="hljs-keyword">values</span> (value1,value2,value3...)<br></code></pre></div></td></tr></table></figure>
+
+<p>eg:</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">/*插入*/</span><br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> Student <span class="hljs-keyword">values</span> ( <span class="hljs-number">20180001</span>,张三,男,<span class="hljs-number">20</span>,CS）;<br> <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> Student <span class="hljs-keyword">values</span> ( <span class="hljs-number">20180002</span>,李四,男,<span class="hljs-number">19</span>,CS）;<br> <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> Student (Sno,Sname,Ssex,Sage,Sdept) <span class="hljs-keyword">values</span> ( <span class="hljs-number">20180003</span>,王五,男,<span class="hljs-number">18</span>,MA）;<br> <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> Student (Sno,Sname,Ssex,Sage,Sdept) <span class="hljs-keyword">values</span> ( <span class="hljs-number">20180004</span>,赵六,男,<span class="hljs-number">20</span>,<span class="hljs-keyword">IS</span>）<br><br></code></pre></div></td></tr></table></figure>
+
+<h4 id="3、查询数据-select"><a href="#3、查询数据-select" class="headerlink" title="3、查询数据(select):"></a>3、查询数据(select):</h4><p>  <strong>select</strong>语句除了可以查看数据库中的表格和视图的信息外,还可以查看 <strong>SQL Server</strong>的系统信息、复制、创建数据表。其查询功能强大，是<strong>SQL</strong>语言的灵魂语句，也是<strong>SQL</strong>中使用频率最高的语句。<br>基本<strong>select</strong>语句：<br>      一个基本的<strong>select</strong>语句可分解成三个部分：<u>查找什么数据</u><strong>（select）</strong>、<u>从哪里查找</u><strong>（from）</strong>、<u>查找的条件是什么</u><strong>（where）</strong>。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql"><span class="hljs-keyword">select</span> &lt;目标列表达式列表&gt;[<span class="hljs-keyword">into</span> 新表名]<br><span class="hljs-keyword">from</span> 表名或视图名[<span class="hljs-keyword">where</span> &lt;条件&gt;]<br>[<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> &lt;分组表达式&gt;]<br>[<span class="hljs-keyword">having</span> &lt;条件&gt;]<br>[<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> &lt;排序表达式&gt;[<span class="hljs-keyword">ASC</span>|<span class="hljs-keyword">DESC</span>]]<br><br></code></pre></div></td></tr></table></figure>
+
+<h5 id="一-查询指定的列"><a href="#一-查询指定的列" class="headerlink" title="(一)查询指定的列"></a>(一)查询指定的列</h5><h6 id="1-查询表中所有列"><a href="#1-查询表中所有列" class="headerlink" title="1.查询表中所有列:"></a>1.查询表中所有列:</h6><p>在select语句指定列的位置上使用*****号时，表示查询表的所有列。模板：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> tb_name；<br></code></pre></div></td></tr></table></figure>
+
+<h6 id="2-查询表中指定的列"><a href="#2-查询表中指定的列" class="headerlink" title="2.查询表中指定的列:"></a>2.查询表中指定的列:</h6><p>​    查询多列时，列名之间要用逗号隔开。 模板：</p>
+<figure class="highlight pf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pf">mysql&gt;  select tb_name.<span class="hljs-variable">&lt;字符型字段&gt;</span>,<span class="hljs-variable">&lt;字符型字段&gt;</span> ... <span class="hljs-keyword">from</span> tb_name;<br></code></pre></div></td></tr></table></figure>
+
+<h6 id="3-指定查询结果中的列标题："><a href="#3-指定查询结果中的列标题：" class="headerlink" title="3.指定查询结果中的列标题："></a>3.指定查询结果中的列标题：</h6><p>通过指定列标题（也叫<strong>列</strong>别名）可使输出结果更容易被人理解。指定列标题时，可在列名之后使用<strong>AS</strong>子句；也可使用:**列别名=&lt;表达式&gt;**的形式指定列标题。<br>        <strong>AS</strong>子句的格式为：列名或计算表达式 <strong>[AS]</strong> 列标题。模板：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">mysql&gt; <span class="hljs-keyword">select</span> &lt;字符型字段&gt; <span class="hljs-keyword">as</span> 列标题<span class="hljs-number">1</span>,&lt;字符型字段&gt; <span class="hljs-keyword">as</span> 列标题<span class="hljs-number">2</span>, &lt;字符型字段&gt; <span class="hljs-keyword">as</span> 列标题<span class="hljs-number">3</span> <span class="hljs-keyword">from</span> bt_name；<br></code></pre></div></td></tr></table></figure>
+
+<h6 id="4-查询经过计算的列（即表达式的值）"><a href="#4-查询经过计算的列（即表达式的值）" class="headerlink" title="4.查询经过计算的列（即表达式的值）:"></a>4.查询经过计算的列（即表达式的值）:</h6><p>使用<strong>select</strong>对<strong>列</strong>进行查询时，不仅可以直接<strong>以列的原始值作为结果</strong>，而且还<strong>可以将列值进行计算后所得值作为查询结果</strong>，即<strong>select子句</strong>可以查询表达式的值,表达式可由<u>列名</u>、<u>常量</u>及<u>算术运算符</u>组成。<br>        查询结果计算列显示“无列名”,一般要给计算列加列标题。其中：表达式中可以使用的运算符有：加+、减-、乘*、除/、取余%。模板：</p>
+<figure class="highlight pf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pf">mysql&gt; select <span class="hljs-variable">&lt;字符型字段&gt;</span>,<span class="hljs-variable">&lt;字符型字段&gt;</span>,列标题 = <span class="hljs-variable">&lt;字符型字段&gt;</span> * n <span class="hljs-keyword">from</span> tb_name；<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="二-选择行：选择表中的部分行或全部行作为查询的结果"><a href="#二-选择行：选择表中的部分行或全部行作为查询的结果" class="headerlink" title="(二)选择行：选择表中的部分行或全部行作为查询的结果"></a><strong>(二)选择行：选择表中的部分行或全部行作为查询的结果</strong></h5><p>格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> [<span class="hljs-keyword">all</span><span class="hljs-operator">|</span><span class="hljs-keyword">distinct</span>] [top n[<span class="hljs-keyword">percent</span>]]<span class="hljs-operator">&lt;</span>目标列表达式列表<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">from</span> 表名<br></code></pre></div></td></tr></table></figure>
+
+<p>消除查询结果中的重复行对于关系数据库来说，表中的每一行都必须是不同的(即无重复行)。但当对表进行查询时若只选择其中的某些列，查询结果中就可能会出现重复行。<br> 在select语句中使用distinct关键字可以消除结果集中的重复行。 模板：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> &lt;字符型字段&gt;[,&lt;字符型字段&gt;,...] <span class="hljs-keyword">from</span> tb_name；<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="三-查询满足条件的行-用where子句实现条件查询"><a href="#三-查询满足条件的行-用where子句实现条件查询" class="headerlink" title="(三)查询满足条件的行: 用where子句实现条件查询"></a>(三)查询满足条件的行: 用where子句实现条件查询</h5><p>通过<strong>where</strong>子句实现,该子句必须紧跟在<strong>From</strong>子句之后。格式为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> [<span class="hljs-keyword">all</span><span class="hljs-operator">|</span><span class="hljs-keyword">distinct</span>] [top n[<span class="hljs-keyword">percent</span>]]<span class="hljs-operator">&lt;</span>目标列表达式列表<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">from</span> 表名 <span class="hljs-keyword">where</span> <span class="hljs-operator">&lt;</span>条件<span class="hljs-operator">&gt;</span>；<br></code></pre></div></td></tr></table></figure>
+
+<p>​        说明：在查询条件中可使用以下运算符或表达式：                  </p>
+<p>​          运算符                 运算符标识<br>​                  比较运算符         &lt;=，&lt;，=，&gt;，&gt;=，!=，&lt;&gt;，!&gt;，!&lt;<br>​                  范围运算符         between… and，not between… and<br>​                  列举运算符         in，not in<br>​                  模糊匹配运算符 like，not like<br>​                  空值运算符         is null，is not null<br>​                  逻辑运算符         and，or，not</p>
+<h6 id="1-使用比较运算符："><a href="#1-使用比较运算符：" class="headerlink" title="1.使用比较运算符："></a>1.使用比较运算符：</h6><p>模板：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> tb_name <span class="hljs-keyword">where</span> &lt;字符型字段&gt; &gt;= n ；<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h6 id="2-指定范围："><a href="#2-指定范围：" class="headerlink" title="2.指定范围："></a>2.指定范围：</h6><p>用于指定范围的关键字有两个：<strong>between…and</strong>和 <strong>not between…and</strong>。<br>        格式为：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> tb_name <span class="hljs-keyword">where</span> [<span class="hljs-keyword">not</span>] <span class="hljs-keyword">between</span> &lt;表达式<span class="hljs-number">1</span>&gt; <span class="hljs-keyword">and</span> &lt;表达式<span class="hljs-number">2</span>&gt;;<br></code></pre></div></td></tr></table></figure>
+
+<p>其中：<strong>between</strong>关键字之后的是范围的下限（即低值）,<strong>and</strong>关键字之后的是范围的上限（即高值），用于查找字段值在（或不在）指定范围的行。</p>
+<h6 id="3-使用列举"><a href="#3-使用列举" class="headerlink" title="3.使用列举:"></a>3.使用列举:</h6><p>使用<strong>in</strong>关键字可以指定一个值的集合，集合中列出所有可能的值，当表达式的值与集合中的任一元素个匹配时，即返回<strong>true</strong>，否则返回<strong>false</strong>。<br>        模板：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> tb_name <span class="hljs-keyword">where</span> &lt;字符型字段&gt; [not] <span class="hljs-keyword">in</span>(值<span class="hljs-number">1</span>,值<span class="hljs-number">2</span>,...,值n);<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="四-对查询结果排序"><a href="#四-对查询结果排序" class="headerlink" title="(四)对查询结果排序"></a>(四)对查询结果排序</h5><p><strong>order by</strong>子句可用于对查询结果按照一个或多个字段的值（或表达式的值）进行升序<strong>（ASC）</strong>或降序<strong>（DESC）</strong>排列，默认为升序。格式：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">mysql&gt; <span class="hljs-keyword">order</span> <span class="hljs-title">by</span> &#123;排序表达式[ASC|DESC]&#125;[,...n]；<br></code></pre></div></td></tr></table></figure>
+
+<p>其中：排序表达式既可以是单个的一个字段，也可以是由<u>字段</u>、<u>函数</u>、<u>常量</u>等组成的表达式，或一个<u>正整数</u>。模板：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> tb_name <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> &lt;排序表达式&gt; &lt;排序方法&gt;；<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="4、修改数据-update）"><a href="#4、修改数据-update）" class="headerlink" title="4、修改数据(update）"></a>4、修改数据(update）</h4><p>Update 语句用于修改表中的数据。格式：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">update</span> tb_name <span class="hljs-keyword">set</span> 列名称 = 新值 <span class="hljs-keyword">where</span> 列名称 = 某值；<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="5、删除数据-delete"><a href="#5、删除数据-delete" class="headerlink" title="5、删除数据(delete)"></a>5、删除数据(delete)</h4><p> 删除单行。</p>
+<p> 格式：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql">mysql&gt; <span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> tb_name <span class="hljs-keyword">where</span> 列名称 = 某值；<br></code></pre></div></td></tr></table></figure>
+
+<p> 删除所有行。</p>
+<p>可以在不删除表的情况下删除所有的行。这意味着表的结构、属性和索引都是完整的。<br>          格式：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs coffeescript">mysql&gt; <span class="hljs-keyword">delete</span> * <span class="hljs-keyword">from</span> tb_name   或  <span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> tb_name；<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h2 id="四、MySQL-–-alter命令"><a href="#四、MySQL-–-alter命令" class="headerlink" title="四、MySQL – alter命令"></a>四、MySQL – alter命令</h2><p> <strong>alter add</strong>命令用来<u>增加表的字段</u>。  <strong>alter add</strong></p>
+<p>命令格式：<strong>alter table</strong> 表名 <strong>add</strong>字段 类型 其他;</p>
+<p>例如，在表<strong>MyClass</strong>中添加了一个字段<strong>passtest</strong>，类型为<strong>int(4)<strong>，默认值为</strong>0</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> MyClass <span class="hljs-keyword">add</span> passtest <span class="hljs-type">int</span>(<span class="hljs-number">4</span>) <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;0&#x27;</span>;<br></code></pre></div></td></tr></table></figure>
+
+<ul>
+<li><strong>添加两个字段</strong> </li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> Person <span class="hljs-keyword">add</span> age <span class="hljs-type">int</span>,<span class="hljs-keyword">add</span> address <span class="hljs-type">varchar</span>(<span class="hljs-number">11</span>); <br></code></pre></div></td></tr></table></figure>
+
+<ul>
+<li><strong>删除两个字段</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> Person <span class="hljs-keyword">drop</span> <span class="hljs-keyword">column</span> age,<span class="hljs-keyword">drop</span> <span class="hljs-keyword">column</span> address;<br></code></pre></div></td></tr></table></figure>
+
+<ul>
+<li><strong>修改字段的注释</strong></li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> `student` modify <span class="hljs-keyword">column</span> `id` <span class="hljs-keyword">comment</span> <span class="hljs-string">&#x27;学号&#x27;</span>;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（1）加索引"><a href="#（1）加索引" class="headerlink" title="（1）加索引"></a>（1）加索引</h4><p>mysql&gt; alter table 表名 add index 索引名 (字段名1[，字段名2 …]);</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> employee <span class="hljs-keyword">add</span> <span class="hljs-keyword">index</span> emp_name (<span class="hljs-type">name</span>);<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（2）加主关键字的索引"><a href="#（2）加主关键字的索引" class="headerlink" title="（2）加主关键字的索引"></a>（2）加主关键字的索引</h4><p>mysql&gt; alter table 表名 add primary key (字段名);</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> employee <span class="hljs-keyword">add</span> <span class="hljs-keyword">primary</span> key(id);<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（3）加唯一限制条件的索引"><a href="#（3）加唯一限制条件的索引" class="headerlink" title="（3）加唯一限制条件的索引"></a>（3）加唯一限制条件的索引</h4><p> mysql&gt; alter table 表名 add unique 索引名 (字段名);</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> employee <span class="hljs-keyword">add</span> <span class="hljs-keyword">unique</span> emp_name2(cardnumber);<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（4）-删除某个索引"><a href="#（4）-删除某个索引" class="headerlink" title="（4） 删除某个索引"></a>（4） 删除某个索引</h4><p> mysql&gt; alter table 表名 drop index 索引名;</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> employee <span class="hljs-keyword">drop</span> <span class="hljs-keyword">index</span> emp_name;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（5）增加字段"><a href="#（5）增加字段" class="headerlink" title="（5）增加字段"></a>（5）增加字段</h4><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">ADD</span> field_name field_type;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（6）修改原字段名称及类型"><a href="#（6）修改原字段名称及类型" class="headerlink" title="（6）修改原字段名称及类型"></a>（6）修改原字段名称及类型</h4><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-built_in">table_name</span> CHANGE old_field_name new_field_name field_type;<br></code></pre></div></td></tr></table></figure>
+
+<h4 id="（7）删除字段"><a href="#（7）删除字段" class="headerlink" title="（7）删除字段"></a>（7）删除字段</h4><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">mysql&gt; MySQL <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">DROP</span> field_name;<br></code></pre></div></td></tr></table></figure>
+
+
+
+
+
+<p><strong>耶</strong><img src="https://cdn.youmingsama.workers.dev/1jesus/pic/main/img/20210601230616.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/MySQL/">MySQL</a>
+                    
+                      <a class="hover-with-bg" href="/categories/MySQL/%E5%91%BD%E4%BB%A4/">命令</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MySQL/">MySQL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/04/java%E7%9A%84label%20%E6%A0%87%E7%AD%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java的label标签</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

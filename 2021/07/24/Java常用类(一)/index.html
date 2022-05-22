@@ -1,0 +1,742 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="jack cat">
+  <meta name="keywords" content="">
+  
+  <title>Java常用类(一) - Paradise Resort</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Paradise Island</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java常用类(一)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-24 00:00" pubdate>
+        July 24, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java常用类(一)</h1>
+            
+            <div class="markdown-body">
+              <h3 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h3><hr>
+<h4 id="String类的两种实例化方式"><a href="#String类的两种实例化方式" class="headerlink" title="String类的两种实例化方式"></a>String类的两种实例化方式</h4><p>直接赋值:</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;Hello&quot;</span>;<br>System.out.println(str);<br></code></pre></div></td></tr></table></figure>
+
+<p>构造方法:（String本身是一个类，类中一定存在构造方法）</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str = <span class="hljs-keyword">new</span> String(<span class="hljs-string">&quot;Hello&quot;</span>);<br>System.out.println(str);<br></code></pre></div></td></tr></table></figure>
+
+<p>两种方式的区别</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-string">&quot;hello&quot;</span>;<br>String str2 = <span class="hljs-string">&quot;hello&quot;</span>;<br>String str3 = <span class="hljs-string">&quot;hello&quot;</span>;        <span class="hljs-comment">//三个str都指向同一块内存空间</span><br></code></pre></div></td></tr></table></figure>
+
+<p>原因：在JVM底层自动维护一个字符串对象池（对象数组）</p>
+<p>　　<strong>如果采用直接赋值的方式进行String类对象的实例化操作，此对象将自动保存到 <code>对象池</code> 中，如果下次继续采用直接赋值的模式声明 String 类对象，先去 <code>对象池</code> 中找是否有指定内容，如果有，直接引用，如果没有，开辟新的空间而后将其保存到对象池中以供下次引用。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-keyword">new</span> String(<span class="hljs-string">&quot;hello&quot;</span>); <br><span class="hljs-comment">//产生两块空间，一块堆内存为垃圾空间，并且不会保存到对象池中。</span><br></code></pre></div></td></tr></table></figure>
+
+<p>字符串的手工入池操作</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-keyword">new</span> String(<span class="hljs-string">&quot;hello&quot;</span>).intern();<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="字符串的相等比较"><a href="#字符串的相等比较" class="headerlink" title="字符串的相等比较"></a>字符串的相等比较</h4><p>​        观察如下关于比较的代码，可以看到，在进行数值比较时，得到的结果是true，</p>
+<p>　　但是在进行对象的比较时，比较的是另个对象所保存的内存地址而非内容，所以得到的结果为false</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><span class="hljs-comment">//      数值的==比较</span><br>        <span class="hljs-keyword">int</span> a=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">int</span> b=<span class="hljs-number">1</span>;<br>        System.out.println(a==b);   <span class="hljs-comment">//true</span><br><span class="hljs-comment">//      String类对象的==比较</span><br>        String str1 = <span class="hljs-string">&quot;Hello&quot;</span>;<br>        String str2 = <span class="hljs-keyword">new</span> String(<span class="hljs-string">&quot;Hello&quot;</span>);<br>        System.out.println(str1==str2); <span class="hljs-comment">//false</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p>　　那么如何对两个字符串进行内容上的比较呢，我们采用String类提供的equals方法</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><span class="hljs-comment">//      String类对象的equals比较</span><br>        String str1 = <span class="hljs-string">&quot;Hello&quot;</span>;<br>        String str2 = <span class="hljs-keyword">new</span> String(<span class="hljs-string">&quot;Hello&quot;</span>);<br>        System.out.println(str1.equals(str2)); <span class="hljs-comment">//true</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>String类的equals() 和 == 的区别：</strong></p>
+<blockquote>
+<p>a. <code>&quot;==&quot;</code>  进行数值比较，比较的是两个数的值，进行字符串比较，比较的是两个字符串对象的内存地址</p>
+<p>b.<code>&quot;equals()&quot;</code>可以对字符串内容进行比较</p>
+</blockquote>
+<hr>
+<h4 id="字符串常量是String类的匿名对象"><a href="#字符串常量是String类的匿名对象" class="headerlink" title="字符串常量是String类的匿名对象"></a>字符串常量是String类的匿名对象</h4><p>字符串常量：”hello”就是一个String类中没有名字的对象。</p>
+<p>任何的字符串常量都是 String 类的匿名对象，所以该对象永远不会为null</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        String str = <span class="hljs-keyword">null</span>;<br>        System.out.println(str.equals(<span class="hljs-string">&quot;hello&quot;</span>));    <span class="hljs-comment">//NullPointerException</span><br>        System.out.println(<span class="hljs-string">&quot;hello&quot;</span>.equals(str));    <span class="hljs-comment">//false</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p style="font-family:arial; color:red;">tips：在进行指定内容比较时，将指定字符串常量写在前面，以免发生空指针异常。
+
+<hr>
+<h4 id="字符串常量不可变更"><a href="#字符串常量不可变更" class="headerlink" title="字符串常量不可变更"></a>字符串常量不可变更</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//1. 创建一块空间保存&quot;hello&quot;; </span><br>        <span class="hljs-comment">//2. str对象指向&quot;hello&quot;所在的空间</span><br>        <br>        String str = <span class="hljs-string">&quot;hello&quot;</span>;   <br>        str += <span class="hljs-string">&quot; world&quot;</span>; <br>       <br>        <span class="hljs-comment">/*1.创建一块空间保存 &quot;world&quot; ; </span><br><span class="hljs-comment">          2.进行 += 操作创建一块空间保存&quot;hello world&quot;; </span><br><span class="hljs-comment">          3.str对象指向&quot;hello world&quot;所在的空间*/</span><br>        <br>        str += <span class="hljs-string">&quot;!&quot;</span>;     <br>        <br>        <span class="hljs-comment">/*1.创建一块空间保存&quot;！&quot;; </span><br><span class="hljs-comment">          2.进行+=操作创建一块空间保存&quot;hello world&quot;; </span><br><span class="hljs-comment">          3.str对象指向&quot;hello world&quot;所在的空间*/</span><br>        <br>        System.out.println(str);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p>​        可以看到，以上操作改变的只是字符串对象的引用，字符串并不会发生变化，而且还会产生大量的垃圾空间。</p>
+<hr>
+<h4 id="字符（char-与字符串（String）"><a href="#字符（char-与字符串（String）" class="headerlink" title="字符（char[]) 与字符串（String）"></a>字符（char[]) 与字符串（String）</h4><p><strong>字符转字符串</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">char</span>[] data = &#123;<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;个&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;p&#x27;</span>,<span class="hljs-string">&#x27;p&#x27;</span>,<span class="hljs-string">&#x27;l&#x27;</span>,<span class="hljs-string">&#x27;e&#x27;</span>&#125;;<br>String str = <span class="hljs-keyword">new</span> String(data);    <span class="hljs-comment">//str =1个apple;</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>字符串转字符</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;1个apple&quot;</span>;<br><span class="hljs-keyword">char</span>[] data = str.toCharArray();<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>获取字符串某个位置的字符</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;1个apple&quot;</span>;<br><span class="hljs-keyword">char</span> index_value = str.charAt(<span class="hljs-number">1</span>); <span class="hljs-comment">//index_value = 个；</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>例题：</strong></p>
+<p>​        从键盘接受一个字符串，判断这个字符串是否由数字组成</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">judgeIsNumber</span><span class="hljs-params">(String str)</span></span>&#123;<br>        <span class="hljs-keyword">char</span>[] data = str.toCharArray();<br>        <span class="hljs-keyword">int</span> i =<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>( i=<span class="hljs-number">0</span>;i&lt;data.length;i++)&#123;<br>            <span class="hljs-keyword">if</span>((data[i]&lt;<span class="hljs-string">&#x27;0&#x27;</span>) ||(data[i]&gt;<span class="hljs-string">&#x27;9&#x27;</span>))&#123;<br>                System.out.println(<span class="hljs-string">&quot;这不是一个数字&quot;</span>);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(i==data.length)&#123;<br>            System.out.println(<span class="hljs-string">&quot;这是一个数字&quot;</span>+str);<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Scanner scanner = <span class="hljs-keyword">new</span> Scanner(System.in );<br>        String str = scanner.next();<br>        <br>        <span class="hljs-keyword">new</span> Test().judgeIsNumber(str);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="字节（byte-）与字符串（String）"><a href="#字节（byte-）与字符串（String）" class="headerlink" title="字节（byte[]）与字符串（String）"></a>字节（byte[]）与字符串（String）</h4><p><strong>字节转字符串</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">byte</span>[] data = &#123;<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;i&#x27;</span>,<span class="hljs-string">&#x27;s&#x27;</span>,<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>&#125;;<br>String str = <span class="hljs-keyword">new</span> String(data);<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>字符串转字节</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;a is b&quot;</span>;<br><span class="hljs-keyword">byte</span>[] data = str.getBytes();<br></code></pre></div></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h4><p>字符串比较规则:</p>
+<blockquote>
+<p>比较两个字符串第一个字符，谁大则哪个字符串大，如果第一个相等，比较第二个，以此类推。</p>
+<p>如果前面N个都相等，那么谁长谁就大。</p>
+</blockquote>
+<br>
+
+<p><strong>不区分大小写的相等比较</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1= <span class="hljs-string">&quot;Hello&quot;</span>;<br>String str2= <span class="hljs-string">&quot;hello&quot;</span>;<br>System.out.println(str1.equals(str2));          <span class="hljs-comment">//区分大小写：false</span><br>System.out.println(str1.equalsIgnoreCase(str2));<span class="hljs-comment">//不区分大小写：true</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>比较两个字符串的大小关系（比较少用）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1= <span class="hljs-string">&quot;Hello&quot;</span>;<br>String str2= <span class="hljs-string">&quot;hello&quot;</span>;<br>String str3= <span class="hljs-string">&quot;hello&quot;</span>;<br>System.out.println(str1.compareTo(str2));<span class="hljs-comment">//-32  &lt;0,本字符串小于目标字符串</span><br>System.out.println(str2.compareTo(str1));<span class="hljs-comment">//32   &gt;0,本字符串大于目标字符串</span><br>System.out.println(str2.compareTo(str3));<span class="hljs-comment">//0    =0本字符串等于目标字符串</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1= <span class="hljs-string">&quot;hello world&quot;</span>;<br>String str2= <span class="hljs-string">&quot;hello&quot;</span>;<br>System.out.println(str1.contains(str2));     <span class="hljs-comment">//ture  判断指定字符串是否存在         </span><br>System.out.println(str1.startsWith(str2));   <span class="hljs-comment">//true  判断是否以指定字符串开头</span><br>System.out.println(str1.endsWith(str2));     <span class="hljs-comment">//false  判断是否以指定字符串结尾</span><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1= <span class="hljs-string">&quot;hello,world&quot;</span>;<br>String str2= <span class="hljs-string">&quot;Bye bye&quot;</span>;<br>System.out.println(str1.replaceAll(<span class="hljs-string">&quot;hello&quot;</span>,str2));   <span class="hljs-comment">//Bye bye,world</span><br>System.out.println(str1.replaceAll(<span class="hljs-string">&quot;l&quot;</span>,<span class="hljs-string">&quot;e&quot;</span>));        <span class="hljs-comment">//heeeo,world</span><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="字符串拆分"><a href="#字符串拆分" class="headerlink" title="字符串拆分"></a>字符串拆分</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//按照&quot;,&quot;拆分字符串str</span><br>        String str1= <span class="hljs-string">&quot;hello,world&quot;</span>;<br>        String[] result = str1.split(<span class="hljs-string">&quot;,&quot;</span>);<br>        <span class="hljs-keyword">for</span>(String temp :result)&#123;<br>            System.out.print(temp+<span class="hljs-string">&quot;-&quot;</span>);   <span class="hljs-comment">//hello-world-</span><br>        &#125;<br>    &#125;<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p style="font-family:arial; color:red;">tips：按照特殊字符拆分需要用到转义字符"\\"
+
+<blockquote>
+<p><strong>注意：</strong> **. ** 、$  <strong>|</strong> 和 * 等转义字符，必须得加 \\。</p>
+<p>​             多个分隔符，可以用 <strong>|</strong> 作为连字符。</p>
+</blockquote>
+<hr>
+<h4 id="字符串截取"><a href="#字符串截取" class="headerlink" title="字符串截取"></a>字符串截取</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-string">&quot;hello world&quot;</span>;<br>System.out.println(str1.substring(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)); <span class="hljs-comment">//从下标为0的字符开始截取一个字符</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h4 id="去除字符串的左右空格，并且保留中间空格"><a href="#去除字符串的左右空格，并且保留中间空格" class="headerlink" title="去除字符串的左右空格，并且保留中间空格"></a>去除字符串的左右空格，并且保留中间空格</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-string">&quot; hello world &quot;</span>;<br>System.out.println(str1.trim());   <span class="hljs-comment">//把前后的空格去除</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h4 id="字符串转大小写"><a href="#字符串转大小写" class="headerlink" title="字符串转大小写"></a>字符串转大小写</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-string">&quot; hello world &quot;</span>;<br>System.out.println(str1.toUpperCase()); <span class="hljs-comment">//变大写  HELLO WORLD </span><br>System.out.println(str1.toLowerCase()); <span class="hljs-comment">//变小写  hello world</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h4 id="判断字符串是否为空字符串"><a href="#判断字符串是否为空字符串" class="headerlink" title="判断字符串是否为空字符串"></a>判断字符串是否为空字符串</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str1 = <span class="hljs-string">&quot;&quot;</span>;<br>String str2 = <span class="hljs-string">&quot;    &quot;</span>;<br>String str3 = <span class="hljs-keyword">null</span>;<br>System.out.println(str1.isEmpty());  <span class="hljs-comment">//true </span><br>System.out.println(str2.isEmpty());  <span class="hljs-comment">//false</span><br>System.out.println(str3.isEmpty());  <br><span class="hljs-comment">//NullPointerException isEmpty()不判断null</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><table>
+<thead>
+<tr>
+<th>构造方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>StringBuffer ()</code></td>
+<td>构造一个其中不带字符的字符串缓冲区，其初始容量为 16 个字符。</td>
+</tr>
+<tr>
+<td><code>StringBuffer (CharSequence seq)</code></td>
+<td>public java.lang.StringBuilder(CharSequence seq) 构造一个字符串缓冲区，它包含与指定的 CharSequence 相同的字符。</td>
+</tr>
+<tr>
+<td><code>StringBuffer (int capacity)</code></td>
+<td>构造一个不带字符，但具有指定初始容量的字符</td>
+</tr>
+<tr>
+<td><code>StringBuffer(String str)</code></td>
+<td>构造一个字符串缓冲区，并将其内容初始化为指定的字符串内容。</td>
+</tr>
+</tbody></table>
+<br>
+
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><table>
+<thead>
+<tr>
+<th>返回值类型</th>
+<th>方法</th>
+<th>方法使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>StringBuffer</code></td>
+<td><code>append（参数类型  参数）</code></td>
+<td>将大部分数据类型的参数<strong>拼接</strong>到字符串末尾返回该字符串的引用</td>
+</tr>
+<tr>
+<td><code>StringBuffer</code></td>
+<td><code>insert（int  offset，数据类型  参数）</code></td>
+<td>将大部分类型的参数插入到指定下标处,返回字符串的引用</td>
+</tr>
+<tr>
+<td><code>StringBuffer</code></td>
+<td><code>delete（int  start，int  end）</code></td>
+<td>移除此序列的子字符串</td>
+</tr>
+<tr>
+<td><code>StringBuffer</code></td>
+<td><code>delectCharAt（int  index）</code></td>
+<td>移除此序列指定位置的</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td><code>setCharAt（int  index，char  ch）</code></td>
+<td>将给定索引处的字符设</td>
+</tr>
+<tr>
+<td><code>StringBuffer</code></td>
+<td><code>reverse（）</code></td>
+<td>将此字符序列用其<strong>反转</strong>形式</td>
+</tr>
+<tr>
+<td><code>StringBuffer</code></td>
+<td><code>replace（int  start，int  end，String  str）</code></td>
+<td>使用给定 String 中的字符<strong>替换</strong>此序列的子字符串中的字符</td>
+</tr>
+</tbody></table>
+<p style="font-family:arial; color:red;">StringBuffer 和 StringBuilder 方法都类似，直接过
+
+<hr>
+<h4 id="1-字符串拼接方法（append-能拼接各种类型）"><a href="#1-字符串拼接方法（append-能拼接各种类型）" class="headerlink" title="1.字符串拼接方法（append(),能拼接各种类型）"></a>1.字符串拼接方法（append(),能拼接各种类型）</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">StringBuffer sb1 = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;12&quot;</span>);<br>System.out.println(sb1.append(<span class="hljs-number">3</span>));    <span class="hljs-comment">//123</span><br>System.out.println(sb1.append(<span class="hljs-string">&quot;三&quot;</span>)); <span class="hljs-comment">//123三</span><br>System.out.println(sb1.append(<span class="hljs-string">&quot;3&quot;</span>));  <span class="hljs-comment">//123三3</span><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="2-String-StringBuffer-StringBuilder-之间的互相转换的方法"><a href="#2-String-StringBuffer-StringBuilder-之间的互相转换的方法" class="headerlink" title="2.String , StringBuffer ,StringBuilder 之间的互相转换的方法"></a>2.String , StringBuffer ,StringBuilder 之间的互相转换的方法</h4><p>&nbsp;&nbsp;有时候，<code>String</code> 在解题的时候不能更改 <code>String</code> 的大小，所以我们往往会采用 <code>StringBuffer</code> ，动态的更改字符串，但是当题目要求返回 <code>String</code> 时，我们必须要将 <code>StringBuffer</code> 转换回来。</p>
+<br>
+
+<p>​        主要的方法如下</p>
+<p><strong>1)   String  -&gt;  StringBuffer / StringBuilder</strong></p>
+<ul>
+<li><code>使用SB的构造方法</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;java&quot;</span>);<br>System.out.println(sb);<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>2)   StringBuilder / StringBuffer  -&gt;  String</strong></p>
+<ul>
+<li><code>String.valueOf()</code></li>
+<li><code>SB.toString()</code></li>
+<li><code>String类构造方法</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String s1 = String.valueOf(sb);<br>System.out.println(s1);<br><br>String s2 = sb.toString();<br>System.out.println(s2);<br><br>String s3 = <span class="hljs-keyword">new</span> String(sb);<br>System.out.println(s3);<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>3)   StringBuilder  &lt;–&gt;  StringBuffer 互转</strong></p>
+<ul>
+<li><code>SB的构造方法</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">StringBuffer buffer = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-keyword">new</span> StringBuilder(<span class="hljs-string">&quot;java&quot;</span>));<br>StringBuilder builder = <span class="hljs-keyword">new</span> StringBuilder(<span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;java&quot;</span>));<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<h4 id="3-字符串反转"><a href="#3-字符串反转" class="headerlink" title="3.字符串反转"></a>3.字符串反转</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;hello&quot;</span>);<br>System.out.println(sb.reverse());      <span class="hljs-comment">//olleh</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h4 id="4-删除指定范围内的数据"><a href="#4-删除指定范围内的数据" class="headerlink" title="4.删除指定范围内的数据"></a>4.删除指定范围内的数据</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;hello&quot;</span>);<br>System.out.println(sb.delete(<span class="hljs-number">0</span>,<span class="hljs-number">3</span>));     <span class="hljs-comment">//从下标为0的元素开始，删除三个字符</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<h4 id="5-向指定位置插入数据"><a href="#5-向指定位置插入数据" class="headerlink" title="5.向指定位置插入数据"></a>5.向指定位置插入数据</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(<span class="hljs-string">&quot;hello&quot;</span>);<br>System.out.println(sb.insert(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;world&quot;</span>));<span class="hljs-comment">//从下标为0的字符开始，插入world;</span><br></code></pre></div></td></tr></table></figure>
+
+
+
+<hr>
+<p style="font-family:arial; color:red;">总结 : 
+
+<p>相同：</p>
+<ul>
+<li>都代表字字符串</li>
+</ul>
+<p>不同：</p>
+<ul>
+<li>String 的内容不可变，但是 StringBuffer 和 StringBuilder 的内容可变</li>
+<li>StringBuffer（JDK1.0），采用<strong>同步</strong>处理，线程安全，效率较低</li>
+<li>StringBuilder（JDK1.5），采用<strong>异步</strong>处理，线程不安全，效率较高</li>
+<li>当在进行 String 对象 “+” 操作时，编译时会将 String 类变为 StringBuilder 进行 append（） 处理</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/java/%E5%B8%B8%E7%94%A8%E7%B1%BB/">常用类</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/25/Java%E5%B8%B8%E7%94%A8%E7%B1%BB(%E4%BA%8C)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java常用类(二)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/24/java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+                        <span class="hidden-mobile">Java异常处理</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.17.0/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-fawn-eight.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>jackcat</span></a> <i class="iconfont icon-love"></i> <a href="https://jackcat.top" target="_blank" rel="nofollow noopener"><span>杰克猫</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
